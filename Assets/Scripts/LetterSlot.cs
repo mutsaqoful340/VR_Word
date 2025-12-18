@@ -7,32 +7,15 @@ public class LetterSlot : MonoBehaviour
 
     public bool isFilled => !string.IsNullOrEmpty(currentLetter);
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (isFilled) return;
-
-        LetterObject letterObj = other.GetComponent<LetterObject>();
-        if (letterObj == null) return;
-
-        PlaceLetter(letterObj.letter, other.transform);
-    }
-
-    public void PlaceLetter(string letter, Transform letterTransform)
+    public void PlaceLetter(string letter, GameObject letterObject)
     {
         currentLetter = letter;
 
-        letterTransform.position = snapPoint.position;
-        letterTransform.rotation = snapPoint.rotation;
+        // snap
+        letterObject.transform.SetParent(snapPoint);
+        letterObject.transform.localPosition = Vector3.zero;
+        letterObject.transform.localRotation = Quaternion.identity;
 
-        Rigidbody rb = letterTransform.GetComponent<Rigidbody>();
-        if (rb)
-        {
-            rb.isKinematic = true;
-            rb.velocity = Vector3.zero;
-            rb.angularVelocity = Vector3.zero;
-        }
-
-        // ⬇️ hanya memanggil manager
         FindObjectOfType<WordPuzzleManager>().CheckWord();
     }
 }
