@@ -2,20 +2,48 @@
 
 public class LetterSlot : MonoBehaviour
 {
-    public string currentLetter = "";
+    public string expectedLetter;   // huruf yang BENAR untuk slot ini
     public Transform snapPoint;
 
-    public bool isFilled => !string.IsNullOrEmpty(currentLetter);
+    public string currentLetter = "";
+    public GameObject currentObject;   // 🔥 WAJIB ADA & PUBLIC
 
-    public void PlaceLetter(string letter, GameObject letterObject)
+    public bool isFilled => currentObject != null;
+
+    public bool TryPlaceLetter(LetterObject letterObj)
     {
-        currentLetter = letter;
+        // ❌ SALAH → tolak
+        if (letterObj.letter != expectedLetter)
+            return false;
 
-        // snap
-        letterObject.transform.SetParent(snapPoint);
-        letterObject.transform.localPosition = Vector3.zero;
-        letterObject.transform.localRotation = Quaternion.identity;
+        // ✅ BENAR → terima
+        currentLetter = letterObj.letter;
+        currentObject = letterObj.gameObject;
 
-        FindObjectOfType<WordPuzzleManager>().CheckWord();
+        letterObj.transform.SetParent(snapPoint);
+        letterObj.transform.localPosition = Vector3.zero;
+        letterObj.transform.localRotation = Quaternion.identity;
+
+        letterObj.Lock();
+        return true;
+    }
+
+    public void ClearSlot()
+    {
+        currentLetter = "";
+        currentObject = null;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (isFilled) return;
+
+        LetterObject letterObj = other.GetComponent<LetterObject>();
+        if (letterObj == null) return;
+
+        bool success = TryPlaceLetter(letterObj);
+
+        if (success)
+            FindObjectOfType<WordPuzzleManager>().CheckWord();
     }
 }
