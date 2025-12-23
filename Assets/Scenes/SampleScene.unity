@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -670,7 +670,7 @@ PrefabInstance:
     - target: {fileID: 7457056636973765877, guid: 8175af8cd701cfe408a036080b4cfecd,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.979
+      value: 4.662
       objectReference: {fileID: 0}
     - target: {fileID: 7457056636973765877, guid: 8175af8cd701cfe408a036080b4cfecd,
         type: 3}
@@ -776,7 +776,7 @@ PrefabInstance:
     - target: {fileID: 7457056636973765877, guid: 8175af8cd701cfe408a036080b4cfecd,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5.44
+      value: 5.009
       objectReference: {fileID: 0}
     - target: {fileID: 7457056636973765877, guid: 8175af8cd701cfe408a036080b4cfecd,
         type: 3}
@@ -5143,7 +5143,7 @@ PrefabInstance:
     - target: {fileID: 7457056636973765877, guid: 8175af8cd701cfe408a036080b4cfecd,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.66
+      value: 5.487
       objectReference: {fileID: 0}
     - target: {fileID: 7457056636973765877, guid: 8175af8cd701cfe408a036080b4cfecd,
         type: 3}
@@ -8344,6 +8344,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3588630f9f07b6e408c7d2857dac8f6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  slotIndex: 1
   currentLetter: 
   snapPoint: {fileID: 7003935862937380001}
 --- !u!114 &7016525214726544533
@@ -9141,6 +9142,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3588630f9f07b6e408c7d2857dac8f6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  slotIndex: 0
   currentLetter: 
   snapPoint: {fileID: 7257609779955188120}
 --- !u!4 &7693247245138226780
@@ -11093,6 +11095,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3588630f9f07b6e408c7d2857dac8f6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  slotIndex: 2
   currentLetter: 
   snapPoint: {fileID: 2680796607942751968}
 --- !u!1660057539 &9223372036854775807

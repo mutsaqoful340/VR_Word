@@ -11,13 +11,11 @@ public class WordPuzzleManager : MonoBehaviour
 
     private bool solved = false;
 
-    public void CheckWord()
+    // 🔑 SATU-SATUNYA FUNGSI CEK PUZZLE
+    public bool CheckPuzzle()
     {
         if (solved)
-        {
-            Debug.Log("Puzzle sudah solved, diabaikan");
-            return;
-        }
+            return true;
 
         string word = "";
         bool allFilled = true;
@@ -31,9 +29,7 @@ public class WordPuzzleManager : MonoBehaviour
             Debug.Log($"Slot {i} ({slot.name}) = '{slot.currentLetter}'");
 
             if (!slot.isFilled)
-            {
                 allFilled = false;
-            }
 
             word += slot.currentLetter;
         }
@@ -41,16 +37,15 @@ public class WordPuzzleManager : MonoBehaviour
         if (!allFilled)
         {
             Debug.Log("Belum semua slot terisi ❌");
-            return;
+            return false;
         }
 
-        Debug.Log("HASIL KATA: [" + word + "]");
-        Debug.Log("KATA BENAR: [" + correctWord + "]");
+        Debug.Log($"HASIL KATA: [{word}]");
+        Debug.Log($"KATA BENAR: [{correctWord}]");
 
         if (word == correctWord)
         {
             Debug.Log("PUZZLE BENAR ✅");
-
             solved = true;
 
             if (doorAnimator)
@@ -62,10 +57,43 @@ public class WordPuzzleManager : MonoBehaviour
                 Instantiate(keyPrefab, keySpawnPoint.position, keySpawnPoint.rotation);
             else
                 Debug.LogWarning("Key prefab / spawn point belum di-set!");
+
+            return true;
+        }
+
+        Debug.Log("KATA SALAH ❌");
+        return false;
+    }
+
+    public void TrySolve()
+    {
+        if (solved) return;
+
+        string word = "";
+
+        for (int i = 0; i < slots.Length; i++)
+        {
+            if (!slots[i].isFilled)
+                return; // belum lengkap
+
+            word += slots[i].currentLetter;
+        }
+
+        if (word == correctWord)
+        {
+            solved = true;
+            Debug.Log("PUZZLE BENAR ✅");
+
+            if (doorAnimator)
+                doorAnimator.SetTrigger("Open");
+
+            if (keyPrefab && keySpawnPoint)
+                Instantiate(keyPrefab, keySpawnPoint.position, keySpawnPoint.rotation);
         }
         else
         {
             Debug.Log("KATA SALAH ❌");
         }
     }
+
 }
