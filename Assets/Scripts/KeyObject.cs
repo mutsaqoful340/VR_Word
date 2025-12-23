@@ -2,7 +2,13 @@ using UnityEngine;
 
 public class KeyObject : MonoBehaviour
 {
+    public static KeyObject instance;
     public static bool hasKey = false;
+
+    private void Awake()
+    {
+        instance = this;
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -11,7 +17,8 @@ public class KeyObject : MonoBehaviour
             hasKey = true;
             Debug.Log("Kunci diambil");
 
-            Destroy(gameObject); // kunci hilang setelah diambil
+            // kunci disembunyikan, bukan dihancurkan
+            gameObject.SetActive(false);
         }
     }
 }

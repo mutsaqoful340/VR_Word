@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class DoorController : MonoBehaviour
 {
@@ -13,23 +13,11 @@ public class DoorController : MonoBehaviour
         {
             doorAnimator.SetTrigger("Open");
             isOpen = true;
+
             Debug.Log("Pintu terbuka pakai kunci");
-        }
-    }
 
-    void TryOpenDoor()
-    {
-        if (isOpen) return;
-
-        if (KeyObject.hasKey)
-        {
-            doorAnimator.SetTrigger("Open");
-            isOpen = true;
-            Debug.Log("Pintu terbuka");
-        }
-        else
-        {
-            Debug.Log("Pintu terkunci, butuh kunci");
+            // 🔥 HANCURKAN KUNCI
+            Destroy(other.gameObject);
         }
     }
 }
