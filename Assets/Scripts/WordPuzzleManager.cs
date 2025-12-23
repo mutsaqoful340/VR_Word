@@ -7,7 +7,6 @@ public class WordPuzzleManager : MonoBehaviour
 
     public GameObject keyPrefab;
     public Transform keySpawnPoint;
-    public Animator doorAnimator;
 
     private bool solved = false;
 
@@ -48,11 +47,6 @@ public class WordPuzzleManager : MonoBehaviour
             Debug.Log("PUZZLE BENAR ✅");
             solved = true;
 
-            if (doorAnimator)
-                doorAnimator.SetTrigger("Open");
-            else
-                Debug.LogWarning("Door Animator BELUM di-assign!");
-
             if (keyPrefab && keySpawnPoint)
                 Instantiate(keyPrefab, keySpawnPoint.position, keySpawnPoint.rotation);
             else
@@ -84,9 +78,6 @@ public class WordPuzzleManager : MonoBehaviour
             solved = true;
             Debug.Log("PUZZLE BENAR ✅");
 
-            if (doorAnimator)
-                doorAnimator.SetTrigger("Open");
-
             if (keyPrefab && keySpawnPoint)
                 Instantiate(keyPrefab, keySpawnPoint.position, keySpawnPoint.rotation);
         }
@@ -95,5 +86,4 @@ public class WordPuzzleManager : MonoBehaviour
             Debug.Log("KATA SALAH ❌");
         }
     }
-
 }
