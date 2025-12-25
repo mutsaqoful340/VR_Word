@@ -6,7 +6,15 @@ public class LetterSlot : MonoBehaviour
     public string currentLetter = "";
     public Transform snapPoint;
 
+    [Header("Indicator")]
+    public GameObject dotIndicator; // 🔵 objek titik "..."
+
     public bool isFilled => !string.IsNullOrEmpty(currentLetter);
+
+    void Start()
+    {
+        UpdateDotIndicator();
+    }
 
     public bool PlaceLetter(string letter, GameObject letterObject)
     {
@@ -29,11 +37,20 @@ public class LetterSlot : MonoBehaviour
         letterObject.transform.localPosition = Vector3.zero;
         letterObject.transform.localRotation = Quaternion.identity;
 
+        UpdateDotIndicator(); // 🔥 HILANGKAN TITIK
+
         return true;
     }
 
     public void ClearSlot()
     {
         currentLetter = "";
+        UpdateDotIndicator(); // 🔥 MUNCULKAN TITIK LAGI
+    }
+
+    void UpdateDotIndicator()
+    {
+        if (dotIndicator)
+            dotIndicator.SetActive(!isFilled);
     }
 }
