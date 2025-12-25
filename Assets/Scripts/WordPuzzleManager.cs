@@ -5,12 +5,16 @@ public class WordPuzzleManager : MonoBehaviour
     public string correctWord = "ABC";
     public LetterSlot[] slots;
 
+    [Header("Puzzle Visual")]
+    public GameObject puzzleRoot; // parent semua slot & huruf
+
+    [Header("Key Reward")]
     public GameObject keyPrefab;
     public Transform keySpawnPoint;
 
     private bool solved = false;
 
-    // 🔑 SATU-SATUNYA FUNGSI CEK PUZZLE
+    // 🔑 SATU-SATUNYA LOGIC CEK
     public bool CheckPuzzle()
     {
         if (solved)
@@ -19,71 +23,47 @@ public class WordPuzzleManager : MonoBehaviour
         string word = "";
         bool allFilled = true;
 
-        Debug.Log("=== CEK WORD PUZZLE ===");
-
-        for (int i = 0; i < slots.Length; i++)
-        {
-            LetterSlot slot = slots[i];
-
-            Debug.Log($"Slot {i} ({slot.name}) = '{slot.currentLetter}'");
-
-            if (!slot.isFilled)
-                allFilled = false;
-
-            word += slot.currentLetter;
-        }
-
-        if (!allFilled)
-        {
-            Debug.Log("Belum semua slot terisi ❌");
-            return false;
-        }
-
-        Debug.Log($"HASIL KATA: [{word}]");
-        Debug.Log($"KATA BENAR: [{correctWord}]");
-
-        if (word == correctWord)
-        {
-            Debug.Log("PUZZLE BENAR ✅");
-            solved = true;
-
-            if (keyPrefab && keySpawnPoint)
-                Instantiate(keyPrefab, keySpawnPoint.position, keySpawnPoint.rotation);
-            else
-                Debug.LogWarning("Key prefab / spawn point belum di-set!");
-
-            return true;
-        }
-
-        Debug.Log("KATA SALAH ❌");
-        return false;
-    }
-
-    public void TrySolve()
-    {
-        if (solved) return;
-
-        string word = "";
-
         for (int i = 0; i < slots.Length; i++)
         {
             if (!slots[i].isFilled)
-                return; // belum lengkap
+                allFilled = false;
 
             word += slots[i].currentLetter;
         }
 
+        if (!allFilled)
+            return false;
+
         if (word == correctWord)
         {
-            solved = true;
-            Debug.Log("PUZZLE BENAR ✅");
+            SolvePuzzle();
+            return true;
+        }
 
-            if (keyPrefab && keySpawnPoint)
-                Instantiate(keyPrefab, keySpawnPoint.position, keySpawnPoint.rotation);
-        }
+        return false;
+    }
+
+    // 🔁 COMPATIBILITY UNTUK SCRIPT LAMA
+    public void TrySolve()
+    {
+        CheckPuzzle();
+    }
+
+    void SolvePuzzle()
+    {
+        if (solved) return;
+
+        solved = true;
+        Debug.Log("PUZZLE SELESAI ✅");
+
+        // 🔥 Hilangkan puzzle
+        if (puzzleRoot)
+            puzzleRoot.SetActive(false);
+
+        // 🔑 Spawn key di posisi puzzle
+        if (keyPrefab && keySpawnPoint)
+            Instantiate(keyPrefab, keySpawnPoint.position, keySpawnPoint.rotation);
         else
-        {
-            Debug.Log("KATA SALAH ❌");
-        }
+            Debug.LogWarning("Key prefab / spawn point belum di-set!");
     }
 }
