@@ -23,16 +23,22 @@ public class WordPuzzleManager : MonoBehaviour
         string word = "";
         bool allFilled = true;
 
+        Debug.Log("=== CheckPuzzle called ===");
         for (int i = 0; i < slots.Length; i++)
         {
+            Debug.Log($"Slot {i}: isFilled={slots[i].isFilled}, currentLetter='{slots[i].currentLetter}'");
+            
             if (!slots[i].isFilled)
                 allFilled = false;
 
             word += slots[i].currentLetter;
         }
+        Debug.Log($"AllFilled: {allFilled}, Word formed so far: '{word}'");
 
         if (!allFilled)
             return false;
+
+        Debug.Log($"All slots filled! Formed word: '{word}' | Correct word: '{correctWord}'");
 
         if (word == correctWord)
         {

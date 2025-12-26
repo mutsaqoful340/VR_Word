@@ -21,17 +21,9 @@ public class LetterSlot : MonoBehaviour
         if (isFilled)
             return false;
 
-        WordPuzzleManager manager = FindObjectOfType<WordPuzzleManager>();
-        if (manager == null)
-            return false;
-
-        string correct = manager.correctWord[slotIndex].ToString();
-
-        if (letter != correct)
-            return false;
-
-        // ✅ BENAR
+        // Place any letter (no correctness check)
         currentLetter = letter;
+        Debug.Log($"Slot {slotIndex} received letter: '{currentLetter}'");
 
         letterObject.transform.SetParent(snapPoint);
         letterObject.transform.localPosition = Vector3.zero;
@@ -44,6 +36,7 @@ public class LetterSlot : MonoBehaviour
 
     public void ClearSlot()
     {
+        Debug.Log($"ClearSlot called on Slot {slotIndex} - was '{currentLetter}'");
         currentLetter = "";
         UpdateDotIndicator(); // 🔥 MUNCULKAN TITIK LAGI
     }
