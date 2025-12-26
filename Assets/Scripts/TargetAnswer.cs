@@ -5,17 +5,34 @@ public class TargetAnswer : MonoBehaviour
 {
     public bool isCorrect;
 
-    public void OnHit()
+    Renderer rend;
+    Color originalColor;
+
+    void Start()
     {
-        if (isCorrect)
-        {
-            GetComponent<Renderer>().material.color = Color.green;
-            Debug.Log("BENAR");
-        }
-        else
-        {
-            GetComponent<Renderer>().material.color = Color.red;
-            Debug.Log("SALAH");
-        }
+        rend = GetComponent<Renderer>();
+        originalColor = rend.material.color;
+    }
+
+    // ===== HOVER (LASER KENA, BELUM KLIK) =====
+    public void OnHoverEnter()
+    {
+        // highlight lembut (bukan kedip keras)
+        rend.material.color = originalColor * 1.2f;
+    }
+
+    public void OnHoverExit()
+    {
+        // balik normal
+        rend.material.color = originalColor;
+    }
+
+    // ===== SELECT (TRIGGER DITEKAN) =====
+    public void OnSelect()
+    {
+        Debug.Log("ONSELECT DIPANGGIL OLEH: " + gameObject.name +
+                  " | isCorrect = " + isCorrect);
+
+        GameManager.Instance.CheckAnswer(this);
     }
 }
