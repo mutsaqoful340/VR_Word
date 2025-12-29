@@ -13,7 +13,26 @@ public class LetterSlot : MonoBehaviour
 
     void Start()
     {
+        // Register with WordPuzzleManager
+        if (WordPuzzleManager.Instance != null)
+        {
+            WordPuzzleManager.Instance.RegisterSlot(this);
+        }
+        else
+        {
+            Debug.LogWarning("WordPuzzleManager not found! Make sure it exists in the scene.");
+        }
+        
         UpdateDotIndicator();
+    }
+
+    void OnDestroy()
+    {
+        // Unregister when destroyed
+        if (WordPuzzleManager.Instance != null)
+        {
+            WordPuzzleManager.Instance.UnregisterSlot(this);
+        }
     }
 
     public bool PlaceLetter(string letter, GameObject letterObject)
