@@ -73,7 +73,7 @@ public class WordPuzzleManager : MonoBehaviour
 
         if (word == correctWord)
         {
-            SolvePuzzle();
+            Debug.Log("Word is correct! Waiting for arrow movement to solve puzzle...");
             return true;
         }
 
@@ -86,7 +86,7 @@ public class WordPuzzleManager : MonoBehaviour
         CheckPuzzle();
     }
 
-    void SolvePuzzle()
+    public void SolvePuzzle()
     {
         if (solved) return;
 
