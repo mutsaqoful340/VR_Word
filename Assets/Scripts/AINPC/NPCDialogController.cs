@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 
@@ -76,14 +76,20 @@ public class NPCDialogController : MonoBehaviour
             case 0:
                 npcText.text = "Kadang game ini muncul saat kamu sedang lelah. Tidak apa-apa.";
                 break;
+
             case 1:
-                npcText.text = "Tenang� fokus satu hal kecil dulu ya.";
+                npcText.text = "Tenang… fokus satu hal kecil dulu ya.";
                 break;
+
             case 2:
                 npcText.text = "Aku Arisa. Aku akan menemanimu di sini.";
                 break;
         }
+
+        // 🔴 OPSI YANG DIKLIK LANGSUNG HILANG
+        optionButtons[index].gameObject.SetActive(false);
     }
+
 
     public void CloseDialog()
     {
