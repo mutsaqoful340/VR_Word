@@ -25,15 +25,21 @@ public class LetterBox_Anim : MonoBehaviour
     private List<GameObject> spawnedLSObjects = new List<GameObject>();
     private List<GameObject> spawnedLBObjects = new List<GameObject>();
     private Collider TriggerCollider;
+    private bool hasSpawned = false;
 
     public void OnTriggerEnter(Collider other)
     {
         // Check if it's the player or a child of the player
         if (other.CompareTag("Player") || other.transform.root.CompareTag("Player"))
         {
-            StartCoroutine(SpawnLSWithDelay(0.1f));
-            StartCoroutine(SpawnLBWithDelay(0.1f));
-            Debug.Log("Player entered the word container trigger.");
+            // Only spawn once
+            if (!hasSpawned)
+            {
+                hasSpawned = true;
+                StartCoroutine(SpawnLSWithDelay(0.1f));
+                StartCoroutine(SpawnLBWithDelay(0.1f));
+                Debug.Log("Player entered the word container trigger.");
+            }
         }
     }
 
@@ -43,6 +49,7 @@ public class LetterBox_Anim : MonoBehaviour
         if (other.CompareTag("Player") || other.transform.root.CompareTag("Player"))
         {
             StartCoroutine(EnableRagdollWithDelay(0.1f));
+            hasSpawned = false;
         }
     }
 
