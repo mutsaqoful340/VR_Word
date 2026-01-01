@@ -3,6 +3,8 @@
 public class DoorController : MonoBehaviour
 {
     public Animator doorAnimator;
+    public NPCMoveByWaypoints npcMover;
+
     private bool isOpen = false;
 
     private void OnTriggerEnter(Collider other)
@@ -16,7 +18,10 @@ public class DoorController : MonoBehaviour
 
             Debug.Log("Pintu terbuka pakai kunci");
 
-            // 🔥 HANCURKAN KUNCI
+            // 🔥 NPC mulai jalan lewat waypoint
+            if (npcMover != null)
+                npcMover.StartMoving();
+
             Destroy(other.gameObject);
         }
     }
