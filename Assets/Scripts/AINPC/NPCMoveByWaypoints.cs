@@ -7,6 +7,8 @@ public class NPCMoveByWaypoints : MonoBehaviour
     public float rotateSpeed = 6f;
     public Animator animator;
 
+    public NPCDialogController dialogController;
+
     private int currentIndex = 0;
     private bool isMoving = false;
 
@@ -62,7 +64,19 @@ public class NPCMoveByWaypoints : MonoBehaviour
     {
         isMoving = false;
 
-        if (animator)
-            animator.SetBool("isWalking", false);
+        // STOP ANIMASI
+        animator.SetBool("isWalking", false);
+
+        // SET STAGE 2
+        NPCDialogController dialog =
+            GetComponentInParent<NPCDialogController>();
+
+        if (dialog != null)
+            dialog.SetStage(DialogStage.Stage2);
+
+        Debug.Log("NPC STOP - SET STAGE 2");
     }
+
+
+
 }

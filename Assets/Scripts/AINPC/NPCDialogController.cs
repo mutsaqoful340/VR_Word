@@ -1,98 +1,172 @@
 ﻿using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using System.Collections;
 
 public class NPCDialogController : MonoBehaviour
 {
     [Header("UI")]
     public GameObject dialogPanel;
     public TextMeshProUGUI npcText;
-
     public Button[] optionButtons;
     public TextMeshProUGUI[] optionTexts;
+    public GameObject questionButton;
 
-    [Header("Hint Button")]
-    public GameObject questionButton; // tombol ?
+    [Header("Dialog Stage")]
+    public DialogStage currentStage = DialogStage.Stage1;
 
-    private bool playerInRange = false;
+    [Header("Text Effect")]
+    public float charPerSecond = 30f;
+    public float extraReadTime = 1.5f;
+
+    // pertanyaan hilang permanen selama game
+    bool[] usedQuestionsStage1 = new bool[4];
+    bool[] usedQuestionsStage2 = new bool[4];
+
+    Coroutine typingCoroutine;
 
     void Start()
     {
         dialogPanel.SetActive(false);
         questionButton.SetActive(false);
+        npcText.text = "";
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
-        {
-            Debug.Log("Player MASUK trigger NPC");
-            playerInRange = true;
             questionButton.SetActive(true);
-        }
     }
 
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log("Player KELUAR trigger NPC");
-            playerInRange = false;
             questionButton.SetActive(false);
             CloseDialog();
         }
     }
 
-    // DIPANGGIL OLEH BUTTON ?
     public void OpenDialog()
     {
         dialogPanel.SetActive(true);
+        ResetAllOptions(); // <<< WAJ
 
-        npcText.text = "Ada yang ingin kamu tanyakan?";
-
-        optionTexts[0].text = "Kok aku bisa masuk ke dalam game?";
-        optionTexts[1].text = "Aku harus apa kalau ingin kembali?";
-        optionTexts[2].text = "Apa kamu Mita?";
-        optionTexts[3].text = "Tidak jadi.";
-
-        optionButtons[0].onClick.RemoveAllListeners();
-        optionButtons[0].onClick.AddListener(() => Answer(0));
-
-        optionButtons[1].onClick.RemoveAllListeners();
-        optionButtons[1].onClick.AddListener(() => Answer(1));
-
-        optionButtons[2].onClick.RemoveAllListeners();
-        optionButtons[2].onClick.AddListener(() => Answer(2));
-
-        optionButtons[3].onClick.RemoveAllListeners();
-        optionButtons[3].onClick.AddListener(CloseDialog);
+        if (currentStage == DialogStage.Stage1)
+            ShowStage1();
+        else
+            ShowStage2();
     }
 
-
-    void Answer(int index)
+    // ================= STAGE 1 =================
+    void ShowStage1()
     {
-        switch (index)
+        PlayAnswer("Ada yang ingin kamu tanyakan?");
+
+        optionTexts[0].text = "Kok aku bisa masuk ke sini?";
+        optionTexts[1].text = "Aku harus ngapain?";
+        optionTexts[2].text = "Kamu siapa?";
+        optionTexts[3].text = "Tidak jadi";
+
+        SetupOption(0, usedQuestionsStage1, "Kadang dunia ini muncul saat kamu lelah.");
+        SetupOption(1, usedQuestionsStage1, "Fokus satu langkah kecil dulu ya.");
+        SetupOption(2, usedQuestionsStage1, "Aku Arisa. Aku akan menemanimu.");
+
+        SetupCloseButton(3);
+    }
+
+    // ================= STAGE 2 =================
+    void ShowStage2()
+    {
+        PlayAnswer("Kita sudah sampai. Mau lanjut?");
+
+        optionTexts[0].text = "Apa yang harus aku lakukan?";
+        optionTexts[1].text = "Bagaimana kalau aku salah?";
+        optionTexts[2].text = "";
+        optionTexts[3].text = "Tidak jadi";
+
+        SetupOption(0, usedQuestionsStage2, "Susun huruf-huruf itu jadi kata yang benar.");
+        SetupOption(1, usedQuestionsStage2, "Tidak apa-apa salah. Kita coba lagi.");
+
+        optionButtons[2].gameObject.SetActive(false);
+        SetupCloseButton(3);
+    }
+
+    // ================= CORE =================
+    void SetupOption(int index, bool[] usedArray, string answer)
+    {
+        // PAKSA button aktif dulu
+        optionButtons[index].gameObject.SetActive(true);
+        optionButtons[index].onClick.RemoveAllListeners();
+
+        if (usedArray[index])
         {
-            case 0:
-                npcText.text = "Kadang game ini muncul saat kamu sedang lelah. Tidak apa-apa.";
-                break;
-
-            case 1:
-                npcText.text = "Tenang… fokus satu hal kecil dulu ya.";
-                break;
-
-            case 2:
-                npcText.text = "Aku Arisa. Aku akan menemanimu di sini.";
-                break;
+            optionButtons[index].gameObject.SetActive(false);
+            return;
         }
 
-        // 🔴 OPSI YANG DIKLIK LANGSUNG HILANG
-        optionButtons[index].gameObject.SetActive(false);
+        optionButtons[index].onClick.AddListener(() =>
+        {
+            usedArray[index] = true;   // permanen di stage ini
+            optionButtons[index].gameObject.SetActive(false);
+            PlayAnswer(answer);
+        });
     }
 
 
-    public void CloseDialog()
+    void SetupCloseButton(int index)
     {
+        optionButtons[index].gameObject.SetActive(true);
+        optionButtons[index].onClick.RemoveAllListeners();
+        optionButtons[index].onClick.AddListener(CloseDialog);
+    }
+
+    // ================= TYPEWRITER =================
+    void PlayAnswer(string text)
+    {
+        if (typingCoroutine != null)
+            StopCoroutine(typingCoroutine);
+
+        typingCoroutine = StartCoroutine(TypeAndAutoHide(text));
+    }
+
+    IEnumerator TypeAndAutoHide(string fullText)
+    {
+        npcText.text = "";
+        float delay = 1f / charPerSecond;
+
+        foreach (char c in fullText)
+        {
+            npcText.text += c;
+            yield return new WaitForSeconds(delay);
+        }
+
+        float readTime = (fullText.Length / charPerSecond) + extraReadTime;
+        yield return new WaitForSeconds(readTime);
+
+        npcText.text = "";
+    }
+
+    public void SetStage(DialogStage stage)
+    {
+        currentStage = stage;
+    }
+
+    void CloseDialog()
+    {
+        if (typingCoroutine != null)
+            StopCoroutine(typingCoroutine);
+
+        npcText.text = "";
         dialogPanel.SetActive(false);
+    }
+
+    void ResetAllOptions()
+    {
+        for (int i = 0; i < optionButtons.Length; i++)
+        {
+            optionButtons[i].gameObject.SetActive(true);
+            optionButtons[i].onClick.RemoveAllListeners();
+        }
     }
 }
