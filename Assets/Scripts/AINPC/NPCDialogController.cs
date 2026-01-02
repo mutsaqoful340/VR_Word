@@ -23,7 +23,8 @@ public class NPCDialogController : MonoBehaviour
     public NPCMoveByWaypoints npcMover;
 
     bool[] usedQuestionsStage1 = new bool[4];
-    bool[] usedQuestionsStage2 = new bool[2]; // ✅ FIX
+    bool[] usedQuestionsStage2 = new bool[2];
+    bool[] usedQuestionsStage3 = new bool[3]; // ✅ STAGE 3
 
     Coroutine typingCoroutine;
 
@@ -54,10 +55,18 @@ public class NPCDialogController : MonoBehaviour
         dialogPanel.SetActive(true);
         ResetAllOptions();
 
-        if (currentStage == DialogStage.Stage1)
-            ShowStage1();
-        else if (currentStage == DialogStage.Stage2)
-            ShowStage2();
+        switch (currentStage)
+        {
+            case DialogStage.Stage1:
+                ShowStage1();
+                break;
+            case DialogStage.Stage2:
+                ShowStage2();
+                break;
+            case DialogStage.Stage3:
+                ShowStage3();
+                break;
+        }
     }
 
     // ================= STAGE 1 =================
@@ -93,11 +102,31 @@ public class NPCDialogController : MonoBehaviour
         SetupCloseButton(3);
     }
 
+    // ================= STAGE 3 =================
+    void ShowStage3()
+    {
+        PlayAnswer("Kamu sudah sampai sejauh ini. Mau tanya apa lagi?");
+
+        optionTexts[0].text = "Apa aku bisa menyelesaikannya?";
+        optionTexts[1].text = "Kenapa rasanya sulit?";
+        optionTexts[2].text = "Apa yang terjadi setelah ini?";
+        optionTexts[3].text = "Tidak jadi";
+
+        SetupOption(0, usedQuestionsStage3, "Bisa. Pelan-pelan pun tidak apa-apa.");
+        SetupOption(1, usedQuestionsStage3, "Karena otakmu bekerja dengan caranya sendiri.");
+        SetupOption(2, usedQuestionsStage3, "Kita lanjut ke tantangan berikutnya.");
+
+        SetupCloseButton(3);
+    }
+
     // ================= CORE =================
     void SetupOption(int index, bool[] usedArray, string answer)
     {
         optionButtons[index].gameObject.SetActive(true);
         optionButtons[index].onClick.RemoveAllListeners();
+
+        if (index >= usedArray.Length)
+            return;
 
         if (usedArray[index])
         {
@@ -111,17 +140,14 @@ public class NPCDialogController : MonoBehaviour
             optionButtons[index].gameObject.SetActive(false);
             PlayAnswer(answer);
 
-            // ✅ SEMUA OPSI STAGE 2 HABIS → NPC JALAN
+            // ✅ KHUSUS STAGE 2 → CEK HABIS
             if (currentStage == DialogStage.Stage2 && AllStage2QuestionsUsed())
             {
-                CloseDialog();
-                questionButton.SetActive(false);
-
-                if (npcMover != null)
-                    npcMover.MoveStage2ToStage3();
+                StartCoroutine(MoveNpcAfterStage2());
             }
         });
     }
+
 
     void SetupCloseButton(int index)
     {
@@ -163,6 +189,23 @@ public class NPCDialogController : MonoBehaviour
         npcText.text = "";
     }
 
+    IEnumerator MoveNpcAfterStage2()
+    {
+        // tunggu dialog selesai dibaca
+        yield return new WaitForSeconds(extraReadTime + 0.3f);
+
+        CloseDialog();
+        questionButton.SetActive(false);
+
+        if (npcMover != null)
+        {
+            npcMover.MoveStage2ToStage3();
+            Debug.Log("NPC bergerak ke Stage 3");
+        }
+    }
+
+
+    // ================= UTIL =================
     public void SetStage(DialogStage stage)
     {
         currentStage = stage;
