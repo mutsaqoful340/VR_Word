@@ -148,12 +148,12 @@ public class LetterBox_Anim : MonoBehaviour
                     SnapArrowToPivot(arrow);
                     
                     // Check if puzzle is correct before solving
-                    if (WordPuzzleManager.Instance != null && WordPuzzleManager.Instance.CheckPuzzle())
+                    if (WorldPuzzle.Instance != null && WorldPuzzle.Instance.CheckPuzzle())
                     {
                         Debug.Log("Puzzle is correct! Solving...");
                         puzzleTriggered = true;
                         arrowDistanceChecking = false;
-                        WordPuzzleManager.Instance.SolvePuzzle();
+                        WorldPuzzle.Instance.SolvePuzzle();
                         break;
                     }
                     else

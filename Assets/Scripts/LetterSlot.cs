@@ -13,14 +13,14 @@ public class LetterSlot : MonoBehaviour
 
     void Start()
     {
-        // Register with WordPuzzleManager
-        if (WordPuzzleManager.Instance != null)
+        // Register with WorldPuzzle
+        if (WorldPuzzle.Instance != null)
         {
-            WordPuzzleManager.Instance.RegisterSlot(this);
+            WorldPuzzle.Instance.RegisterSlot(this);
         }
         else
         {
-            Debug.LogWarning("WordPuzzleManager not found! Make sure it exists in the scene.");
+            Debug.LogWarning("WorldPuzzle not found! Make sure it exists in the scene.");
         }
         
         UpdateDotIndicator();
@@ -29,9 +29,9 @@ public class LetterSlot : MonoBehaviour
     void OnDestroy()
     {
         // Unregister when destroyed
-        if (WordPuzzleManager.Instance != null)
+        if (WorldPuzzle.Instance != null)
         {
-            WordPuzzleManager.Instance.UnregisterSlot(this);
+            WorldPuzzle.Instance.UnregisterSlot(this);
         }
     }
 

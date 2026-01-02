@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 
-public class WordPuzzleManager : MonoBehaviour
+public class WorldPuzzle : MonoBehaviour
 {
-    public static WordPuzzleManager Instance { get; private set; }
+    public static WorldPuzzle Instance { get; private set; }
 
     public string correctWord = "ABC";
     private List<LetterSlot> registeredSlots = new List<LetterSlot>();

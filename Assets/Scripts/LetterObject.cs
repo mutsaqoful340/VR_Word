@@ -88,7 +88,7 @@ public class LetterObject : MonoBehaviour
             }
 
             // Check puzzle after each placement
-            WordPuzzleManager manager = FindObjectOfType<WordPuzzleManager>();
+            WorldPuzzle manager = FindObjectOfType<WorldPuzzle>();
             if (manager != null)
             {
                 manager.TrySolve(); // Will only solve if all slots filled AND word is correct
