@@ -19,9 +19,11 @@ public class NPCDialogController : MonoBehaviour
     public float charPerSecond = 30f;
     public float extraReadTime = 1.5f;
 
-    // pertanyaan hilang permanen selama game
+    [Header("NPC Movement")]
+    public NPCMoveByWaypoints npcMover;
+
     bool[] usedQuestionsStage1 = new bool[4];
-    bool[] usedQuestionsStage2 = new bool[4];
+    bool[] usedQuestionsStage2 = new bool[2]; // ✅ FIX
 
     Coroutine typingCoroutine;
 
@@ -50,11 +52,11 @@ public class NPCDialogController : MonoBehaviour
     public void OpenDialog()
     {
         dialogPanel.SetActive(true);
-        ResetAllOptions(); // <<< WAJ
+        ResetAllOptions();
 
         if (currentStage == DialogStage.Stage1)
             ShowStage1();
-        else
+        else if (currentStage == DialogStage.Stage2)
             ShowStage2();
     }
 
@@ -71,7 +73,6 @@ public class NPCDialogController : MonoBehaviour
         SetupOption(0, usedQuestionsStage1, "Kadang dunia ini muncul saat kamu lelah.");
         SetupOption(1, usedQuestionsStage1, "Fokus satu langkah kecil dulu ya.");
         SetupOption(2, usedQuestionsStage1, "Aku Arisa. Aku akan menemanimu.");
-
         SetupCloseButton(3);
     }
 
@@ -95,7 +96,6 @@ public class NPCDialogController : MonoBehaviour
     // ================= CORE =================
     void SetupOption(int index, bool[] usedArray, string answer)
     {
-        // PAKSA button aktif dulu
         optionButtons[index].gameObject.SetActive(true);
         optionButtons[index].onClick.RemoveAllListeners();
 
@@ -107,18 +107,36 @@ public class NPCDialogController : MonoBehaviour
 
         optionButtons[index].onClick.AddListener(() =>
         {
-            usedArray[index] = true;   // permanen di stage ini
+            usedArray[index] = true;
             optionButtons[index].gameObject.SetActive(false);
             PlayAnswer(answer);
+
+            // ✅ SEMUA OPSI STAGE 2 HABIS → NPC JALAN
+            if (currentStage == DialogStage.Stage2 && AllStage2QuestionsUsed())
+            {
+                CloseDialog();
+                questionButton.SetActive(false);
+
+                if (npcMover != null)
+                    npcMover.MoveStage2ToStage3();
+            }
         });
     }
-
 
     void SetupCloseButton(int index)
     {
         optionButtons[index].gameObject.SetActive(true);
         optionButtons[index].onClick.RemoveAllListeners();
         optionButtons[index].onClick.AddListener(CloseDialog);
+    }
+
+    bool AllStage2QuestionsUsed()
+    {
+        foreach (bool used in usedQuestionsStage2)
+        {
+            if (!used) return false;
+        }
+        return true;
     }
 
     // ================= TYPEWRITER =================
@@ -141,9 +159,7 @@ public class NPCDialogController : MonoBehaviour
             yield return new WaitForSeconds(delay);
         }
 
-        float readTime = (fullText.Length / charPerSecond) + extraReadTime;
-        yield return new WaitForSeconds(readTime);
-
+        yield return new WaitForSeconds(extraReadTime);
         npcText.text = "";
     }
 

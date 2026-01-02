@@ -4,8 +4,9 @@ using UnityEngine;
 
 public enum DialogStage
 {
-    Stage1,   // posisi awal
-    Stage2   // posisi setelah pindah
+    Stage1,
+    Stage2,
+    Stage3
 }
 
 

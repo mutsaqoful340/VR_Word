@@ -20,7 +20,7 @@ public class DoorController : MonoBehaviour
 
             // 🔥 NPC mulai jalan lewat waypoint
             if (npcMover != null)
-                npcMover.StartMoving();
+                npcMover.MoveStage1ToStage2();
 
             Destroy(other.gameObject);
         }
