@@ -21,10 +21,19 @@ public class WorldPuzzle : MonoBehaviour
 
     void Awake()
     {
-        if (Instance == null)
+        // Don't destroy - let WorldPuzzleManager control which is active
+        // Only set Instance if this GameObject is active
+        if (gameObject.activeInHierarchy)
+        {
             Instance = this;
-        else
-            Destroy(gameObject);
+        }
+    }
+
+    void OnEnable()
+    {
+        // When this puzzle is enabled, it becomes the active Instance
+        Instance = this;
+        Debug.Log($"WorldPuzzle Instance set to: {gameObject.name} (word: {correctWord})");
     }
 
     public void RegisterSlot(LetterSlot slot)
@@ -112,5 +121,11 @@ public class WorldPuzzle : MonoBehaviour
             Instantiate(keyPrefab, keySpawnPoint.position, keySpawnPoint.rotation);
         else
             Debug.LogWarning("Key prefab / spawn point belum di-set!");
+
+        // Notify manager to activate next puzzle
+        if (WorldPuzzleManager.Instance != null)
+        {
+            WorldPuzzleManager.Instance.OnPuzzleSolved();
+        }
     }
 }
