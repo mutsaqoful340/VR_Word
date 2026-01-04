@@ -30,6 +30,12 @@ public class SimpleShoot : MonoBehaviour
             gunAnimator = GetComponentInChildren<Animator>();
     }
 
+    public void StartShoot()
+    {
+        if (gunAnimator != null)
+            gunAnimator.SetTrigger("Fire");
+    }
+
     void Update()
     {
         //If you want a different input, change it here

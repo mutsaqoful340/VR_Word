@@ -1,18 +1,40 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.XR.Interaction.Toolkit;
 
-public class VRShoot : MonoBehaviour
+public class XRShoot : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public SimpleShoot simpleShoot;
+    public InputActionProperty triggerAction;
+
+    private XRGrabInteractable grabInteractable;
+    private AudioSource audioSource;
+
+    void Awake()
     {
-        
+        grabInteractable = GetComponent<XRGrabInteractable>();
+        audioSource = GetComponent<AudioSource>();
     }
 
-    // Update is called once per frame
+    void OnEnable()
+    {
+        triggerAction.action.Enable();
+    }
+
+    void OnDisable()
+    {
+        triggerAction.action.Disable();
+    }
+
     void Update()
     {
-        
+        if (!grabInteractable.isSelected)
+            return;
+
+        if (triggerAction.action.WasPressedThisFrame())
+        {
+            simpleShoot.StartShoot();
+            audioSource.Play();
+        }
     }
 }
