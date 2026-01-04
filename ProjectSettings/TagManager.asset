@@ -7,6 +7,7 @@ TagManager:
   - PlayerHand
   - Key
   - LetterSlot
+  - Bullet
   layers:
   - Default
   - TransparentFX
