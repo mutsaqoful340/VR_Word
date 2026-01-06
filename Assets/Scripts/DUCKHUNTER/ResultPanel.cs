@@ -8,15 +8,31 @@ public class ResultPanel : MonoBehaviour
 
     void Start()
     {
-        gameObject.SetActive(false);
+        ResetPanel();
     }
 
+    // Untuk Round 1 (skor)
     public void ShowResult(float finalScore)
     {
         gameObject.SetActive(true);
-
         scoreText.text = GetScoreText(finalScore);
         messageText.text = GetMessage(finalScore);
+    }
+
+    // Untuk Round 2 (BENAR / SALAH)
+    public void ShowMessageOnly(string message)
+    {
+        gameObject.SetActive(true);
+        scoreText.text = "";
+        messageText.text = message;
+    }
+
+    // RESET panel (INI YANG PENTING)
+    public void ResetPanel()
+    {
+        scoreText.text = "";
+        messageText.text = "";
+        gameObject.SetActive(false);
     }
 
     string GetScoreText(float score)
@@ -36,12 +52,4 @@ public class ResultPanel : MonoBehaviour
         if (score >= 40) return "Pelan-pelan ya";
         return "Tidak apa-apa, coba lagi";
     }
-
-    public void ShowMessageOnly(string message)
-    {
-        gameObject.SetActive(true);
-        scoreText.text = "";
-        messageText.text = message;
-    }
-
 }

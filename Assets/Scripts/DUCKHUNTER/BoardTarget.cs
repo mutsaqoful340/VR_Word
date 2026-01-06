@@ -1,19 +1,22 @@
 using UnityEngine;
 
-public class BoardGuess : MonoBehaviour
+public class BoardTarget : MonoBehaviour
 {
-    public bool isCorrect;
+    public int boardIndex; // 0,1,2
 
+    private int missCount = 0;
     private bool isHit = false;
-    private Round2Manager roundManager;
+    private Round1Manager roundManager;
 
     void Start()
     {
-        roundManager = FindObjectOfType<Round2Manager>();
+        roundManager = FindObjectOfType<Round1Manager>();
     }
+
 
     public void ActivateBoard()
     {
+        missCount = 0;
         isHit = false;
         gameObject.SetActive(true);
     }
@@ -21,13 +24,22 @@ public class BoardGuess : MonoBehaviour
     void OnCollisionEnter(Collision collision)
     {
         if (isHit) return;
-        if (!collision.gameObject.CompareTag("Bullet")) return;
 
-        isHit = true;
+        if (collision.gameObject.CompareTag("Bullet"))
+        {
+            isHit = true;
 
-        roundManager.OnBoardSelected(isCorrect, this);
+            roundManager.OnBoardCompleted(boardIndex, missCount);
 
-        Destroy(collision.gameObject);
-        gameObject.SetActive(false); // hancur / nonaktif walau salah
+            Destroy(collision.gameObject); // hancurkan peluru
+            gameObject.SetActive(false);
+        }
+    }
+
+    // Dipanggil dari Bullet kalau MISS
+    public void AddMiss()
+    {
+        if (isHit) return;
+        missCount++;
     }
 }

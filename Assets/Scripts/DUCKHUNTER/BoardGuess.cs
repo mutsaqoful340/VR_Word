@@ -3,6 +3,7 @@ using UnityEngine;
 public class BoardGuess : MonoBehaviour
 {
     public bool isCorrect;
+
     private bool isHit = false;
     private Round2Manager roundManager;
 
@@ -27,6 +28,6 @@ public class BoardGuess : MonoBehaviour
         roundManager.OnBoardSelected(isCorrect);
 
         Destroy(collision.gameObject);
-        gameObject.SetActive(false);
+        gameObject.SetActive(false); // board hilang walau salah
     }
 }
