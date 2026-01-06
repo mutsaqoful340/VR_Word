@@ -38,13 +38,14 @@ public class SimpleShoot : MonoBehaviour
 
     void Update()
     {
-        //If you want a different input, change it here
-        if (Input.GetButtonDown("Fire1"))
+        // Tekan tombol F untuk menembak
+        if (Input.GetKeyDown(KeyCode.F))
         {
-            //Calls animation on the gun that has the relevant animation events that will fire
-            gunAnimator.SetTrigger("Fire");
+            if (gunAnimator != null)
+                gunAnimator.SetTrigger("Fire");
         }
     }
+
 
 
     //This function creates the bullet behavior
