@@ -36,4 +36,12 @@ public class ResultPanel : MonoBehaviour
         if (score >= 40) return "Pelan-pelan ya";
         return "Tidak apa-apa, coba lagi";
     }
+
+    public void ShowMessageOnly(string message)
+    {
+        gameObject.SetActive(true);
+        scoreText.text = "";
+        messageText.text = message;
+    }
+
 }

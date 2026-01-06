@@ -4,6 +4,7 @@ public class Round1Manager : MonoBehaviour
 {
     public BoardTarget[] boards; // size = 3
     public ResultPanel resultPanel;
+    public GameRoundManager gameRoundManager;
 
     private int currentBoard = 0;
     private int[] boardScores = new int[3];
@@ -47,6 +48,8 @@ public class Round1Manager : MonoBehaviour
     void EndRound()
     {
         float finalScore = ScoreCalculator.CalculateFinalScore(boardScores);
-        resultPanel.ShowResult(finalScore);
+
+        // PINDAH KE GAME ROUND MANAGER
+        gameRoundManager.OnRound1Finished(finalScore);
     }
 }
