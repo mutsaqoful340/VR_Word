@@ -1,48 +1,48 @@
 ﻿using UnityEngine;
 
-public class BoxTrigger : MonoBehaviour
+public class PlantBoxTrigger : MonoBehaviour
 {
-    [Header("Box Settings")]
+    [Header("Plant Box Settings")]
     public string visualID;
     public int targetCount = 3;
 
-    [Header("References")]
+    [Header("Animator")]
     public Animator boxAnimator;
-    public AudioSource openSound;
+
+    [Header("Target Card Box")]
+    public CardBox cardBox;
 
     private int currentCount = 0;
+    private bool isCompleted = false;
 
     private void OnTriggerEnter(Collider other)
     {
+        if (isCompleted) return;
+
         PlantItem plant = other.GetComponent<PlantItem>();
         if (plant == null) return;
 
-        // ⛔️ JANGAN pakai isSelected dulu
         if (plant.visualID != visualID) return;
 
         currentCount++;
 
-        Debug.Log($"Masuk {currentCount}/{targetCount}");
-
         if (currentCount == 1 && boxAnimator != null)
-        {
             boxAnimator.SetTrigger("Open");
-        }
 
         if (currentCount >= targetCount)
-        {
-            CompleteBox();
-        }
+            CompletePlantBox();
 
         Destroy(other.gameObject);
     }
 
-    void CompleteBox()
+    void CompletePlantBox()
     {
-        if (openSound != null)
-            openSound.Play();
+        isCompleted = true;
 
         if (boxAnimator != null)
             boxAnimator.SetTrigger("Complete");
+
+        if (cardBox != null)
+            cardBox.Unlock();
     }
 }
