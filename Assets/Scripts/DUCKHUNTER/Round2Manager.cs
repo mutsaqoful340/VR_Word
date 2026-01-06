@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Round2Manager : MonoBehaviour
 {
-    public BoardGuess[] boards; // 3 board
+    public BoardGuess[] boards;
     public ResultPanel resultPanel;
 
     private bool roundFinished = false;
@@ -11,6 +11,7 @@ public class Round2Manager : MonoBehaviour
     public void StartRound()
     {
         roundFinished = false;
+        StopAllCoroutines();
         resultPanel.ResetPanel();
 
         foreach (var board in boards)
@@ -23,6 +24,9 @@ public class Round2Manager : MonoBehaviour
     {
         if (roundFinished) return;
 
+        // 🔥 PENTING: hentikan coroutine lama
+        StopAllCoroutines();
+
         if (isCorrect)
         {
             roundFinished = true;
@@ -31,13 +35,13 @@ public class Round2Manager : MonoBehaviour
         }
         else
         {
-            // SALAH → tampil → reset → LANJUT MAIN
+            // SALAH → PASTI MUNCUL
             resultPanel.ShowMessageOnly("SALAH");
-            StartCoroutine(ResetPanelAfterDelay(1.5f));
+            StartCoroutine(HidePanelAfterDelay(1.5f));
         }
     }
 
-    IEnumerator ResetPanelAfterDelay(float delay)
+    IEnumerator HidePanelAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
         resultPanel.ResetPanel();
@@ -52,6 +56,6 @@ public class Round2Manager : MonoBehaviour
             board.gameObject.SetActive(false);
         }
 
-        // lanjut ke ending / scene lain di sini
+        // lanjut ending / scene
     }
 }
