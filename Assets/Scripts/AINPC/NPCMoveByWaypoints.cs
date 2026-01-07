@@ -6,6 +6,9 @@ public class NPCMoveByWaypoints : MonoBehaviour
     public Transform[] stage1ToStage2;
     public Transform[] stage2ToStage3;
 
+    // 🔹 TAMBAHAN STAGE 4 (AMAN)
+    public Transform[] stage3ToStage4;
+
     [Header("Movement")]
     public float speed = 1.5f;
     public float rotateSpeed = 6f;
@@ -27,7 +30,6 @@ public class NPCMoveByWaypoints : MonoBehaviour
         Vector3 dir = target.position - transform.position;
         dir.y = 0f;
 
-        // ✔ Sampai waypoint
         if (dir.magnitude < 0.1f)
         {
             currentIndex++;
@@ -39,7 +41,6 @@ public class NPCMoveByWaypoints : MonoBehaviour
             return;
         }
 
-        // ✔ Rotasi halus
         if (dir != Vector3.zero)
         {
             Quaternion targetRot = Quaternion.LookRotation(dir);
@@ -50,13 +51,11 @@ public class NPCMoveByWaypoints : MonoBehaviour
             );
         }
 
-        // ✔ Jalan maju
         transform.position += transform.forward * speed * Time.deltaTime;
     }
 
-    // ================== MOVE API ==================
+    // ================== MOVE API (LAMA) ==================
 
-    // 🔹 DIPANGGIL SAAT STAGE 1 SELESAI
     public void MoveStage1ToStage2()
     {
         if (dialogController.currentStage != DialogStage.Stage1)
@@ -66,13 +65,27 @@ public class NPCMoveByWaypoints : MonoBehaviour
         StartMove();
     }
 
-    // 🔹 DIPANGGIL SAAT STAGE 2 SELESAI
     public void MoveStage2ToStage3()
     {
         if (dialogController.currentStage != DialogStage.Stage2)
             return;
 
         currentWaypoints = stage2ToStage3;
+        StartMove();
+    }
+
+    // ================== MOVE API (BARU, OPTIONAL) ==================
+
+    // 🔹 DIPANGGIL SAAT PINTU STAGE 4 TERBUKA
+    public void MoveStage3ToStage4()
+    {
+        if (dialogController.currentStage != DialogStage.Stage3)
+            return;
+
+        if (stage3ToStage4 == null || stage3ToStage4.Length == 0)
+            return;
+
+        currentWaypoints = stage3ToStage4;
         StartMove();
     }
 
@@ -95,7 +108,7 @@ public class NPCMoveByWaypoints : MonoBehaviour
         AdvanceStage();
     }
 
-    // ================== STAGE CONTROL ==================
+    // ================== STAGE CONTROL (EXTEND SAJA) ==================
 
     void AdvanceStage()
     {
@@ -109,6 +122,11 @@ public class NPCMoveByWaypoints : MonoBehaviour
         else if (dialogController.currentStage == DialogStage.Stage2)
         {
             dialogController.SetStage(DialogStage.Stage3);
+        }
+        else if (dialogController.currentStage == DialogStage.Stage3)
+        {
+            // 🔹 TAMBAHAN AMAN
+            dialogController.SetStage(DialogStage.Stage4);
         }
 
         Debug.Log("NPC berhenti & lanjut ke stage berikutnya");

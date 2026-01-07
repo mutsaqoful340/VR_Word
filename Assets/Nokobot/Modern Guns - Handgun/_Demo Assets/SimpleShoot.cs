@@ -27,6 +27,9 @@ public class SimpleShoot : MonoBehaviour
     [Tooltip("Casing Ejection Speed")]
     [SerializeField] private float ejectPower = 150f;
 
+    [Header("Grab Settings")]
+    public bool isGrabbed = false;
+
     void Start()
     {
         if (barrelLocation == null)
@@ -41,12 +44,23 @@ public class SimpleShoot : MonoBehaviour
 
     void Update()
     {
-        // Klik mouse kiri untuk menembak
-        if (Input.GetMouseButtonDown(0))
+        // Tembak hanya jika pistol sedang dipegang
+        if (isGrabbed && Input.GetMouseButtonDown(0))
         {
             StartShoot();
         }
     }
+
+    public void OnGrab()
+    {
+        isGrabbed = true;
+    }
+
+    public void OnRelease()
+    {
+        isGrabbed = false;
+    }
+
 
     public void StartShoot()
     {

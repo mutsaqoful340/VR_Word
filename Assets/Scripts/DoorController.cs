@@ -5,6 +5,9 @@ public class DoorController : MonoBehaviour
     public Animator doorAnimator;
     public NPCMoveByWaypoints npcMover;
 
+    // 🔹 TAMBAHAN (AMAN)
+    public DoorStage4Trigger doorStage4Trigger;
+
     private bool isOpen = false;
 
     private void OnTriggerEnter(Collider other)
@@ -18,9 +21,13 @@ public class DoorController : MonoBehaviour
 
             Debug.Log("Pintu terbuka pakai kunci");
 
-            // 🔥 NPC mulai jalan lewat waypoint
+            // SISTEM LAMA (TETAP)
             if (npcMover != null)
                 npcMover.MoveStage1ToStage2();
+
+            // 🔥 SISTEM BARU (OPTIONAL)
+            if (doorStage4Trigger != null)
+                doorStage4Trigger.OnDoorOpened();
 
             Destroy(other.gameObject);
         }
