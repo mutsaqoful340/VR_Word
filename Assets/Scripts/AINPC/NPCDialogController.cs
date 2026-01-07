@@ -25,6 +25,7 @@ public class NPCDialogController : MonoBehaviour
     bool[] usedQuestionsStage1 = new bool[4];
     bool[] usedQuestionsStage2 = new bool[2];
     bool[] usedQuestionsStage3 = new bool[3]; // ✅ STAGE 3
+    bool[] usedQuestionsStage4 = new bool[2];
 
     Coroutine typingCoroutine;
 
@@ -66,8 +67,12 @@ public class NPCDialogController : MonoBehaviour
             case DialogStage.Stage3:
                 ShowStage3();
                 break;
+            case DialogStage.Stage4:      // 🔹 TAMBAHAN
+                ShowStage4();
+                break;
         }
     }
+
 
     // ================= STAGE 1 =================
     void ShowStage1()
@@ -118,6 +123,24 @@ public class NPCDialogController : MonoBehaviour
 
         SetupCloseButton(3);
     }
+
+    // ================= STAGE 4 =================
+    void ShowStage4()
+    {
+        PlayAnswer("Kita sudah sampai di sini.");
+
+        optionTexts[0].text = "AMBA";
+        optionTexts[1].text = "Apa yang harus aku lakukan sekarang?";
+        optionTexts[2].text = "";
+        optionTexts[3].text = "Diam saja";
+
+        SetupOption(0, usedQuestionsStage4, "Bukan akhir. Ini awal yang lebih tenang.");
+        SetupOption(1, usedQuestionsStage4, "Nikmati dulu. Kamu sudah berusaha.");
+
+        optionButtons[2].gameObject.SetActive(false);
+        SetupCloseButton(3);
+    }
+
 
     // ================= CORE =================
     void SetupOption(int index, bool[] usedArray, string answer)
