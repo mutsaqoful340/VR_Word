@@ -40,4 +40,14 @@ public class GameRoundManager : MonoBehaviour
 
         taskUI.ShowRound2Start();
     }
+
+    public void OnRound2Finished()
+    {
+        Debug.Log("SEMUA RONDE SELESAI");
+        // Bisa:
+        // - Load scene ending
+        // - Tampilkan final score
+        // - Tampilkan menu
+    }
+
 }

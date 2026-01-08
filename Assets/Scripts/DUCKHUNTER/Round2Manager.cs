@@ -5,6 +5,8 @@ public class Round2Manager : MonoBehaviour
 {
     public BoardGuess[] boards;
     public ResultPanel resultPanel;
+    public GameRoundManager gameRoundManager;
+    public TaskUIManager taskUI;
 
     private bool roundFinished = false;
 
@@ -14,8 +16,11 @@ public class Round2Manager : MonoBehaviour
         StopAllCoroutines();
         resultPanel.ResetPanel();
 
+        taskUI.ShowRound2Start();
+
         foreach (var board in boards)
         {
+            board.gameObject.SetActive(true);
             board.ActivateBoard();
         }
     }
@@ -24,18 +29,17 @@ public class Round2Manager : MonoBehaviour
     {
         if (roundFinished) return;
 
-        // 🔥 PENTING: hentikan coroutine lama
         StopAllCoroutines();
 
         if (isCorrect)
         {
             roundFinished = true;
             resultPanel.ShowMessageOnly("BENAR");
+            taskUI.ShowAllRoundsComplete();
             StartCoroutine(EndRoundAfterDelay(2f));
         }
         else
         {
-            // SALAH → PASTI MUNCUL
             resultPanel.ShowMessageOnly("SALAH");
             StartCoroutine(HidePanelAfterDelay(1.5f));
         }
@@ -56,6 +60,7 @@ public class Round2Manager : MonoBehaviour
             board.gameObject.SetActive(false);
         }
 
-        // lanjut ending / scene
+        // 🔔 BERITAHU GAME ROUND MANAGER
+        gameRoundManager.OnRound2Finished();
     }
 }
