@@ -2,21 +2,24 @@ using UnityEngine;
 
 public class Round1Manager : MonoBehaviour
 {
-    public BoardTarget[] boards; // size = 3
+    public BoardTarget[] boards;
     public ResultPanel resultPanel;
     public GameRoundManager gameRoundManager;
+    public TaskUIManager taskUI;
 
     private int currentBoard = 0;
-    private int[] boardScores = new int[3];
+    private int[] boardScores;
 
     void Start()
     {
+        boardScores = new int[boards.Length];
         StartRound();
     }
 
     public void StartRound()
     {
         currentBoard = 0;
+        taskUI.ShowRound1Start();
         ActivateCurrentBoard();
     }
 
@@ -25,6 +28,7 @@ public class Round1Manager : MonoBehaviour
         if (currentBoard < boards.Length)
         {
             boards[currentBoard].ActivateBoard();
+            taskUI.ShowRound1Board(currentBoard);
         }
     }
 
@@ -49,7 +53,8 @@ public class Round1Manager : MonoBehaviour
     {
         float finalScore = ScoreCalculator.CalculateFinalScore(boardScores);
 
-        // PINDAH KE GAME ROUND MANAGER
+        taskUI.ShowRound1Complete();
+
         gameRoundManager.OnRound1Finished(finalScore);
     }
 }

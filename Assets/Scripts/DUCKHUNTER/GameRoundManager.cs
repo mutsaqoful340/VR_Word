@@ -6,11 +6,14 @@ public class GameRoundManager : MonoBehaviour
     public Round1Manager round1;
     public Round2Manager round2;
     public ResultPanel resultPanel;
+    public TaskUIManager taskUI;
 
     void Start()
     {
         round1.gameObject.SetActive(true);
         round2.gameObject.SetActive(false);
+
+        taskUI.ShowRound1Start();
     }
 
     public void OnRound1Finished(float finalScore)
@@ -20,18 +23,21 @@ public class GameRoundManager : MonoBehaviour
 
     IEnumerator TransitionToRound2(float score)
     {
-        // tampilkan hasil round 1
+        // Tampilkan hasil ronde 1
         resultPanel.ShowResult(score);
+        taskUI.ShowRound1Complete();
 
         yield return new WaitForSeconds(3f);
 
         resultPanel.gameObject.SetActive(false);
 
-        // matikan round 1
+        // Matikan round 1
         round1.gameObject.SetActive(false);
 
-        // aktifkan round 2
+        // Aktifkan round 2
         round2.gameObject.SetActive(true);
         round2.StartRound();
+
+        taskUI.ShowRound2Start();
     }
 }
