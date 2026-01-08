@@ -1,10 +1,12 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 
 public class GameRoundManager : MonoBehaviour
 {
     public Round1Manager round1;
     public Round2Manager round2;
+    public Round2Manager round3;
+
     public ResultPanel resultPanel;
     public TaskUIManager taskUI;
 
@@ -12,6 +14,7 @@ public class GameRoundManager : MonoBehaviour
     {
         round1.gameObject.SetActive(true);
         round2.gameObject.SetActive(false);
+        round3.gameObject.SetActive(false);
 
         taskUI.ShowRound1Start();
     }
@@ -23,18 +26,14 @@ public class GameRoundManager : MonoBehaviour
 
     IEnumerator TransitionToRound2(float score)
     {
-        // Tampilkan hasil ronde 1
         resultPanel.ShowResult(score);
         taskUI.ShowRound1Complete();
 
         yield return new WaitForSeconds(3f);
 
         resultPanel.gameObject.SetActive(false);
-
-        // Matikan round 1
         round1.gameObject.SetActive(false);
 
-        // Aktifkan round 2
         round2.gameObject.SetActive(true);
         round2.StartRound();
 
@@ -43,11 +42,24 @@ public class GameRoundManager : MonoBehaviour
 
     public void OnRound2Finished()
     {
-        Debug.Log("SEMUA RONDE SELESAI");
-        // Bisa:
-        // - Load scene ending
-        // - Tampilkan final score
-        // - Tampilkan menu
+        StartCoroutine(TransitionToRound3());
     }
 
+    IEnumerator TransitionToRound3()
+    {
+        yield return new WaitForSeconds(2f);
+
+        round2.gameObject.SetActive(false);
+
+        round3.gameObject.SetActive(true);
+        round3.StartRound();
+
+        // Pakai UI Round 2 untuk Round 3
+        taskUI.ShowRound2Start();
+    }
+
+    public void OnRound3Finished()
+    {
+        Debug.Log("SEMUA RONDE SELESAI");
+    }
 }

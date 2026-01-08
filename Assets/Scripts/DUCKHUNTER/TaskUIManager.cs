@@ -1,54 +1,54 @@
+﻿using UnityEngine;
 using TMPro;
-using UnityEngine;
 
 public class TaskUIManager : MonoBehaviour
 {
     public TextMeshProUGUI taskText;
 
-    // ======================
-    // ROUND 1
-    // ======================
-
     public void ShowRound1Start()
     {
-        taskText.text =
-            "RONDE 1\n" +
-            "Selesaikan semua papan target";
-    }
-
-    public void ShowRound1Board(int boardIndex)
-    {
-        taskText.text =
-            "RONDE 1\n" +
-            $"TARGET {boardIndex + 1}\n" +
-            "TEMBAK HURUF YANG BENAR";
+        taskText.text = "Tembak semua papan dengan huruf didepan";
     }
 
     public void ShowRound1Complete()
     {
-        taskText.text =
-            "<color=green>RONDE 1 SELESAI</color>\n" +
-            "Menyiapkan ronde berikutnya...";
+        taskText.text = "Round 1 Selesai";
     }
-
-    // ======================
-    // ROUND 2
-    // ======================
 
     public void ShowRound2Start()
     {
-        taskText.text =
-            "RONDE 2\n" +
-            "Kesulitan meningkat";
+        taskText.text = "Tembak papan huruf BA";
     }
 
-    // ======================
-    // END GAME
-    // ======================
+    public void ShowRound2Complete()
+    {
+        taskText.text = "Round 2 Selesai";
+    }
+
+    public void ShowRound3Start()
+    {
+        taskText.text = "Tembak bebek huruf bq";
+    }
+
+    public void ShowRound3Complete()
+    {
+        taskText.text = "Round 3 Selesai";
+    }
+
+    // 🔽 TAMBAHAN UNTUK FIX ERROR
+    public void ShowRound1Board(int boardIndex)
+    {
+        taskText.text = $"Round 1 - Board {boardIndex + 1}";
+    }
 
     public void ShowAllRoundsComplete()
     {
-        taskText.text =
-            "<color=cyan>SEMUA RONDE SELESAI</color>";
+        taskText.text = "Semua ronde selesai!";
     }
+
+    public void ShowShootLetterTask(string huruf)
+    {
+        taskText.text = $"Tembak huruf {huruf}";
+    }
+
 }

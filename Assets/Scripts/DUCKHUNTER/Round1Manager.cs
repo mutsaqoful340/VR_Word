@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Round1Manager : MonoBehaviour
 {
@@ -27,8 +27,12 @@ public class Round1Manager : MonoBehaviour
     {
         if (currentBoard < boards.Length)
         {
+            // Aktifkan board (SISTEM LAMA TETAP)
             boards[currentBoard].ActivateBoard();
-            taskUI.ShowRound1Board(currentBoard);
+
+            // 🔥 UPDATE UTAMA:
+            // UI ambil huruf langsung dari board
+            taskUI.ShowShootLetterTask(boards[currentBoard].hurufTarget);
         }
     }
 

@@ -2,7 +2,9 @@ using UnityEngine;
 
 public class BoardTarget : MonoBehaviour
 {
-    public int boardIndex; // 0,1,2
+    [Header("Board Info")]
+    public int boardIndex;           // 0,1,2
+    public string hurufTarget;       // contoh: "AB", "CD", "N-Z"
 
     private int missCount = 0;
     private bool isHit = false;
@@ -12,7 +14,6 @@ public class BoardTarget : MonoBehaviour
     {
         roundManager = FindObjectOfType<Round1Manager>();
     }
-
 
     public void ActivateBoard()
     {
@@ -31,7 +32,7 @@ public class BoardTarget : MonoBehaviour
 
             roundManager.OnBoardCompleted(boardIndex, missCount);
 
-            Destroy(collision.gameObject); // hancurkan peluru
+            Destroy(collision.gameObject);
             gameObject.SetActive(false);
         }
     }
