@@ -48,7 +48,7 @@ public class TaskUIManager : MonoBehaviour
 
     public void ShowShootLetterTask(string huruf)
     {
-        taskText.text = $"Tembak huruf {huruf}";
+        taskText.text = $"Kamu menembak huruf {huruf}";
     }
 
 }
