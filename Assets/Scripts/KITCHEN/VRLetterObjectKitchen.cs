@@ -9,6 +9,9 @@ public class VRLetterObjectKitchen : MonoBehaviour
     [Header("Audio")]
     public AudioSource suaraHuruf;
 
+    [Header("Manager")]
+    public VRWordManagerKitchen manager; // DRAG DI INSPECTOR
+
     private XRGrabInteractable grab;
     private Vector3 startPos;
     private Quaternion startRot;
@@ -40,6 +43,9 @@ public class VRLetterObjectKitchen : MonoBehaviour
 
                 if (suaraHuruf != null)
                     suaraHuruf.Play();
+
+                // 👉 AUTO CEK SEMUA SLOT
+                manager.CheckWord();
             }
             else
             {

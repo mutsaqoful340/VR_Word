@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class VRWordManagerKitchen : MonoBehaviour
 {
@@ -19,21 +19,23 @@ public class VRWordManagerKitchen : MonoBehaviour
         foreach (VRLetterSlotKitchen slot in slots)
         {
             if (!slot.IsCorrect())
-            {
-                Debug.Log("Masih salah");
-                return;
-            }
+                return; // ada yang salah → stop
         }
 
         if (!sudahSpawn)
         {
-            Instantiate(tomatPrefab, spawnPoint.position, Quaternion.identity);
+            Instantiate(
+                tomatPrefab,
+                spawnPoint.position,
+                spawnPoint.rotation   // ✅ ikut rotasi spawn point
+            );
+
             sudahSpawn = true;
 
             if (suaraBenar != null)
                 suaraBenar.Play();
 
-            Debug.Log("BENAR! TOMAT muncul");
+            Debug.Log("SEMUA BENAR - TOMAT MUNCUL");
         }
     }
 }
