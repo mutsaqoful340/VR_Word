@@ -24,8 +24,9 @@ public class NPCDialogController : MonoBehaviour
 
     bool[] usedQuestionsStage1 = new bool[4];
     bool[] usedQuestionsStage2 = new bool[2];
-    bool[] usedQuestionsStage3 = new bool[3]; // ✅ STAGE 3
+    bool[] usedQuestionsStage3 = new bool[3];
     bool[] usedQuestionsStage4 = new bool[2];
+    bool[] usedQuestionsStage5 = new bool[2];
 
     Coroutine typingCoroutine;
 
@@ -58,21 +59,13 @@ public class NPCDialogController : MonoBehaviour
 
         switch (currentStage)
         {
-            case DialogStage.Stage1:
-                ShowStage1();
-                break;
-            case DialogStage.Stage2:
-                ShowStage2();
-                break;
-            case DialogStage.Stage3:
-                ShowStage3();
-                break;
-            case DialogStage.Stage4:      // 🔹 TAMBAHAN
-                ShowStage4();
-                break;
+            case DialogStage.Stage1: ShowStage1(); break;
+            case DialogStage.Stage2: ShowStage2(); break;
+            case DialogStage.Stage3: ShowStage3(); break;
+            case DialogStage.Stage4: ShowStage4(); break;
+            case DialogStage.Stage5: ShowStage5(); break;
         }
     }
-
 
     // ================= STAGE 1 =================
     void ShowStage1()
@@ -141,6 +134,22 @@ public class NPCDialogController : MonoBehaviour
         SetupCloseButton(3);
     }
 
+    // ================= STAGE 5 =================
+    void ShowStage5()
+    {
+        PlayAnswer("Di sini ada pistol.");
+
+        optionTexts[0].text = "Pistol ini untuk apa?";
+        optionTexts[1].text = "Terus gimana cara pakainya?";
+        optionTexts[2].text = "";
+        optionTexts[3].text = "Diam saja";
+
+        SetupOption(0, usedQuestionsStage5, "Pistol ini akan membantumu fokus.");
+        SetupOption(1, usedQuestionsStage5, "Arahkan, tarik napas, lalu tekan.");
+
+        optionButtons[2].gameObject.SetActive(false);
+        SetupCloseButton(3);
+    }
 
     // ================= CORE =================
     void SetupOption(int index, bool[] usedArray, string answer)
@@ -163,14 +172,15 @@ public class NPCDialogController : MonoBehaviour
             optionButtons[index].gameObject.SetActive(false);
             PlayAnswer(answer);
 
-            // ✅ KHUSUS STAGE 2 → CEK HABIS
+            // === SISTEM LAMA TETAP ===
             if (currentStage == DialogStage.Stage2 && AllStage2QuestionsUsed())
-            {
                 StartCoroutine(MoveNpcAfterStage2());
-            }
+
+            // === TAMBAHAN STAGE 4 ===
+            if (currentStage == DialogStage.Stage4 && AllStage4QuestionsUsed())
+                StartCoroutine(MoveNpcAfterStage4());
         });
     }
-
 
     void SetupCloseButton(int index)
     {
@@ -182,9 +192,14 @@ public class NPCDialogController : MonoBehaviour
     bool AllStage2QuestionsUsed()
     {
         foreach (bool used in usedQuestionsStage2)
-        {
             if (!used) return false;
-        }
+        return true;
+    }
+
+    bool AllStage4QuestionsUsed()
+    {
+        foreach (bool used in usedQuestionsStage4)
+            if (!used) return false;
         return true;
     }
 
@@ -214,19 +229,25 @@ public class NPCDialogController : MonoBehaviour
 
     IEnumerator MoveNpcAfterStage2()
     {
-        // tunggu dialog selesai dibaca
         yield return new WaitForSeconds(extraReadTime + 0.3f);
 
         CloseDialog();
         questionButton.SetActive(false);
 
         if (npcMover != null)
-        {
             npcMover.MoveStage2ToStage3();
-            Debug.Log("NPC bergerak ke Stage 3");
-        }
     }
 
+    IEnumerator MoveNpcAfterStage4()
+    {
+        yield return new WaitForSeconds(extraReadTime + 0.3f);
+
+        CloseDialog();
+        questionButton.SetActive(false);
+
+        if (npcMover != null)
+            npcMover.MoveStage4ToStage5();
+    }
 
     // ================= UTIL =================
     public void SetStage(DialogStage stage)

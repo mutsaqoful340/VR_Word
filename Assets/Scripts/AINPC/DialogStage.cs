@@ -7,7 +7,8 @@ public enum DialogStage
     Stage1,
     Stage2,
     Stage3,
-    Stage4
+    Stage4,
+    Stage5
 }
 
 

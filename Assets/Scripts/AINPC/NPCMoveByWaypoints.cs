@@ -5,9 +5,9 @@ public class NPCMoveByWaypoints : MonoBehaviour
     [Header("Waypoint Sets")]
     public Transform[] stage1ToStage2;
     public Transform[] stage2ToStage3;
-
     // 🔹 TAMBAHAN STAGE 4 (AMAN)
     public Transform[] stage3ToStage4;
+    public Transform[] stage4ToStage5;
 
     [Header("Movement")]
     public float speed = 1.5f;
@@ -89,6 +89,19 @@ public class NPCMoveByWaypoints : MonoBehaviour
         StartMove();
     }
 
+    public void MoveStage4ToStage5()
+    {
+        if (dialogController.currentStage != DialogStage.Stage4)
+            return;
+
+        if (stage4ToStage5 == null || stage4ToStage5.Length == 0)
+            return;
+
+        currentWaypoints = stage4ToStage5;
+        StartMove();
+    }
+
+
     void StartMove()
     {
         currentIndex = 0;
@@ -125,10 +138,14 @@ public class NPCMoveByWaypoints : MonoBehaviour
         }
         else if (dialogController.currentStage == DialogStage.Stage3)
         {
-            // 🔹 TAMBAHAN AMAN
             dialogController.SetStage(DialogStage.Stage4);
+        }
+        else if (dialogController.currentStage == DialogStage.Stage4)
+        {
+            dialogController.SetStage(DialogStage.Stage5);
         }
 
         Debug.Log("NPC berhenti & lanjut ke stage berikutnya");
     }
+
 }
