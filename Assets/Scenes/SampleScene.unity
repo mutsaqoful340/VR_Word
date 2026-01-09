@@ -4407,7 +4407,8 @@ MonoBehaviour:
   - {fileID: 2088571193}
   - {fileID: 1970434605}
   - {fileID: 1857075813}
-  tomatPrefab: {fileID: 0}
+  tomatPrefab: {fileID: 8277458513321443143, guid: 41fcbc0e62e15ad44883ada455a57770,
+    type: 3}
   spawnPoint: {fileID: 382747119}
   suaraBenar: {fileID: 0}
 --- !u!1 &292407480
@@ -20717,7 +20718,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1274361378}
-  - component: {fileID: 1274361379}
   m_Layer: 0
   m_Name: PuzzleIngredient
   m_TagString: Untagged
@@ -20741,26 +20741,6 @@ Transform:
   - {fileID: 543450653147205537}
   m_Father: {fileID: 1037607677}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1274361379
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1274361377}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e802132a8e673342ae8fbdf056ba64c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  urutan:
-  - BAWANG
-  - CABAI
-  - TOMAT
-  - SELEDRI
-  supPrefab: {fileID: 9095974294105220573, guid: db1121ffaf4686943a73a8fdf8005828,
-    type: 3}
-  spawnPoint: {fileID: 1602222010}
 --- !u!1 &1283631421
 GameObject:
   m_ObjectHideFlags: 0
@@ -39329,7 +39309,7 @@ GameObject:
   - component: {fileID: 543450653147205537}
   m_Layer: 0
   m_Name: SaucePan_solo
-  m_TagString: Untagged
+  m_TagString: Pot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -42312,7 +42292,7 @@ GameObject:
   - component: {fileID: 5983287092516765539}
   m_Layer: 0
   m_Name: polySurface2
-  m_TagString: Untagged
+  m_TagString: Pot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -48554,6 +48534,7 @@ GameObject:
   - component: {fileID: 8386534366749889039}
   - component: {fileID: 2453714384227259606}
   - component: {fileID: 8386534366749889040}
+  - component: {fileID: 8386534366749889041}
   m_Layer: 0
   m_Name: polySurface22
   m_TagString: Pot
@@ -61256,6 +61237,26 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.024118662, y: 0.027744174, z: 0.020648288}
   m_Center: {x: 0.000024740417, y: -0.0051339855, z: -0.0000055138667}
+--- !u!114 &8386534366749889041
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3986248349293906723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e802132a8e673342ae8fbdf056ba64c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  urutan:
+  - BAWANG
+  - CABAI
+  - TOMAT
+  - SELEDRI
+  supPrefab: {fileID: 9095974294105220573, guid: db1121ffaf4686943a73a8fdf8005828,
+    type: 3}
+  spawnPoint: {fileID: 1602222010}
 --- !u!23 &8391068138410311370
 MeshRenderer:
   m_ObjectHideFlags: 0
