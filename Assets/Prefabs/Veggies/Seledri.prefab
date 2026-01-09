@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 3447143652425171460}
   - component: {fileID: -7494545929303133903}
   - component: {fileID: -1545063521416947971}
+  - component: {fileID: -8633823065160468582}
   m_Layer: 0
   m_Name: Seledri
   m_TagString: Untagged
@@ -286,3 +287,16 @@ MonoBehaviour:
   m_StartingSingleGrabTransformers: []
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
+--- !u!114 &-8633823065160468582
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6906025460054517272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 515e6c418d5483442814d14ada542240, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  namaBahan: SELEDRI

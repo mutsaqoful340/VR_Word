@@ -79,6 +79,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: -659874202836315638}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 6aa76ea3325e63345b4cfc93502e3d13,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1858439031468241105}
   m_SourcePrefab: {fileID: 100100000, guid: 6aa76ea3325e63345b4cfc93502e3d13, type: 3}
 --- !u!1 &7248739739848194716 stripped
 GameObject:
@@ -286,3 +290,16 @@ MonoBehaviour:
   m_StartingSingleGrabTransformers: []
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
+--- !u!114 &1858439031468241105
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7248739739848194716}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 515e6c418d5483442814d14ada542240, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  namaBahan: TOMAT
