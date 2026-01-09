@@ -14,6 +14,31 @@ public class PlantBoxTrigger : MonoBehaviour
 
     private int currentCount = 0;
     private bool isCompleted = false;
+    private bool isBoxOpen = false;
+
+    // Dipanggil saat wortel DIPEGANG
+    public void OpenBox()
+    {
+        if (isCompleted) return;
+        if (isBoxOpen) return;
+
+        isBoxOpen = true;
+
+        if (boxAnimator != null)
+            boxAnimator.SetTrigger("Open");
+    }
+
+    // Dipanggil saat wortel MASUK ke box
+    public void CloseBox()
+    {
+        if (isCompleted) return;
+        if (!isBoxOpen) return;
+
+        isBoxOpen = false;
+
+        if (boxAnimator != null)
+            boxAnimator.SetTrigger("Close");
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -26,8 +51,8 @@ public class PlantBoxTrigger : MonoBehaviour
 
         currentCount++;
 
-        if (currentCount == 1 && boxAnimator != null)
-            boxAnimator.SetTrigger("Open");
+        // Wortel masuk → box nutup
+        CloseBox();
 
         if (currentCount >= targetCount)
             CompletePlantBox();
