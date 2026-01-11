@@ -19,7 +19,7 @@ public class NPCMoveByWaypoints : MonoBehaviour
 
     Transform[] currentWaypoints;
     int currentIndex;
-    bool isMoving;
+    public bool isMoving;
 
     void Update()
     {

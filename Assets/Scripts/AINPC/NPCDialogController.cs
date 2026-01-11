@@ -253,6 +253,13 @@ public class NPCDialogController : MonoBehaviour
     public void SetStage(DialogStage stage)
     {
         currentStage = stage;
+        
+        // Activate the correct panel for the new stage
+        NPCDialogTrigger trigger = FindObjectOfType<NPCDialogTrigger>();
+        if (trigger != null)
+        {
+            trigger.PanelActivate(stage);
+        }
     }
 
     void CloseDialog()
