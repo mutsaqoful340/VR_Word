@@ -21,7 +21,13 @@ public class DialogueButtonManager : MonoBehaviour
     [Tooltip("If assigned, puzzle must be solved before AllButtonsClicked event fires")]
     public WorldPuzzle requiredPuzzle;
     
+    [Header("Dialogue System (Optional)")]
+    [Tooltip("If assigned, will wait for dialogue to finish before invoking AllButtonsClicked")]
+    public DialogueSystem dialogueSystem;
+    
     public UnityEvent AllButtonsClicked;
+
+    private bool hasInvokedEvent = false;
 
     public void isClicked(DialogueButton button)
     {
@@ -68,7 +74,7 @@ public class DialogueButtonManager : MonoBehaviour
             }
         }
 
-        if (allClicked && dialogueButtons.Count > 0)
+        if (allClicked && dialogueButtons.Count > 0 && !hasInvokedEvent)
         {
             Debug.Log("DialogueButtonManager: All buttons clicked!");
             
@@ -92,9 +98,34 @@ public class DialogueButtonManager : MonoBehaviour
                 Debug.Log("DialogueButtonManager: No puzzle prerequisite required.");
             }
             
-            Debug.Log("DialogueButtonManager: Invoking AllButtonsClicked event.");
-            AllButtonsClicked?.Invoke();
+            // Start coroutine to wait for dialogue if needed
+            StartCoroutine(WaitForDialogueAndInvoke());
         }
+    }
+
+    private IEnumerator WaitForDialogueAndInvoke()
+    {
+        // If DialogueSystem is assigned and dialogue is playing, wait for it to finish
+        if (dialogueSystem != null && dialogueSystem.IsPlaying)
+        {
+            Debug.Log("DialogueButtonManager: Dialogue is still playing, waiting for it to finish...");
+            
+            while (dialogueSystem.IsPlaying)
+            {
+                yield return null; // Wait one frame
+            }
+            
+            Debug.Log("DialogueButtonManager: Dialogue finished!");
+        }
+        else
+        {
+            Debug.Log("DialogueButtonManager: No dialogue playing or DialogueSystem not assigned.");
+        }
+        
+        // Now invoke the event
+        hasInvokedEvent = true;
+        Debug.Log("DialogueButtonManager: Invoking AllButtonsClicked event.");
+        AllButtonsClicked?.Invoke();
     }
 
 }

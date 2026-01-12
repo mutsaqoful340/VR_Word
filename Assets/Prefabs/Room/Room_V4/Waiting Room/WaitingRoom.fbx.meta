@@ -53,12 +53,12 @@ ModelImporter:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: Plywood_vdcjecc_2K_BaseColor
-    second: {fileID: 2800000, guid: 43affd11f3e7f22488c974ce99fb8ecd, type: 3}
+    second: {fileID: 2800000, guid: 23838296fbbb2ef44a27ac26f9a8dd18, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: TLP_Dif
-    second: {fileID: 2800000, guid: 6fda393d81bc3794da5a2e29a7484dd0, type: 3}
+    second: {fileID: 2800000, guid: a3ffcef962abc5744a3d89a317f840e0, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0
