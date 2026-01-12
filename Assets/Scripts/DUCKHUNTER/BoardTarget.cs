@@ -1,18 +1,20 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class BoardTarget : MonoBehaviour
 {
     [Header("Board Info")]
-    public int boardIndex;           // 0,1,2
-    public string hurufTarget;       // contoh: "AB", "CD", "N-Z"
+    public int boardIndex;
+    public string hurufTarget;   // "AB", "CD", dll
 
     private int missCount = 0;
     private bool isHit = false;
     private Round1Manager roundManager;
+    private TaskUIManager taskUI;   // 🔹 TAMBAH
 
     void Start()
     {
         roundManager = FindObjectOfType<Round1Manager>();
+        taskUI = FindObjectOfType<TaskUIManager>(); // 🔹 AMBIL UI
     }
 
     public void ActivateBoard()
@@ -30,6 +32,9 @@ public class BoardTarget : MonoBehaviour
         {
             isHit = true;
 
+            // 🔥 INI INTINYA
+            taskUI.ShowShootLetterTask(hurufTarget);
+
             roundManager.OnBoardCompleted(boardIndex, missCount);
 
             Destroy(collision.gameObject);
@@ -37,7 +42,6 @@ public class BoardTarget : MonoBehaviour
         }
     }
 
-    // Dipanggil dari Bullet kalau MISS
     public void AddMiss()
     {
         if (isHit) return;

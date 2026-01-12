@@ -5281,7 +5281,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boardIndex: 0
-  hurufTarget: PA
+  hurufTarget: bb
 --- !u!1 &281094986 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 9014170783809206332, guid: 895f6f3c2d334633b5800312285058d2,
