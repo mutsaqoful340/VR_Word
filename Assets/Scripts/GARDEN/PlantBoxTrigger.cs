@@ -9,33 +9,35 @@ public class PlantBoxTrigger : MonoBehaviour
     [Header("Animator")]
     public Animator boxAnimator;
 
-    [Header("Target Card Box")]
+    [Header("Target Card Box (SHARED)")]
     public CardBox cardBox;
 
+    // ===== SHARED (GABUNGAN SEMUA BOX) =====
+    public static int totalCurrent = 0;
+    public static int totalTarget = 6;   // TOTAL GABUNGAN
+    private static bool cardUnlocked = false;
+
+    // ===== PER BOX =====
     private int currentCount = 0;
     private bool isCompleted = false;
     private bool isBoxOpen = false;
 
-    // Dipanggil saat wortel DIPEGANG
+    // Dipanggil saat wortel / semangka DIPEGANG
     public void OpenBox()
     {
-        if (isCompleted) return;
-        if (isBoxOpen) return;
+        if (isCompleted || isBoxOpen) return;
 
         isBoxOpen = true;
-
         if (boxAnimator != null)
             boxAnimator.SetTrigger("Open");
     }
 
-    // Dipanggil saat wortel MASUK ke box
+    // Dipanggil saat item MASUK ke box
     public void CloseBox()
     {
-        if (isCompleted) return;
-        if (!isBoxOpen) return;
+        if (isCompleted || !isBoxOpen) return;
 
         isBoxOpen = false;
-
         if (boxAnimator != null)
             boxAnimator.SetTrigger("Close");
     }
@@ -49,13 +51,23 @@ public class PlantBoxTrigger : MonoBehaviour
 
         if (plant.visualID != visualID) return;
 
+        // ===== HITUNG =====
         currentCount++;
+        totalCurrent++;
 
-        // Wortel masuk → box nutup
+        // ===== ANIMASI =====
         CloseBox();
 
         if (currentCount >= targetCount)
             CompletePlantBox();
+
+        // ===== CEK TOTAL GABUNGAN =====
+        if (!cardUnlocked && totalCurrent >= totalTarget)
+        {
+            cardUnlocked = true;
+            if (cardBox != null)
+                cardBox.Unlock();
+        }
 
         Destroy(other.gameObject);
     }
@@ -66,8 +78,12 @@ public class PlantBoxTrigger : MonoBehaviour
 
         if (boxAnimator != null)
             boxAnimator.SetTrigger("Complete");
+    }
 
-        if (cardBox != null)
-            cardBox.Unlock();
+    // ===== OPTIONAL: RESET SAAT LEVEL DIULANG =====
+    public static void ResetGlobal()
+    {
+        totalCurrent = 0;
+        cardUnlocked = false;
     }
 }
