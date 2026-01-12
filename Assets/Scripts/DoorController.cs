@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
+using UnityEngine.Events;
 
 public class DoorController : MonoBehaviour
 {
     public Animator doorAnimator;
-    public NPCMoveByWaypoints npcMover;
-
-    // 🔹 TAMBAHAN (AMAN)
-    public DoorStage4Trigger doorStage4Trigger;
+    
+    [Header("Door Opened Events")]
+    public UnityEvent onDoorOpened;
 
     private bool isOpen = false;
 
@@ -21,13 +21,8 @@ public class DoorController : MonoBehaviour
 
             Debug.Log("Pintu terbuka pakai kunci");
 
-            // SISTEM LAMA (TETAP)
-            if (npcMover != null)
-                npcMover.MoveStage1ToStage2();
-
-            // 🔥 SISTEM BARU (OPTIONAL)
-            if (doorStage4Trigger != null)
-                doorStage4Trigger.OnDoorOpened();
+            // Invoke all functions assigned in Inspector
+            onDoorOpened?.Invoke();
 
             Destroy(other.gameObject);
         }
