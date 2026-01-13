@@ -27084,6 +27084,8 @@ MonoBehaviour:
   gameRoundManager: {fileID: 1848446818700964319}
   taskUI: {fileID: 2054107107}
   isLastRound: 1
+  startTaskText: Tembak papan huruf li
+  completeTaskText: Semua ronde Selesai, ambil card di lemari
 --- !u!1 &1161073904
 GameObject:
   m_ObjectHideFlags: 0
@@ -40198,6 +40200,8 @@ MonoBehaviour:
   gameRoundManager: {fileID: 1848446818700964319}
   taskUI: {fileID: 2054107107}
   isLastRound: 0
+  startTaskText: Tembak papan huruf BA
+  completeTaskText: Ronde 2 selesai
 --- !u!1 &1729897330
 GameObject:
   m_ObjectHideFlags: 0

@@ -27,7 +27,7 @@ public class TaskUIManager : MonoBehaviour
 
     public void ShowRound3Start()
     {
-        taskText.text = "Tembak bebek huruf bq";
+        taskText.text = "Tembak bebek huruf li";
     }
 
     public void ShowRound3Complete()
@@ -50,6 +50,11 @@ public class TaskUIManager : MonoBehaviour
     {
         Debug.Log("SHOW SHOOT LETTER DIPANGGIL DENGAN: " + huruf);
         taskText.text = $"Kamu menembak huruf {huruf}";
+    }
+
+    public void ShowTask(string text)
+    {
+        taskText.text = text;
     }
 
 

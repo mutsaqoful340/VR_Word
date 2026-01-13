@@ -13,6 +13,9 @@ public class Round2Manager : MonoBehaviour
     [Header("Round Config")]
     public bool isLastRound = false;   // 🔥 FLAG ROUND TERAKHIR
 
+    [Header("UI Task Text")]
+    public string startTaskText;       // Teks start ronde
+    public string completeTaskText;    // Teks selesai ronde
 
     public void StartRound()
     {
@@ -20,7 +23,8 @@ public class Round2Manager : MonoBehaviour
         StopAllCoroutines();
         resultPanel.ResetPanel();
 
-        taskUI.ShowRound2Start();
+        // ✅ Update UI sesuai ronde
+        taskUI.ShowTask(startTaskText);
 
         foreach (var board in boards)
         {
@@ -39,7 +43,13 @@ public class Round2Manager : MonoBehaviour
         {
             roundFinished = true;
             resultPanel.ShowMessageOnly("BENAR");
-            taskUI.ShowAllRoundsComplete();
+
+            // ✅ UI sesuai kondisi round
+            if (isLastRound)
+                taskUI.ShowAllRoundsComplete();
+            else
+                taskUI.taskText.text = completeTaskText; // Tampilkan teks selesai ronde
+
             StartCoroutine(EndRoundAfterDelay(2f));
         }
         else
@@ -62,11 +72,10 @@ public class Round2Manager : MonoBehaviour
         foreach (var board in boards)
             board.gameObject.SetActive(false);
 
-        // 🔥 Kuncinya
+        // 🔥 Flow lama tetap sama
         if (isLastRound)
             gameRoundManager.OnRound3Finished(); // STOP total
         else
             gameRoundManager.OnRound2Finished(); // lanjut normal
     }
-
 }
