@@ -19,7 +19,7 @@ public class Round1Manager : MonoBehaviour
     public void StartRound()
     {
         currentBoard = 0;
-        taskUI.ShowRound1Start();
+        taskUI.ShowRound1Start();   // ✅ instruksi awal saja
         ActivateCurrentBoard();
     }
 
@@ -27,12 +27,10 @@ public class Round1Manager : MonoBehaviour
     {
         if (currentBoard < boards.Length)
         {
-            // Aktifkan board (SISTEM LAMA TETAP)
             boards[currentBoard].ActivateBoard();
 
-            // 🔥 UPDATE UTAMA:
-            // UI ambil huruf langsung dari board
-            taskUI.ShowShootLetterTask(boards[currentBoard].hurufTarget);
+            // ❌ JANGAN ADA UI HURUF DI SINI
+            // taskUI.ShowShootLetterTask(...)
         }
     }
 
@@ -58,7 +56,6 @@ public class Round1Manager : MonoBehaviour
         float finalScore = ScoreCalculator.CalculateFinalScore(boardScores);
 
         taskUI.ShowRound1Complete();
-
         gameRoundManager.OnRound1Finished(finalScore);
     }
 }
