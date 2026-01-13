@@ -9,20 +9,25 @@ public class CardBox : MonoBehaviour
     [Header("Card Inside Box")]
     public GameObject card;
 
+    [Header("Card Floating")]
+    public float floatAmplitude = 0.2f;  // tinggi naik turun
+    public float floatFrequency = 1f;    // kecepatan naik turun
+
     private bool isUnlocked = false;
+    private Vector3 cardStartLocalPos;
 
     private void Start()
     {
-        // box terkunci
-        Collider boxCol = GetComponent<Collider>();
-        if (boxCol != null)
-            boxCol.enabled = false;
-
-        // card sudah ada, tapi TIDAK bisa diambil
         if (card != null)
         {
-            card.SetActive(true); // jangan pernah false
+            cardStartLocalPos = card.transform.localPosition;
 
+            // box terkunci
+            Collider boxCol = GetComponent<Collider>();
+            if (boxCol != null)
+                boxCol.enabled = false;
+
+            // card tidak bisa diambil
             Collider cardCol = card.GetComponent<Collider>();
             if (cardCol != null)
                 cardCol.enabled = false;
@@ -33,10 +38,19 @@ public class CardBox : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        if (isUnlocked && card != null)
+        {
+            // naik turun sinusoidal
+            Vector3 pos = cardStartLocalPos;
+            pos.y += Mathf.Sin(Time.time * floatFrequency * 2 * Mathf.PI) * floatAmplitude;
+            card.transform.localPosition = pos;
+        }
+    }
+
     public void Unlock()
     {
-        Debug.Log("CARD BOX UNLOCK DIPANGGIL");
-
         if (isUnlocked) return;
         isUnlocked = true;
 
@@ -50,9 +64,10 @@ public class CardBox : MonoBehaviour
         EnableCard();
     }
 
-
     void EnableCard()
     {
+        if (card == null) return;
+
         Collider cardCol = card.GetComponent<Collider>();
         if (cardCol != null)
             cardCol.enabled = true;
