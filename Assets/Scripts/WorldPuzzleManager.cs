@@ -2,17 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
+public class PuzzleStageEntry
+{
+    public DialogStage stage;
+    public WorldPuzzle puzzle;
+}
+
 public class WorldPuzzleManager : MonoBehaviour
 {
     public static WorldPuzzleManager Instance { get; private set; }
 
     [Header("Puzzle List")]
-    public WorldPuzzle[] puzzles; // Assign your 4 WorldPuzzles here
+    public PuzzleStageEntry[] puzzleStages; // Assign puzzles with their stages
+
+    [Header("Dialog Controller")]
+    public NPCDialogController dialogController; // Reference to track stage changes
 
     [Header("Transition Settings")]
     public float transitionDelay = 2f; // Wait time before activating next puzzle
 
-    private int currentPuzzleIndex = 0;
+    private DialogStage lastCheckedStage = DialogStage.Stage1;
     private bool isTransitioning = false;
 
     void Awake()
@@ -28,76 +38,105 @@ public class WorldPuzzleManager : MonoBehaviour
         InitializePuzzles();
     }
 
+    void Update()
+    {
+        // Monitor stage changes from DialogController
+        if (dialogController != null)
+        {
+            DialogStage currentStage = dialogController.currentStage;
+            
+            if (currentStage != lastCheckedStage)
+            {
+                Debug.Log($"📢 Stage changed from {lastCheckedStage} to {currentStage}");
+                OnStageChanged(currentStage);
+                lastCheckedStage = currentStage;
+            }
+        }
+    }
+
     void InitializePuzzles()
     {
         // Deactivate all puzzles first
-        for (int i = 0; i < puzzles.Length; i++)
+        foreach (var entry in puzzleStages)
         {
-            if (puzzles[i] != null)
+            if (entry.puzzle != null)
             {
-                puzzles[i].gameObject.SetActive(false);
+                entry.puzzle.gameObject.SetActive(false);
             }
         }
 
-        // Activate only the first puzzle
-        if (puzzles.Length > 0 && puzzles[0] != null)
+        // Activate puzzle for the starting stage
+        lastCheckedStage = DialogStage.Stage1;
+        
+        if (dialogController != null)
         {
-            puzzles[0].gameObject.SetActive(true);
-            Debug.Log($"🎮 Puzzle 1/{puzzles.Length} activated: {puzzles[0].correctWord}");
+            DialogStage startStage = dialogController.currentStage;
+            lastCheckedStage = startStage;
+            ActivatePuzzleForStage(startStage);
+        }
+        else
+        {
+            Debug.LogWarning("⚠️ No DialogController assigned! Please assign it in Inspector.");
+            ActivatePuzzleForStage(DialogStage.Stage1);
         }
     }
 
     /// <summary>
-    /// Called by WorldPuzzle when it's solved
+    /// Called when DialogController stage changes
     /// </summary>
-    public void OnPuzzleSolved()
+    void OnStageChanged(DialogStage newStage)
     {
-        if (isTransitioning) return;
-
-        Debug.Log($"✅ Puzzle {currentPuzzleIndex + 1} solved!");
-        StartCoroutine(TransitionToNextPuzzle());
+        Debug.Log($"🔄 Handling stage change to {newStage}");
+        
+        // Deactivate all puzzles
+        foreach (var entry in puzzleStages)
+        {
+            if (entry.puzzle != null && entry.puzzle.gameObject.activeSelf)
+            {
+                entry.puzzle.gameObject.SetActive(false);
+                Debug.Log($"🔴 Deactivated: {entry.puzzle.name}");
+            }
+        }
+        
+        // Activate puzzle for new stage
+        ActivatePuzzleForStage(newStage);
     }
 
-    IEnumerator TransitionToNextPuzzle()
+    /// <summary>
+    /// Activate puzzle for specific stage
+    /// </summary>
+    void ActivatePuzzleForStage(DialogStage stage)
     {
-        isTransitioning = true;
-
-        // Wait for animations/despawn to finish
-        yield return new WaitForSeconds(transitionDelay);
-
-        // Deactivate current puzzle
-        if (puzzles[currentPuzzleIndex] != null)
+        WorldPuzzle puzzle = GetPuzzleForStage(stage);
+        
+        if (puzzle != null)
         {
-            puzzles[currentPuzzleIndex].gameObject.SetActive(false);
-            Debug.Log($"Puzzle {currentPuzzleIndex + 1} deactivated");
-        }
-
-        // Move to next
-        currentPuzzleIndex++;
-
-        // Check if more puzzles remain
-        if (currentPuzzleIndex < puzzles.Length)
-        {
-            if (puzzles[currentPuzzleIndex] != null)
-            {
-                puzzles[currentPuzzleIndex].gameObject.SetActive(true);
-                // OnEnable will automatically set this as the new Instance
-                Debug.Log($"🎮 Puzzle {currentPuzzleIndex + 1}/{puzzles.Length} activated: {puzzles[currentPuzzleIndex].correctWord}");
-            }
+            puzzle.gameObject.SetActive(true);
+            Debug.Log($"✅ Puzzle activated for {stage}: {puzzle.name}");
         }
         else
         {
-            Debug.Log("🎉 ALL PUZZLES COMPLETED!");
-            OnAllPuzzlesCompleted();
+            Debug.Log($"ℹ️ No puzzle assigned to {stage}");
         }
-
-        isTransitioning = false;
     }
 
-    void OnAllPuzzlesCompleted()
+    /// <summary>
+    /// Called by WorldPuzzle when it's solved (optional - for advancing stages)
+    /// </summary>
+    public void OnPuzzleSolved()
     {
-        // Add your victory logic here
-        // e.g., show victory screen, unlock final door, etc.
+        if (dialogController == null)
+        {
+            Debug.LogWarning("Cannot advance stage - no DialogController assigned!");
+            return;
+        }
+
+        DialogStage currentStage = dialogController.currentStage;
+        Debug.Log($"✅ Puzzle solved for stage {currentStage}!");
+        
+        // Optional: Auto-advance to next stage
+        // DialogStage nextStage = GetNextStage(currentStage);
+        // dialogController.SetStage(nextStage);
     }
 
     /// <summary>
@@ -105,15 +144,38 @@ public class WorldPuzzleManager : MonoBehaviour
     /// </summary>
     public string GetProgress()
     {
-        return $"{currentPuzzleIndex + 1}/{puzzles.Length}";
+        if (dialogController != null)
+        {
+            return $"Stage {dialogController.currentStage}";
+        }
+        return $"Stage {lastCheckedStage}";
     }
 
     /// <summary>
-    /// Get current puzzle index (0-based)
+    /// Get current stage
     /// </summary>
-    public int GetCurrentIndex()
+    public DialogStage GetCurrentStage()
     {
-        return currentPuzzleIndex;
+        if (dialogController != null)
+        {
+            return dialogController.currentStage;
+        }
+        return lastCheckedStage;
+    }
+
+    /// <summary>
+    /// Find puzzle assigned to a specific stage
+    /// </summary>
+    private WorldPuzzle GetPuzzleForStage(DialogStage stage)
+    {
+        foreach (var entry in puzzleStages)
+        {
+            if (entry.stage == stage && entry.puzzle != null)
+            {
+                return entry.puzzle;
+            }
+        }
+        return null;
     }
 }
 
