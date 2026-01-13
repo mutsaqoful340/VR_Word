@@ -10,6 +10,10 @@ public class Round2Manager : MonoBehaviour
 
     private bool roundFinished = false;
 
+    [Header("Round Config")]
+    public bool isLastRound = false;   // 🔥 FLAG ROUND TERAKHIR
+
+
     public void StartRound()
     {
         roundFinished = false;
@@ -56,11 +60,13 @@ public class Round2Manager : MonoBehaviour
         yield return new WaitForSeconds(delay);
 
         foreach (var board in boards)
-        {
             board.gameObject.SetActive(false);
-        }
 
-        // 🔔 BERITAHU GAME ROUND MANAGER
-        gameRoundManager.OnRound2Finished();
+        // 🔥 Kuncinya
+        if (isLastRound)
+            gameRoundManager.OnRound3Finished(); // STOP total
+        else
+            gameRoundManager.OnRound2Finished(); // lanjut normal
     }
+
 }

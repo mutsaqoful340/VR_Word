@@ -16,6 +16,9 @@ public class GameRoundManager : MonoBehaviour
         round2.gameObject.SetActive(false);
         round3.gameObject.SetActive(false);
 
+        // 🔥 TANDAI ROUND 3 SEBAGAI TERAKHIR
+        round3.isLastRound = true;
+
         taskUI.ShowRound1Start();
     }
 
@@ -36,8 +39,6 @@ public class GameRoundManager : MonoBehaviour
 
         round2.gameObject.SetActive(true);
         round2.StartRound();
-
-        taskUI.ShowRound2Start();
     }
 
     public void OnRound2Finished()
@@ -53,13 +54,17 @@ public class GameRoundManager : MonoBehaviour
 
         round3.gameObject.SetActive(true);
         round3.StartRound();
-
-        // Pakai UI Round 2 untuk Round 3
-        taskUI.ShowRound2Start();
     }
 
     public void OnRound3Finished()
     {
-        Debug.Log("SEMUA RONDE SELESAI");
+        Debug.Log("🎉 GAME SELESAI TOTAL");
+
+        taskUI.ShowAllRoundsComplete();
+
+        // 🔒 MATIKAN SEMUA ROUND
+        round1.gameObject.SetActive(false);
+        round2.gameObject.SetActive(false);
+        round3.gameObject.SetActive(false);
     }
 }
