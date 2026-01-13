@@ -4,19 +4,27 @@ public class BoardTarget : MonoBehaviour
 {
     [Header("Board Info")]
     public int boardIndex;
-    public string hurufTarget;   // "BA", "BB", "DA", dll
+    public string hurufTarget;
 
-    private int missCount;
+    [Header("Audio")]
+    public AudioClip suaraHuruf;
+
+    private AudioSource audioSource;
     private bool isHit;
+    private int missCount;
 
     private Round1Manager roundManager;
     private TaskUIManager taskUI;
 
     void Awake()
     {
-        // ✅ Ambil referensi sekali (lebih aman dari Start)
         roundManager = FindObjectOfType<Round1Manager>();
         taskUI = FindObjectOfType<TaskUIManager>();
+
+        // 🔊 AudioSource otomatis
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+            audioSource = gameObject.AddComponent<AudioSource>();
     }
 
     public void ActivateBoard()
@@ -33,17 +41,14 @@ public class BoardTarget : MonoBehaviour
 
         isHit = true;
 
-        // 🔥 SATU-SATUNYA TEMPAT UPDATE UI HURUF
+        // 📝 UI
         taskUI.ShowShootLetterTask(hurufTarget);
 
-        // (Optional) Debug buat bukti
-        Debug.Log($"BOARD DITEMBAK: {gameObject.name} | HURUF: {hurufTarget}");
+        // 🔊 SUARA SESUAI BOARD
+        if (suaraHuruf != null)
+            audioSource.PlayOneShot(suaraHuruf);
 
-        // Lanjutkan logic ronde
-        if (roundManager != null)
-        {
-            roundManager.OnBoardCompleted(boardIndex, missCount);
-        }
+        roundManager.OnBoardCompleted(boardIndex, missCount);
 
         Destroy(collision.gameObject);
         gameObject.SetActive(false);

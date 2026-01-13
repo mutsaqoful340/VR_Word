@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 public class Round1Manager : MonoBehaviour
 {
@@ -19,7 +20,7 @@ public class Round1Manager : MonoBehaviour
     public void StartRound()
     {
         currentBoard = 0;
-        taskUI.ShowRound1Start();   // ✅ instruksi awal saja
+        taskUI.ShowRound1Start();   // ✅ instruksi awal
         ActivateCurrentBoard();
     }
 
@@ -28,9 +29,7 @@ public class Round1Manager : MonoBehaviour
         if (currentBoard < boards.Length)
         {
             boards[currentBoard].ActivateBoard();
-
-            // ❌ JANGAN ADA UI HURUF DI SINI
-            // taskUI.ShowShootLetterTask(...)
+            // ❌ UI huruf TETAP dari BoardTarget (benar)
         }
     }
 
@@ -47,12 +46,15 @@ public class Round1Manager : MonoBehaviour
         }
         else
         {
-            EndRound();
+            // 🔥 JEDA SEBELUM END ROUND
+            StartCoroutine(EndRoundAfterDelay(1.5f));
         }
     }
 
-    void EndRound()
+    IEnumerator EndRoundAfterDelay(float delay)
     {
+        yield return new WaitForSeconds(delay);
+
         float finalScore = ScoreCalculator.CalculateFinalScore(boardScores);
 
         taskUI.ShowRound1Complete();
