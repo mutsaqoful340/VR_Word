@@ -22,10 +22,19 @@ public class ResultPanel : MonoBehaviour
     // Untuk Round 2 (BENAR / SALAH)
     public void ShowMessageOnly(string message)
     {
-        gameObject.SetActive(true);
+        // pastikan panel benar-benar mati dulu
+        gameObject.SetActive(false);
+
+        // set teks
         scoreText.text = "";
         messageText.text = message;
+
+        // aktifkan lagi
+        gameObject.SetActive(true);
     }
+
+
+
 
     // RESET panel (INI YANG PENTING)
     public void ResetPanel()

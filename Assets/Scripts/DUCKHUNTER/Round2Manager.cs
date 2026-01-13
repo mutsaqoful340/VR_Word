@@ -9,21 +9,25 @@ public class Round2Manager : MonoBehaviour
     public TaskUIManager taskUI;
 
     private bool roundFinished = false;
+    private Coroutine hidePanelCoroutine; // untuk delay SALAH
 
     [Header("Round Config")]
-    public bool isLastRound = false;   // 🔥 FLAG ROUND TERAKHIR
+    public bool isLastRound = false;
 
     [Header("UI Task Text")]
-    public string startTaskText;       // Teks start ronde
-    public string completeTaskText;    // Teks selesai ronde
+    public string startTaskText;
+    public string completeTaskText;
 
     public void StartRound()
     {
         roundFinished = false;
-        StopAllCoroutines();
+
+        StopAllCoroutines(); // aman karena ronde baru
+        hidePanelCoroutine = null;
+
         resultPanel.ResetPanel();
 
-        // ✅ Update UI sesuai ronde
+        // Tampilkan teks start ronde
         taskUI.ShowTask(startTaskText);
 
         foreach (var board in boards)
@@ -37,25 +41,34 @@ public class Round2Manager : MonoBehaviour
     {
         if (roundFinished) return;
 
-        StopAllCoroutines();
-
         if (isCorrect)
         {
             roundFinished = true;
+
+            // Hentikan semua coroutine saat ronde selesai
+            StopAllCoroutines();
+            hidePanelCoroutine = null;
+
             resultPanel.ShowMessageOnly("BENAR");
 
-            // ✅ UI sesuai kondisi round
             if (isLastRound)
                 taskUI.ShowAllRoundsComplete();
             else
-                taskUI.taskText.text = completeTaskText; // Tampilkan teks selesai ronde
+                taskUI.taskText.text = completeTaskText;
 
             StartCoroutine(EndRoundAfterDelay(2f));
         }
         else
         {
+            // Jangan hentikan semua coroutine, cukup hidePanelCoroutine lama
+            if (hidePanelCoroutine != null)
+                StopCoroutine(hidePanelCoroutine);
+
+            // Tampilkan panel SALAH seketika
             resultPanel.ShowMessageOnly("SALAH");
-            StartCoroutine(HidePanelAfterDelay(1.5f));
+
+            // Jalankan coroutine untuk reset panel
+            hidePanelCoroutine = StartCoroutine(HidePanelAfterDelay(1.5f));
         }
     }
 
@@ -63,6 +76,7 @@ public class Round2Manager : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
         resultPanel.ResetPanel();
+        hidePanelCoroutine = null;
     }
 
     IEnumerator EndRoundAfterDelay(float delay)
@@ -72,10 +86,9 @@ public class Round2Manager : MonoBehaviour
         foreach (var board in boards)
             board.gameObject.SetActive(false);
 
-        // 🔥 Flow lama tetap sama
         if (isLastRound)
-            gameRoundManager.OnRound3Finished(); // STOP total
+            gameRoundManager.OnRound3Finished();
         else
-            gameRoundManager.OnRound2Finished(); // lanjut normal
+            gameRoundManager.OnRound2Finished();
     }
 }
