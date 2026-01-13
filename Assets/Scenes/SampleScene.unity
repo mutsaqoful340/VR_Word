@@ -7622,7 +7622,7 @@ PrefabInstance:
     - target: {fileID: 5009291230774786197, guid: 4e62d77baa2a76e4ba080371dadff17e,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.1350001
+      value: 1.195
       objectReference: {fileID: 0}
     - target: {fileID: 5009291230774786197, guid: 4e62d77baa2a76e4ba080371dadff17e,
         type: 3}
@@ -9803,7 +9803,7 @@ PrefabInstance:
     - target: {fileID: 5009291230774786197, guid: 4e62d77baa2a76e4ba080371dadff17e,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.2660002
+      value: 1.3140005
       objectReference: {fileID: 0}
     - target: {fileID: 5009291230774786197, guid: 4e62d77baa2a76e4ba080371dadff17e,
         type: 3}
@@ -18031,7 +18031,7 @@ PrefabInstance:
     - target: {fileID: 5009291230774786197, guid: 4e62d77baa2a76e4ba080371dadff17e,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.1350001
+      value: 1.1830004
       objectReference: {fileID: 0}
     - target: {fileID: 5009291230774786197, guid: 4e62d77baa2a76e4ba080371dadff17e,
         type: 3}
@@ -22025,7 +22025,7 @@ PrefabInstance:
     - target: {fileID: 5009291230774786197, guid: 4e62d77baa2a76e4ba080371dadff17e,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.002
+      value: 1.0619999
       objectReference: {fileID: 0}
     - target: {fileID: 5009291230774786197, guid: 4e62d77baa2a76e4ba080371dadff17e,
         type: 3}
@@ -25303,7 +25303,7 @@ PrefabInstance:
     - target: {fileID: 5009291230774786197, guid: 4e62d77baa2a76e4ba080371dadff17e,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.5360001
+      value: 1.469
       objectReference: {fileID: 0}
     - target: {fileID: 5009291230774786197, guid: 4e62d77baa2a76e4ba080371dadff17e,
         type: 3}
@@ -31926,7 +31926,7 @@ PrefabInstance:
     - target: {fileID: 5009291230774786197, guid: 4e62d77baa2a76e4ba080371dadff17e,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.8650001
+      value: 0.91300046
       objectReference: {fileID: 0}
     - target: {fileID: 5009291230774786197, guid: 4e62d77baa2a76e4ba080371dadff17e,
         type: 3}
@@ -32349,7 +32349,7 @@ PrefabInstance:
     - target: {fileID: 5009291230774786197, guid: 4e62d77baa2a76e4ba080371dadff17e,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.2660002
+      value: 1.3260001
       objectReference: {fileID: 0}
     - target: {fileID: 5009291230774786197, guid: 4e62d77baa2a76e4ba080371dadff17e,
         type: 3}
@@ -37016,7 +37016,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9665f82c6aba3114e9896637d37c1e0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  correctLetter: T1
+  correctLetter: T
   currentLetter: 
 --- !u!65 &1566745411
 BoxCollider:
@@ -41781,7 +41781,7 @@ PrefabInstance:
     - target: {fileID: 5009291230774786197, guid: 4e62d77baa2a76e4ba080371dadff17e,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.5360001
+      value: 1.465
       objectReference: {fileID: 0}
     - target: {fileID: 5009291230774786197, guid: 4e62d77baa2a76e4ba080371dadff17e,
         type: 3}
@@ -50181,7 +50181,7 @@ PrefabInstance:
     - target: {fileID: 5009291230774786197, guid: 4e62d77baa2a76e4ba080371dadff17e,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.002
+      value: 1.0500003
       objectReference: {fileID: 0}
     - target: {fileID: 5009291230774786197, guid: 4e62d77baa2a76e4ba080371dadff17e,
         type: 3}
@@ -62453,7 +62453,7 @@ PrefabInstance:
     - target: {fileID: 5009291230774786197, guid: 4e62d77baa2a76e4ba080371dadff17e,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.8650001
+      value: 0.9250001
       objectReference: {fileID: 0}
     - target: {fileID: 5009291230774786197, guid: 4e62d77baa2a76e4ba080371dadff17e,
         type: 3}
@@ -62528,7 +62528,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 544946afd3e839f41be8bf5f2c475ab1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  letter: T1
+  letter: T
   suaraHuruf: {fileID: 0}
   manager: {fileID: 1697705930}
 --- !u!1 &3274159156198381416

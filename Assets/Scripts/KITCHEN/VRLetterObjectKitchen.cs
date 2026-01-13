@@ -59,5 +59,13 @@ public class VRLetterObjectKitchen : MonoBehaviour
     {
         transform.position = startPos;
         transform.rotation = startRot;
+
+        // Pastikan bisa di-grab lagi
+        if (grab != null)
+            grab.enabled = true;
+
+        // Jika sebelumnya parent diganti, reset ke null
+        transform.parent = null;
     }
+
 }
