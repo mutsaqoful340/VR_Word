@@ -1,31 +1,31 @@
 using UnityEngine;
+using System.Collections;
 
 public class VRPotSystem : MonoBehaviour
 {
     [Header("Urutan Benar")]
     public string[] urutan = { "BAWANG", "CABAI", "TOMAT", "SELEDRI" };
-
     int index = 0;
 
     [Header("Spawn Sup")]
     public GameObject supPrefab;
     public Transform spawnPoint;
 
+    [Header("Efek Sup")]
+    public float idleSpeed = 2f;
+    public float idleHeight = 0.05f;
+
     private void OnTriggerEnter(Collider other)
     {
         VRIngredient ing = other.GetComponent<VRIngredient>();
-
         if (ing == null) return;
 
-        // CEK URUTAN
         if (ing.namaBahan == urutan[index])
         {
             Debug.Log("BENAR: " + ing.namaBahan);
-
-            Destroy(other.gameObject); // masuk panci
+            Destroy(other.gameObject);
             index++;
 
-            // SEMUA SELESAI
             if (index >= urutan.Length)
             {
                 SpawnSup();
@@ -40,7 +40,30 @@ public class VRPotSystem : MonoBehaviour
 
     void SpawnSup()
     {
-        Instantiate(supPrefab, spawnPoint.position, spawnPoint.rotation);
+        GameObject sup = Instantiate(supPrefab, spawnPoint.position, spawnPoint.rotation);
+
+        // PLAY PARTICLE SYSTEM (jika ada)
+        ParticleSystem ps = sup.GetComponentInChildren<ParticleSystem>();
+        if (ps != null)
+        {
+            ps.Play();
+        }
+
+        // IDLE GERAK ATAS BAWAH
+        StartCoroutine(IdleFloat(sup.transform));
+
         Debug.Log("SUP JADI!");
+    }
+
+    IEnumerator IdleFloat(Transform obj)
+    {
+        Vector3 startPos = obj.position;
+
+        while (obj != null)
+        {
+            float yOffset = Mathf.Sin(Time.time * idleSpeed) * idleHeight;
+            obj.position = startPos + new Vector3(0, yOffset, 0);
+            yield return null;
+        }
     }
 }
