@@ -10,13 +10,16 @@ public class GameRoundManager : MonoBehaviour
     public ResultPanel resultPanel;
     public TaskUIManager taskUI;
 
+    [Header("End Game Prefab")]
+    public GameObject endGamePrefab;          // prefab yang mau muncul
+    public Transform spawnPoint;               // posisi spawn (opsional)
+
     void Start()
     {
         round1.gameObject.SetActive(true);
         round2.gameObject.SetActive(false);
         round3.gameObject.SetActive(false);
 
-        // 🔥 TANDAI ROUND 3 SEBAGAI TERAKHIR
         round3.isLastRound = true;
 
         taskUI.ShowRound1Start();
@@ -62,9 +65,30 @@ public class GameRoundManager : MonoBehaviour
 
         taskUI.ShowAllRoundsComplete();
 
-        // 🔒 MATIKAN SEMUA ROUND
+        // 🔒 Matikan semua ronde
         round1.gameObject.SetActive(false);
         round2.gameObject.SetActive(false);
         round3.gameObject.SetActive(false);
+
+        // ⭐ MUNCULKAN PREFAB END GAME
+        SpawnEndGamePrefab();
+    }
+
+    void SpawnEndGamePrefab()
+    {
+        if (endGamePrefab == null)
+        {
+            Debug.LogWarning("End Game Prefab belum di-assign!");
+            return;
+        }
+
+        if (spawnPoint != null)
+        {
+            Instantiate(endGamePrefab, spawnPoint.position, spawnPoint.rotation);
+        }
+        else
+        {
+            Instantiate(endGamePrefab, Vector3.zero, Quaternion.identity);
+        }
     }
 }
