@@ -14,7 +14,7 @@ public class PlantBoxTrigger : MonoBehaviour
 
     // ===== SHARED (GABUNGAN SEMUA BOX) =====
     public static int totalCurrent = 0;
-    public static int totalTarget = 6;   // TOTAL GABUNGAN
+    public static int totalTarget = 20;   // TOTAL GABUNGAN
     private static bool cardUnlocked = false;
 
     // ===== PER BOX =====
@@ -41,6 +41,23 @@ public class PlantBoxTrigger : MonoBehaviour
         if (boxAnimator != null)
             boxAnimator.SetTrigger("Close");
     }
+
+    
+
+
+    void CompletePlantBox()
+    {
+        isCompleted = true;
+
+        if (boxAnimator != null)
+            boxAnimator.SetTrigger("Complete");
+    }
+
+    public bool IsCompleted()
+    {
+        return isCompleted;
+    }
+
 
     private void OnTriggerEnter(Collider other)
     {
@@ -72,13 +89,7 @@ public class PlantBoxTrigger : MonoBehaviour
         Destroy(other.gameObject);
     }
 
-    void CompletePlantBox()
-    {
-        isCompleted = true;
-
-        if (boxAnimator != null)
-            boxAnimator.SetTrigger("Complete");
-    }
+    
 
     // ===== OPTIONAL: RESET SAAT LEVEL DIULANG =====
     public static void ResetGlobal()
