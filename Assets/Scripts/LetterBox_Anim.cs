@@ -31,6 +31,11 @@ public class LetterBox_Anim : MonoBehaviour
     public PhysicMaterial bouncyMaterial;
     public float despawnDelay = 1.5f;
 
+    [Header("Trigger Delays")]
+    public float onTriggerEnterDelay = 0.1f;
+    [Tooltip("Grace period before objects drop after player exits. Re-entering cancels the timer.")]
+    public float exitGracePeriod = 2.0f;
+
     private List<GameObject> spawnedLSObjects = new List<GameObject>();
     private List<GameObject> spawnedLBObjects = new List<GameObject>();
     private List<GameObject> spawnedArrowObjects = new List<GameObject>();
@@ -43,6 +48,7 @@ public class LetterBox_Anim : MonoBehaviour
     private bool puzzleTriggered = false;
     private Dictionary<GameObject, bool> arrowGrabbed = new Dictionary<GameObject, bool>();
     private bool arrowFollowingEnabled = true;
+    private Coroutine exitTimerCoroutine = null;
 
     void Start()
     {
@@ -170,13 +176,21 @@ public class LetterBox_Anim : MonoBehaviour
         // Check if it's the player or a child of the player
         if (other.CompareTag("Player") || other.transform.root.CompareTag("Player") || other.CompareTag("PlayerHand"))
         {
+            // Cancel exit timer if player re-enters before objects drop
+            if (exitTimerCoroutine != null)
+            {
+                StopCoroutine(exitTimerCoroutine);
+                exitTimerCoroutine = null;
+                Debug.Log("Player re-entered. Exit timer cancelled.");
+            }
+            
             // Only spawn once
             if (!hasSpawned)
             {
                 hasSpawned = true;
-                StartCoroutine(SpawnArrowsWithDelay(0.1f));
-                StartCoroutine(SpawnLSWithDelay(0.1f));
-                StartCoroutine(SpawnLBWithDelay(0.1f));
+                StartCoroutine(SpawnArrowsWithDelay(onTriggerEnterDelay));
+                StartCoroutine(SpawnLSWithDelay(onTriggerEnterDelay));
+                StartCoroutine(SpawnLBWithDelay(onTriggerEnterDelay));
                 Debug.Log("Player entered the word container trigger.");
             }
         }
@@ -187,9 +201,24 @@ public class LetterBox_Anim : MonoBehaviour
         // Check if it's the player or a child of the player
         if (other.CompareTag("Player") || other.transform.root.CompareTag("Player") || other.CompareTag("PlayerHand"))
         {
-            StartCoroutine(EnableRagdollWithDelay(0.1f));
-            hasSpawned = false;
+            // Start grace period timer - player has time to re-enter before objects drop
+            if (exitTimerCoroutine == null)
+            {
+                exitTimerCoroutine = StartCoroutine(ExitGracePeriodTimer());
+                Debug.Log($"Player exited. Starting {exitGracePeriod}s grace period timer.");
+            }
         }
+    }
+    
+    IEnumerator ExitGracePeriodTimer()
+    {
+        yield return new WaitForSeconds(exitGracePeriod);
+        
+        // Timer completed - player didn't re-enter, so drop all objects
+        Debug.Log("Grace period expired. Dropping objects.");
+        StartCoroutine(EnableRagdollWithDelay(0.1f));
+        hasSpawned = false;
+        exitTimerCoroutine = null;
     }
 
     IEnumerator SpawnArrowsWithDelay(float delay)
