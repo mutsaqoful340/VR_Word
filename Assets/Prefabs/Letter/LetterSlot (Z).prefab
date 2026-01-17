@@ -118,7 +118,7 @@ GameObject:
   - component: {fileID: 984204033290318023}
   - component: {fileID: 6123071099982702808}
   m_Layer: 0
-  m_Name: LetterSlot (D)
+  m_Name: LetterSlot (Z)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -229,7 +229,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d48556e448b0b448b0816c9c69cb7cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  letter: D
+  letter: Z
 --- !u!114 &984204033290318023
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -516,7 +516,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: C
+  m_text: W
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4db4ba8c77739a642b017ec5230583a0, type: 2}
   m_sharedMaterial: {fileID: 2957762330698549035, guid: 4db4ba8c77739a642b017ec5230583a0,

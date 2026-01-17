@@ -235,6 +235,34 @@ public class NPCMoveByWaypoints : MonoBehaviour
         {
             dialogController.SetStage(DialogStage.Stage5);
         }
+        else if (dialogController.currentStage == DialogStage.Stage5)
+        {
+            dialogController.SetStage(DialogStage.Stage6);
+        }
+        else if (dialogController.currentStage == DialogStage.Stage6)
+        {
+            dialogController.SetStage(DialogStage.Stage7);
+        }
+        else if (dialogController.currentStage == DialogStage.Stage7)
+        {
+            dialogController.SetStage(DialogStage.Stage8);
+        }
+        else if (dialogController.currentStage == DialogStage.Stage8)
+        {
+            dialogController.SetStage(DialogStage.Stage9);
+        }
+        else if (dialogController.currentStage == DialogStage.Stage9)
+        {
+            dialogController.SetStage(DialogStage.Stage10);
+        }
+        else if (dialogController.currentStage == DialogStage.Stage10)
+        {
+            dialogController.SetStage(DialogStage.Stage11);
+        }
+        else if (dialogController.currentStage == DialogStage.Stage11)
+        {
+            dialogController.SetStage(DialogStage.Stage12);
+        }
 
         Debug.Log("NPC berhenti & lanjut ke stage berikutnya");
     }
