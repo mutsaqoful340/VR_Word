@@ -10,10 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a631a7b93868a8d40a125c39eab62ee8, type: 3}
-  m_Name: Stage1_3KamuSiapa
+  m_Name: Stage1_3
   m_EditorClassIdentifier: 
   lines:
-  - text: Aku Arisa Batubata. Aku akan menemanimu.
+  - text: "It\u2019s 12:30. By the way, Ms. Viky\u2019s presentation class starts
+      in 15 minutes,"
+    delayAfter: 0
+  - text: "so let\u2019s speedrun this escape and get out before we\u2019re officially
+      doomed."
     delayAfter: 0
   startSound: {fileID: 0}
   endSound: {fileID: 0}

@@ -27,7 +27,51 @@ public class DialogueButtonManager : MonoBehaviour
     
     public UnityEvent AllButtonsClicked;
 
+    public UnityEvent DialogueOnStageStart;
+
     private bool hasInvokedEvent = false;
+    private bool hasInvokedStageStart = false;
+
+    void OnEnable()
+    {
+        Debug.Log($"⚠️ DialogueButtonManager.OnEnable() called on '{gameObject.name}' - Active: {gameObject.activeInHierarchy}");
+        
+        // Use coroutine to check if we're still active after one frame (avoids initialization flicker)
+        StartCoroutine(CheckAndInvokeStageStart());
+    }
+    
+    private IEnumerator CheckAndInvokeStageStart()
+    {
+        // Wait one frame to let initialization complete
+        yield return null;
+        
+        // Only invoke if we're still active and haven't invoked yet
+        if (gameObject.activeInHierarchy && !hasInvokedStageStart)
+        {
+            hasInvokedStageStart = true;
+            Debug.Log($"✅ DialogueButtonManager: Stage REALLY started on '{gameObject.name}', invoking DialogueOnStageStart");
+            DialogueOnStageStart?.Invoke();
+        }
+        else
+        {
+            Debug.Log($"⏭️ DialogueButtonManager: Skipping DialogueOnStageStart on '{gameObject.name}' (inactive or already invoked)");
+        }
+    }
+    
+    void OnDisable()
+    {
+        Debug.Log($"❌ DialogueButtonManager.OnDisable() called on '{gameObject.name}'");
+        // Reset flag when disabled so it can play again if re-enabled
+        hasInvokedStageStart = false;
+    }
+
+    // void Start()
+    // {
+    //     if (gameObject.activeInHierarchy)
+    //     {
+    //         DialogueOnStageStart?.Invoke();
+    //     }
+    // }
 
     public void isClicked(DialogueButton button)
     {

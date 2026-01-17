@@ -38,13 +38,18 @@ public class SubtitleSystem : MonoBehaviour
 
     void Awake()
     {
-
+        Debug.Log($"SubtitleSystem.Awake() called on GameObject: {gameObject.name}");
+        
         layoutGuideText = GetComponent<TMP_Text>();
         if (layoutGuideText == null)
         {
-            Debug.LogError("SubtitleSystem needs a TMP_Text component on the same GameObject!");
+            Debug.LogError($"SubtitleSystem on GameObject '{gameObject.name}' needs a TMP_Text component on the same GameObject! Please add a TextMeshPro - Text component.");
         }
-        layoutGuideText.color = new Color(0, 0, 0, 0);
+        else
+        {
+            layoutGuideText.color = new Color(0, 0, 0, 0);
+            Debug.Log($"SubtitleSystem.Awake() on '{gameObject.name}': TMP_Text found and initialized ✓");
+        }
     }
 
     void Update()
@@ -62,7 +67,39 @@ public class SubtitleSystem : MonoBehaviour
 
     public void StartSubtitle(string text, System.Action onComplete = null)
     {
+        Debug.Log($"SubtitleSystem.StartSubtitle() called on '{gameObject.name}' with text: '{text}'");
+        
         if (isSubtitleActive) return;
+        
+        // Lazy initialization if Awake hasn't run yet
+        if (layoutGuideText == null)
+        {
+            Debug.LogWarning($"SubtitleSystem on '{gameObject.name}': layoutGuideText was null, attempting to get component now...");
+            layoutGuideText = GetComponent<TMP_Text>();
+            if (layoutGuideText != null)
+            {
+                layoutGuideText.color = new Color(0, 0, 0, 0);
+                Debug.Log($"SubtitleSystem on '{gameObject.name}': Successfully initialized layoutGuideText ✓");
+            }
+        }
+        
+        // Validate required components
+        if (letterPrefab == null)
+        {
+            Debug.LogError($"SubtitleSystem on '{gameObject.name}': letterPrefab is not assigned! Please assign it in the Inspector.");
+            onComplete?.Invoke();
+            return;
+        }
+        
+        if (layoutGuideText == null)
+        {
+            Debug.LogError($"SubtitleSystem on '{gameObject.name}': layoutGuideText (TMP_Text) is missing even after trying to get it!");
+            Debug.LogError($"GameObject '{gameObject.name}' has TMP_Text: {(GetComponent<TMP_Text>() != null ? "YES" : "NO")}");
+            onComplete?.Invoke();
+            return;
+        }
+        
+        Debug.Log($"SubtitleSystem on '{gameObject.name}': All checks passed, starting coroutine ✓");
         StartCoroutine(SpawnLetters(text, onComplete));
     }
 
@@ -83,8 +120,15 @@ public class SubtitleSystem : MonoBehaviour
 
             yield return new WaitForSeconds(perLetterRevealDelay);
 
+            // Get X position from character, but Y from the line's baseline for consistency
             float midX = (charInfo.vertex_BL.position.x + charInfo.vertex_BR.position.x) / 2f;
-            Vector3 localPos = new Vector3(midX, 0, 0);
+            
+            // Use the line info to get consistent Y position for all chars on same line
+            int lineIndex = charInfo.lineNumber;
+            TMP_LineInfo lineInfo = textInfo.lineInfo[lineIndex];
+            float lineY = lineInfo.baseline; // Use baseline for consistent alignment
+            
+            Vector3 localPos = new Vector3(midX, lineY, 0);
             Vector3 worldPos = transform.TransformPoint(localPos);
 
             GameObject letterInstance = Instantiate(letterPrefab, worldPos, this.transform.rotation);

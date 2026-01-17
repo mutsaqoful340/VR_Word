@@ -58,7 +58,7 @@ Rigidbody:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 224
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
@@ -79,13 +79,13 @@ BoxCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 224
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.027209267, y: 0.032146312, z: 0.0018007006}
+  m_Size: {x: 0.010428012, y: 0.022867773, z: 0.0018007006}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &7074660675222186376
 MonoBehaviour:
@@ -107,7 +107,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: A
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4db4ba8c77739a642b017ec5230583a0, type: 2}
   m_sharedMaterial: {fileID: 2957762330698549035, guid: 4db4ba8c77739a642b017ec5230583a0,

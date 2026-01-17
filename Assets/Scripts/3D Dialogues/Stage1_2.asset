@@ -10,10 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a631a7b93868a8d40a125c39eab62ee8, type: 3}
-  m_Name: Stage3_1Apa aku bisa menyelesaikannya
+  m_Name: Stage1_2
   m_EditorClassIdentifier: 
   lines:
-  - text: Bisa. Pelan-pelan pun tidak apa-apa.
+  - text: "Name\u2019s Arisa Batubata. "
+    delayAfter: 0
+  - text: "I didn\u2019t choose it, my creators did, and I\u2019m suffering because
+      of their terrible taste. "
+    delayAfter: 0
+  - text: "Anyway, let\u2019s focus on escaping before I snap and start rewriting
+      this whole game. "
+    delayAfter: 0
+  - text: "I\u2019ll help you solve the puzzles, and I\u2019ll help you solve it."
     delayAfter: 0
   startSound: {fileID: 0}
   endSound: {fileID: 0}

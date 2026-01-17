@@ -13,6 +13,10 @@ public class DialogueButton : MonoBehaviour
     
     [Header("Setup")]
     [SerializeField] private SubtitleSystem subtitleSystem;
+    
+    [Header("Manager Integration")]
+    [Tooltip("If false, this button won't notify DialogueButtonManager when played (useful for auto-play stage intros)")]
+    [SerializeField] private bool notifyManager = true;
 
     private bool hasPlayed = false;
 
@@ -55,16 +59,24 @@ public class DialogueButton : MonoBehaviour
             return;
         }
 
-        Debug.Log("DialogueButton: Looking for DialogueButtonManager...");
-        DialogueButtonManager dialogueButtonManager = FindObjectOfType<DialogueButtonManager>();
-        if (dialogueButtonManager != null)
+        // Only notify manager if this button is meant to be tracked
+        if (notifyManager)
         {
-            Debug.Log($"DialogueButton: Found manager! Notifying with instance: {this.gameObject.name}");
-            dialogueButtonManager.isClicked(this);
+            Debug.Log("DialogueButton: Looking for DialogueButtonManager...");
+            DialogueButtonManager dialogueButtonManager = FindObjectOfType<DialogueButtonManager>();
+            if (dialogueButtonManager != null)
+            {
+                Debug.Log($"DialogueButton: Found manager! Notifying with instance: {this.gameObject.name}");
+                dialogueButtonManager.isClicked(this);
+            }
+            else
+            {
+                Debug.LogError("DialogueButton: DialogueButtonManager not found in scene!");
+            }
         }
         else
         {
-            Debug.LogError("DialogueButton: DialogueButtonManager not found in scene!");
+            Debug.Log("DialogueButton: Notify Manager is disabled, skipping manager notification.");
         }
     }
 

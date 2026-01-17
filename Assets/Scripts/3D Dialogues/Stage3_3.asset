@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a631a7b93868a8d40a125c39eab62ee8, type: 3}
-  m_Name: Stage4_1AMBA
+  m_Name: Stage3_3
   m_EditorClassIdentifier: 
   lines:
-  - text: Bukan akhir. Ini awal yang lebih tenang.
+  - text: Kita lanjut ke tantangan berikutnya.
     delayAfter: 0
   startSound: {fileID: 0}
   endSound: {fileID: 0}
