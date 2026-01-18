@@ -9,6 +9,7 @@ TagManager:
   - LetterSlot
   - Bullet
   - Pot
+  - Card
   layers:
   - Default
   - TransparentFX

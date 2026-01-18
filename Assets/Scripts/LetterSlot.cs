@@ -11,10 +11,18 @@ public class LetterSlot : MonoBehaviour
 
     public bool isFilled => !string.IsNullOrEmpty(currentLetter);
 
+    private WorldPuzzle assignedPuzzle = null;
+
     void Start()
     {
         // Register with WorldPuzzle
-        if (WorldPuzzle.Instance != null)
+        if (assignedPuzzle != null)
+        {
+            // Use manually assigned puzzle
+            assignedPuzzle.RegisterSlot(this);
+            Debug.Log($"Slot {slotIndex} registered to assigned puzzle: {assignedPuzzle.gameObject.name}");
+        }
+        else if (WorldPuzzle.Instance != null)
         {
             WorldPuzzle.Instance.RegisterSlot(this);
         }
@@ -26,10 +34,26 @@ public class LetterSlot : MonoBehaviour
         UpdateDotIndicator();
     }
 
+    // Call this to manually assign which WorldPuzzle to register to
+    public void SetWorldPuzzle(WorldPuzzle puzzle)
+    {
+        assignedPuzzle = puzzle;
+        // If already started, register now
+        if (gameObject.activeInHierarchy && enabled)
+        {
+            puzzle.RegisterSlot(this);
+            Debug.Log($"Slot {slotIndex} manually registered to: {puzzle.gameObject.name}");
+        }
+    }
+
     void OnDestroy()
     {
         // Unregister when destroyed
-        if (WorldPuzzle.Instance != null)
+        if (assignedPuzzle != null)
+        {
+            assignedPuzzle.UnregisterSlot(this);
+        }
+        else if (WorldPuzzle.Instance != null)
         {
             WorldPuzzle.Instance.UnregisterSlot(this);
         }

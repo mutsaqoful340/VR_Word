@@ -36,6 +36,14 @@ public class LetterBox_Anim : MonoBehaviour
     [Tooltip("Grace period before objects drop after player exits. Re-entering cancels the timer.")]
     public float exitGracePeriod = 2.0f;
 
+    [Header("Final Door Mode")]
+    [Tooltip("If checked, objects spawn immediately, don't fall, arrows are hidden, and door opens when word is correct.")]
+    public bool isFinalDoor = false;
+    public WorldPuzzle worldPuzzle;
+    public DoorController doorController;
+    [Tooltip("How often to check if word is correct (in seconds) when in Final Door mode")]
+    public float wordCheckInterval = 0.5f;
+
     private List<GameObject> spawnedLSObjects = new List<GameObject>();
     private List<GameObject> spawnedLBObjects = new List<GameObject>();
     private List<GameObject> spawnedArrowObjects = new List<GameObject>();
@@ -49,10 +57,44 @@ public class LetterBox_Anim : MonoBehaviour
     private Dictionary<GameObject, bool> arrowGrabbed = new Dictionary<GameObject, bool>();
     private bool arrowFollowingEnabled = true;
     private Coroutine exitTimerCoroutine = null;
+    private Coroutine wordCheckCoroutine = null;
+    private bool doorOpened = false;
 
     void Start()
     {
+        // Validate worldPuzzle is assigned
+        if (worldPuzzle == null)
+        {
+            Debug.LogError("WorldPuzzle is not assigned! Please assign it in the Inspector.");
+        }
+        
+        // If in Final Door mode, spawn everything immediately
+        if (isFinalDoor)
+        {
+            if (doorController == null)
+            {
+                Debug.LogError("Final Door Mode is enabled but DoorController is not assigned! Please assign the door in the Inspector.");
+            }
+            
+            if (worldPuzzle != null)
+            {
+                // Make sure the worldPuzzle is enabled and set as Instance so slots can register
+                worldPuzzle.gameObject.SetActive(true);
+                Debug.Log($"Final Door Mode: WorldPuzzle set active - {worldPuzzle.gameObject.name}");
+            }
+            
+            hasSpawned = true;
+            // Add a small delay to ensure WorldPuzzle.Start() runs first and Instance is set
+            StartCoroutine(SpawnObjectsForFinalDoorDelayed());
+        }
         // Arrow setup will happen when they spawn in SpawnArrowsWithDelay
+    }
+    
+    IEnumerator SpawnObjectsForFinalDoorDelayed()
+    {
+        // Wait one frame to ensure WorldPuzzle's Start() has run
+        yield return null;
+        yield return StartCoroutine(SpawnObjectsForFinalDoor());
     }
 
     public void OnArrowGrabbed(GameObject arrow)
@@ -107,14 +149,18 @@ public class LetterBox_Anim : MonoBehaviour
 
     void Update()
     {
-        // Check arrow distances if enabled and puzzle not yet triggered
-        if (arrowDistanceChecking && !puzzleTriggered)
+        // In Final Door mode, don't check arrow distances or follow pivots
+        if (!isFinalDoor)
         {
-            CheckArrowDistances();
+            // Check arrow distances if enabled and puzzle not yet triggered
+            if (arrowDistanceChecking && !puzzleTriggered)
+            {
+                CheckArrowDistances();
+            }
+            
+            // Make arrows follow their pivots when not grabbed
+            FollowPivotsWhenNotGrabbed();
         }
-        
-        // Make arrows follow their pivots when not grabbed
-        FollowPivotsWhenNotGrabbed();
     }
 
     void FollowPivotsWhenNotGrabbed()
@@ -154,12 +200,12 @@ public class LetterBox_Anim : MonoBehaviour
                     SnapArrowToPivot(arrow);
                     
                     // Check if puzzle is correct before solving
-                    if (WorldPuzzle.Instance != null && WorldPuzzle.Instance.CheckPuzzle())
+                    if (worldPuzzle != null && worldPuzzle.CheckPuzzle())
                     {
                         Debug.Log("Puzzle is correct! Solving...");
                         puzzleTriggered = true;
                         arrowDistanceChecking = false;
-                        WorldPuzzle.Instance.SolvePuzzle();
+                        worldPuzzle.SolvePuzzle();
                         break;
                     }
                     else
@@ -173,6 +219,9 @@ public class LetterBox_Anim : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
+        // Skip trigger logic if in Final Door mode (objects already spawned)
+        if (isFinalDoor) return;
+
         // Check if it's the player or a child of the player
         if (other.CompareTag("Player") || other.transform.root.CompareTag("Player") || other.CompareTag("PlayerHand"))
         {
@@ -198,6 +247,9 @@ public class LetterBox_Anim : MonoBehaviour
 
     public void OnTriggerExit(Collider other)
     {
+        // Skip trigger logic if in Final Door mode
+        if (isFinalDoor) return;
+
         // Check if it's the player or a child of the player
         if (other.CompareTag("Player") || other.transform.root.CompareTag("Player") || other.CompareTag("PlayerHand"))
         {
@@ -271,6 +323,8 @@ public class LetterBox_Anim : MonoBehaviour
         // Spawn each prefab at matching spawn point
         int count = Mathf.Min(LS_Prefabs.Length, LS_SpawnPoints.Length);
         
+        Debug.Log($"Spawning {count} LS objects (slots) in normal mode...");
+        
         for (int i = 0; i < count; i++)
         {
             if (LS_Prefabs[i] != null && LS_SpawnPoints[i] != null)
@@ -278,6 +332,14 @@ public class LetterBox_Anim : MonoBehaviour
                 // Spawn the object
                 GameObject spawnedObj = Instantiate(LS_Prefabs[i], LS_SpawnPoints[i].position, LS_SpawnPoints[i].rotation);
                 spawnedLSObjects.Add(spawnedObj);
+                Debug.Log($"Spawned LS object {i}: {spawnedObj.name}");
+
+                // Manually assign the worldPuzzle to each slot
+                LetterSlot slot = spawnedObj.GetComponent<LetterSlot>();
+                if (slot != null && worldPuzzle != null)
+                {
+                    slot.SetWorldPuzzle(worldPuzzle);
+                }
 
                 // Play animation immediately if animator exists
                 Animator anim = spawnedObj.GetComponent<Animator>();
@@ -289,6 +351,16 @@ public class LetterBox_Anim : MonoBehaviour
 
                 yield return new WaitForSeconds(delay);
             }
+        }
+        
+        Debug.Log("All LS objects spawned. Checking WorldPuzzle reference...");
+        if (worldPuzzle != null)
+        {
+            Debug.Log($"WorldPuzzle reference found: {worldPuzzle.gameObject.name}");
+        }
+        else
+        {
+            Debug.LogError("WorldPuzzle reference is NULL! Please assign it in the Inspector. Slots won't work properly!");
         }
     }
 
@@ -416,5 +488,130 @@ public class LetterBox_Anim : MonoBehaviour
         
         // Make all spawned objects fall
         StartCoroutine(EnableRagdollWithDelay(0.1f));
+    }
+
+    // Spawns all objects for Final Door mode
+    IEnumerator SpawnObjectsForFinalDoor()
+    {
+        Debug.Log("Final Door Mode: Spawning objects immediately...");
+        
+        // Spawn LS objects without delay, with kinematic rigidbodies
+        int lsCount = Mathf.Min(LS_Prefabs.Length, LS_SpawnPoints.Length);
+        for (int i = 0; i < lsCount; i++)
+        {
+            if (LS_Prefabs[i] != null && LS_SpawnPoints[i] != null)
+            {
+                GameObject spawnedObj = Instantiate(LS_Prefabs[i], LS_SpawnPoints[i].position, LS_SpawnPoints[i].rotation);
+                spawnedLSObjects.Add(spawnedObj);
+
+                // Manually assign the worldPuzzle to each slot
+                LetterSlot slot = spawnedObj.GetComponent<LetterSlot>();
+                if (slot != null && worldPuzzle != null)
+                {
+                    slot.SetWorldPuzzle(worldPuzzle);
+                }
+
+                // Make it kinematic so it doesn't fall
+                Rigidbody rb = spawnedObj.GetComponent<Rigidbody>();
+                if (rb == null)
+                {
+                    rb = spawnedObj.AddComponent<Rigidbody>();
+                }
+                rb.isKinematic = true;
+                rb.useGravity = false;
+
+                // Enable animator
+                Animator anim = spawnedObj.GetComponent<Animator>();
+                if (anim != null)
+                {
+                    anim.enabled = true;
+                }
+            }
+        }
+
+        // Spawn LB objects without delay, with kinematic rigidbodies
+        int lbCount = Mathf.Min(LB_Prefabs.Length, LB_SpawnPoints.Length);
+        for (int i = 0; i < lbCount; i++)
+        {
+            if (LB_Prefabs[i] != null && LB_SpawnPoints[i] != null)
+            {
+                GameObject spawnedObj = Instantiate(LB_Prefabs[i], LB_SpawnPoints[i].position, LB_SpawnPoints[i].rotation);
+                spawnedLBObjects.Add(spawnedObj);
+
+                // Make it kinematic so it doesn't fall
+                Rigidbody rb = spawnedObj.GetComponent<Rigidbody>();
+                if (rb == null)
+                {
+                    rb = spawnedObj.AddComponent<Rigidbody>();
+                }
+                rb.isKinematic = true;
+                rb.useGravity = false;
+
+                // Enable animator
+                Animator anim = spawnedObj.GetComponent<Animator>();
+                if (anim != null)
+                {
+                    anim.enabled = true;
+                }
+            }
+        }
+
+        // Don't spawn arrows - they're not needed in Final Door mode
+        Debug.Log("Final Door Mode: Arrows not spawned (not needed).");
+
+        yield return null;
+
+        // Start checking the word periodically
+        if (wordCheckCoroutine == null)
+        {
+            wordCheckCoroutine = StartCoroutine(CheckWordPeriodically());
+        }
+    }
+
+    // Continuously check if the word is correct in Final Door mode
+    IEnumerator CheckWordPeriodically()
+    {
+        Debug.Log("Final Door Mode: Starting periodic word check...");
+        
+        while (!doorOpened)
+        {
+            yield return new WaitForSeconds(wordCheckInterval);
+
+            // Check if puzzle is correct using the direct reference
+            if (worldPuzzle != null && worldPuzzle.CheckPuzzle())
+            {
+                Debug.Log("Final Door Mode: Word is correct! Opening door...");
+                OpenDoorDirectly();
+                doorOpened = true;
+                break;
+            }
+        }
+    }
+
+    // Open the door directly without spawning a key
+    void OpenDoorDirectly()
+    {
+        if (doorController != null)
+        {
+            // Directly trigger the door animation
+            if (doorController.doorAnimator != null)
+            {
+                doorController.doorAnimator.SetTrigger("Open");
+                Debug.Log("Final Door Mode: Door opened!");
+            }
+
+            // Play door sound if available
+            if (doorController.doorAudioSource != null)
+            {
+                doorController.doorAudioSource.Play();
+            }
+
+            // Invoke door opened events
+            doorController.onDoorOpened?.Invoke();
+        }
+        else
+        {
+            Debug.LogWarning("Final Door Mode: DoorController not assigned! Cannot open door.");
+        }
     }
 }

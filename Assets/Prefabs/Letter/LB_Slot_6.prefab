@@ -132,7 +132,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3588630f9f07b6e408c7d2857dac8f6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slotIndex: 2
+  slotIndex: 6
   currentLetter: 
   snapPoint: {fileID: 790110970534277699}
   dotIndicator: {fileID: 3283747094620920134}
