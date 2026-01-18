@@ -13,7 +13,14 @@ MonoBehaviour:
   m_Name: Stage2_1
   m_EditorClassIdentifier: 
   lines:
-  - text: Susun huruf-huruf itu jadi kata yang benar.
+  - text: 'Of course not. '
+    delayAfter: 0
+  - text: "We\u2019re designed to solve the problem. "
+    delayAfter: 0
+  - text: 'If we tried to leave, everything would collapse; '
+    delayAfter: 0
+  - text: You, me, the creator, and even their grades would drop just because we
+      tried to run away.
     delayAfter: 0
   startSound: {fileID: 0}
   endSound: {fileID: 0}

@@ -13,7 +13,18 @@ MonoBehaviour:
   m_Name: Stage3_1
   m_EditorClassIdentifier: 
   lines:
-  - text: Bisa. Pelan-pelan pun tidak apa-apa.
+  - text: "Alright, let\u2019s see if we can open this blue door and find out what
+      fun game is waiting inside. "
+    delayAfter: 0
+  - text: "I\u2019ll give you a scrambled word that\u2019s related to what you\u2019ll
+      find in there. "
+    delayAfter: 0
+  - text: "Try unscramble these letters: \u2018T R A E T G.\u2019"
+    delayAfter: 0
+  - text: "Take your time\u2014if the letters start jumping around, just focus on
+      one at a time. "
+    delayAfter: 0
+  - text: Once you solve it, the door is all yours.
     delayAfter: 0
   startSound: {fileID: 0}
   endSound: {fileID: 0}

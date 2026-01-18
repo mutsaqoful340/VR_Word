@@ -13,7 +13,15 @@ MonoBehaviour:
   m_Name: Stage3_2
   m_EditorClassIdentifier: 
   lines:
-  - text: Karena otakmu bekerja dengan caranya sendiri.
+  - text: 'Seriously? Did you not hear me earlier? '
+    delayAfter: 0
+  - text: "This whole VR is designed to help with dyslexia or to test if you have
+      it. That\u2019s why everything is a word puzzle. "
+    delayAfter: 0
+  - text: 'These floating letters are basically the ''mechanic'' of this world. '
+    delayAfter: 0
+  - text: "So stop complaining and just keep unscrambling\u2014unless you want to
+      be stuck here when Ms. Viky\u2019s class starts!"
     delayAfter: 0
   startSound: {fileID: 0}
   endSound: {fileID: 0}

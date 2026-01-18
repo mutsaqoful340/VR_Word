@@ -10,17 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a631a7b93868a8d40a125c39eab62ee8, type: 3}
-  m_Name: Stage3_3
+  m_Name: Stage4_0
   m_EditorClassIdentifier: 
   lines:
-  - text: "Ugh, fine, I\u2019ll explain it since you\u2019re clearly struggling. "
+  - text: 'OH.. the Shooting Duck room! '
     delayAfter: 0
-  - text: 'Dyslexia is just a different way the brain processes language. '
+  - text: 'I used to come here all the time when I was bored. '
     delayAfter: 0
-  - text: "It makes reading, spelling, and unscrambling letters\u2014like what you\u2019re
-      doing right now\u2014a lot harder because the letters like to dance around. "
-    delayAfter: 0
-  - text: "That\u2019s why this whole VR is a giant word puzzle!"
+  - text: "Don't underestimate me\u2014my aim is basically aimbot."
     delayAfter: 0
   startSound: {fileID: 0}
   endSound: {fileID: 0}

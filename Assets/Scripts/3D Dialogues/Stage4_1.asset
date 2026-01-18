@@ -13,7 +13,12 @@ MonoBehaviour:
   m_Name: Stage4_1
   m_EditorClassIdentifier: 
   lines:
-  - text: Bukan akhir. Ini awal yang lebih tenang.
+  - text: "Yep\u2014Shooting Duck Room. "
+    delayAfter: 0
+  - text: 'Get the Card Key. Shoot ducks with the correct spelling for points. '
+    delayAfter: 0
+  - text: "Some ducks have letters that swapped on purpose, so\u2026 maybe you can
+      \u2018accidentally\u2019 shoot those."
     delayAfter: 0
   startSound: {fileID: 0}
   endSound: {fileID: 0}

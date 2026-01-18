@@ -13,7 +13,15 @@ MonoBehaviour:
   m_Name: Stage2_2
   m_EditorClassIdentifier: 
   lines:
-  - text: Tidak apa-apa salah. Kita coba lagi.
+  - text: "Honestly, I don\u2019t really know why I\u2019m placed here. "
+    delayAfter: 0
+  - text: 'What I do know is that this VR is designed to help with dyslexia or to
+      figure out if you have it or not. '
+    delayAfter: 0
+  - text: "But beyond that, I don\u2019t really know either; ."
+    delayAfter: 0
+  - text: "I\u2019m just here to help you, and they didn\u2019t give me any more
+      information about why I\u2019m here"
     delayAfter: 0
   startSound: {fileID: 0}
   endSound: {fileID: 0}

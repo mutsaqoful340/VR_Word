@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Stage5_1
   m_EditorClassIdentifier: 
   lines:
-  - text: Pistol ini akan membantumu fokus.
-    delayAfter: 0
+  - text: New dialogue line...
+    delayAfter: 0.5
   startSound: {fileID: 0}
   endSound: {fileID: 0}

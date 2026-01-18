@@ -10,10 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a631a7b93868a8d40a125c39eab62ee8, type: 3}
-  m_Name: Stage4_2
+  m_Name: Stage4_3
   m_EditorClassIdentifier: 
   lines:
-  - text: The prizes? Card Key, of course. What else?
-    delayAfter: 0
+  - text: "Excuse you? You\u2019re the one desperate to get out, so why am I doing
+      the heavy lifting? "
+    delayAfter: 0.5
+  - text: "I\u2019m just the guide. If I did everything for you, it wouldn\u2019t
+      exactly be a challenge, would it? "
+    delayAfter: 0.5
+  - text: Now quit the commentary and start shooting.
+    delayAfter: 0.5
   startSound: {fileID: 0}
   endSound: {fileID: 0}
