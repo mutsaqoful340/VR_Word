@@ -20,5 +20,5 @@ MonoBehaviour:
   - text: "Some ducks have letters that swapped on purpose, so\u2026 maybe you can
       \u2018accidentally\u2019 shoot those."
     delayAfter: 0
-  startSound: {fileID: 0}
+  startSound: {fileID: 8300000, guid: 01e368d7397d7dd41a24ff58ca82efa2, type: 3}
   endSound: {fileID: 0}

@@ -15,5 +15,5 @@ MonoBehaviour:
   lines:
   - text: The prizes? Card Key, of course. What else?
     delayAfter: 0
-  startSound: {fileID: 0}
+  startSound: {fileID: 8300000, guid: 682c7999a6b8bdd419287d8a7b8c6ad4, type: 3}
   endSound: {fileID: 0}

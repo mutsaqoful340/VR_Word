@@ -25,5 +25,5 @@ MonoBehaviour:
     delayAfter: 0
   - text: Take your time. Try focusing on one part at a time.
     delayAfter: 0
-  startSound: {fileID: 0}
+  startSound: {fileID: 8300000, guid: f94247b487ef92e4bbf35cfb7811a32c, type: 3}
   endSound: {fileID: 0}

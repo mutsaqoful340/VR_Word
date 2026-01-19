@@ -23,5 +23,5 @@ MonoBehaviour:
     delayAfter: 0
   - text: "I\u2019ll help you solve the puzzles, and I\u2019ll help you solve it."
     delayAfter: 0
-  startSound: {fileID: 0}
+  startSound: {fileID: 8300000, guid: 4133c264892f8d943885a122dae91d40, type: 3}
   endSound: {fileID: 0}

@@ -19,5 +19,5 @@ MonoBehaviour:
     delayAfter: 0
   - text: "Don't underestimate me\u2014my aim is basically aimbot."
     delayAfter: 0
-  startSound: {fileID: 0}
+  startSound: {fileID: 8300000, guid: 5f8f37b2fcfa54942a7165dee82efeeb, type: 3}
   endSound: {fileID: 0}

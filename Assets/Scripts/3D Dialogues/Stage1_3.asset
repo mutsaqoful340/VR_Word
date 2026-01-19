@@ -19,5 +19,5 @@ MonoBehaviour:
   - text: "so let\u2019s speedrun this escape and get out before we\u2019re officially
       doomed."
     delayAfter: 0
-  startSound: {fileID: 0}
+  startSound: {fileID: 8300000, guid: 77222342e84c7a84190f7c15f6a0da89, type: 3}
   endSound: {fileID: 0}

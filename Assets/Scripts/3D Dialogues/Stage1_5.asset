@@ -24,5 +24,5 @@ MonoBehaviour:
     delayAfter: 0
   - text: The object will appear. Easy, right?
     delayAfter: 0
-  startSound: {fileID: 0}
+  startSound: {fileID: 8300000, guid: f842a10890255e040a891f2eef754a72, type: 3}
   endSound: {fileID: 0}

@@ -22,5 +22,5 @@ MonoBehaviour:
     delayAfter: 0
   - text: "That\u2019s why this whole VR is a giant word puzzle!"
     delayAfter: 0
-  startSound: {fileID: 0}
+  startSound: {fileID: 8300000, guid: 4066700c57a3d044682bc72dd652a0a0, type: 3}
   endSound: {fileID: 0}

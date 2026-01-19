@@ -23,5 +23,5 @@ MonoBehaviour:
   - text: "So stop complaining and just keep unscrambling\u2014unless you want to
       be stuck here when Ms. Viky\u2019s class starts!"
     delayAfter: 0
-  startSound: {fileID: 0}
+  startSound: {fileID: 8300000, guid: 101a93b213700e240af9230c27b9768e, type: 3}
   endSound: {fileID: 0}

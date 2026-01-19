@@ -22,5 +22,5 @@ MonoBehaviour:
   - text: You, me, the creator, and even their grades would drop just because we
       tried to run away.
     delayAfter: 0
-  startSound: {fileID: 0}
+  startSound: {fileID: 8300000, guid: aeb88ea4f8bcc2b448a2e0d2025f8216, type: 3}
   endSound: {fileID: 0}

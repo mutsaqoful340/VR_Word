@@ -26,5 +26,5 @@ MonoBehaviour:
     delayAfter: 0
   - text: Once you solve it, the door is all yours.
     delayAfter: 0
-  startSound: {fileID: 0}
+  startSound: {fileID: 8300000, guid: e4f774b9ad2758948b867cad54cd3f94, type: 3}
   endSound: {fileID: 0}

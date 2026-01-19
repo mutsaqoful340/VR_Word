@@ -23,5 +23,5 @@ MonoBehaviour:
   - text: "I\u2019m just here to help you, and they didn\u2019t give me any more
       information about why I\u2019m here"
     delayAfter: 0
-  startSound: {fileID: 0}
+  startSound: {fileID: 8300000, guid: e663a4a90868d8247833565036661704, type: 3}
   endSound: {fileID: 0}
