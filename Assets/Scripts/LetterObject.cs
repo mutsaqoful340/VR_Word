@@ -3,7 +3,11 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class LetterObject : MonoBehaviour
 {
+    [Header("Letter")]
     public string letter;
+
+    [Header("Audio")]
+    public AudioSource suaraHuruf;
 
     private XRGrabInteractable grab;
     private Rigidbody rb;
@@ -13,7 +17,10 @@ public class LetterObject : MonoBehaviour
 
     private bool alreadyPlaced = false;
     private bool isCollidingSlot = false;
-    private LetterSlot currentSlot = null; // Track which slot this letter is in
+    private LetterSlot currentSlot = null;
+
+    // 🔊 anti spam suara
+    private bool sudahDiputar = false;
 
     private void Awake()
     {
@@ -22,20 +29,51 @@ public class LetterObject : MonoBehaviour
 
         startPos = transform.position;
         startRot = transform.rotation;
+
+        // 🔊 EVENT AUDIO (TAMBAHAN)
+        grab.selectEntered.AddListener(OnGrabSound);
+        grab.selectExited.AddListener(OnReleaseSound);
     }
+
+    private void OnDestroy()
+    {
+        if (grab)
+        {
+            grab.selectEntered.RemoveListener(OnGrabSound);
+            grab.selectExited.RemoveListener(OnReleaseSound);
+        }
+    }
+
+    // ===============================
+    // 🔊 AUDIO SAAT DI-GRAB
+    void OnGrabSound(SelectEnterEventArgs args)
+    {
+        if (suaraHuruf != null && !sudahDiputar)
+        {
+            suaraHuruf.Stop();
+            suaraHuruf.Play();
+            sudahDiputar = true;
+        }
+    }
+
+    void OnReleaseSound(SelectExitEventArgs args)
+    {
+        sudahDiputar = false;
+    }
+    // ===============================
 
     public void OnHoverLetter_Enter()
     {
         if (alreadyPlaced || isCollidingSlot)
         {
-            
+            // fitur lama (tidak diubah)
         }
         else return;
     }
 
     public void OnHoverLetter_Exit()
     {
-
+        // fitur lama (tidak diubah)
     }
 
     public void OnGrabLetter_Enter()
@@ -63,23 +101,23 @@ public class LetterObject : MonoBehaviour
         LetterSlot slot = other.GetComponent<LetterSlot>();
         if (slot == null) return;
         if (slot.isFilled) return;
-        if (slot) isCollidingSlot = true;
 
-        // Temporarily disable grab to prevent scale issues during parenting
+        isCollidingSlot = true;
+
         if (grab)
             grab.enabled = false;
 
         Debug.Log($"Placing letter '{letter}' into slot");
+
         bool placed = slot.PlaceLetter(letter, gameObject);
 
         if (placed)
         {
             alreadyPlaced = true;
-            currentSlot = slot; // Remember which slot we're in
-            // Re-enable grab after a frame to allow unlock functionality
+            currentSlot = slot;
+
             Invoke(nameof(ReEnableGrab), 0.05f);
 
-            // Lock physics
             if (rb)
             {
                 rb.isKinematic = true;
@@ -87,25 +125,19 @@ public class LetterObject : MonoBehaviour
                 rb.angularVelocity = Vector3.zero;
             }
 
-            // Check puzzle after each placement
             WorldPuzzle manager = FindObjectOfType<WorldPuzzle>();
             if (manager != null)
-            {
-                manager.TrySolve(); // Will only solve if all slots filled AND word is correct
-            }
+                manager.TrySolve();
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        // Only clear slot and reset collision flag if letter is NOT already placed
         if (!alreadyPlaced)
         {
             LetterSlot slot = other.GetComponent<LetterSlot>();
             if (slot != null)
             {
-                // Only clear if this was the slot we were actually interacting with
-                // Don't clear other slots we might be passing through
                 if (!slot.isFilled || slot.currentLetter == letter)
                 {
                     slot.ClearSlot();
@@ -128,7 +160,7 @@ public class LetterObject : MonoBehaviour
         if (grab)
         {
             grab.enabled = false;
-            Invoke(nameof(ReEnableGrab), 0.1f); // Re-enable after 0.1 seconds
+            Invoke(nameof(ReEnableGrab), 0.1f);
         }
 
         if (rb)
@@ -142,26 +174,24 @@ public class LetterObject : MonoBehaviour
     private void UnlockObject()
     {
         Debug.Log($"UnlockObject called for letter '{letter}' - alreadyPlaced={alreadyPlaced}");
-        
+
         if (grab)
             grab.enabled = true;
 
-        // Reset placement state
         if (alreadyPlaced && currentSlot != null)
         {
             Debug.Log($"Clearing slot {currentSlot.slotIndex} from letter '{letter}'");
+
             currentSlot.ClearSlot();
             currentSlot = null;
             alreadyPlaced = false;
-            isCollidingSlot = false; // Reset collision flag
-            
-            // Unparent from slot
+            isCollidingSlot = false;
+
             transform.SetParent(null);
         }
 
-        // Re-enable physics
-        // if (rb)
-        //     rb.isKinematic = false;
+        // FISIKA LAMA TIDAK DIUBAH
+        // rb.isKinematic = false;
     }
 
     private void ReturnToStart()
