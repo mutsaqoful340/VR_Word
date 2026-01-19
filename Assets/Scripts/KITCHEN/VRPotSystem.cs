@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 
 public class VRPotSystem : MonoBehaviour
@@ -14,6 +14,10 @@ public class VRPotSystem : MonoBehaviour
     [Header("Efek Sup")]
     public float idleSpeed = 2f;
     public float idleHeight = 0.05f;
+
+    [Header("Audio")]
+    public AudioClip supJadiSFX;   // suara sup jadi
+    public float audioVolume = 1f;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -42,7 +46,17 @@ public class VRPotSystem : MonoBehaviour
     {
         GameObject sup = Instantiate(supPrefab, spawnPoint.position, spawnPoint.rotation);
 
-        // PLAY PARTICLE SYSTEM (jika ada)
+        // 🔊 PLAY AUDIO (TANPA AUDIOMANAGER)
+        if (supJadiSFX != null)
+        {
+            AudioSource.PlayClipAtPoint(
+                supJadiSFX,
+                spawnPoint.position,
+                audioVolume
+            );
+        }
+
+        // PLAY PARTICLE SYSTEM
         ParticleSystem ps = sup.GetComponentInChildren<ParticleSystem>();
         if (ps != null)
         {

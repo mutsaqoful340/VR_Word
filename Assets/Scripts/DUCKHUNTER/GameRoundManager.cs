@@ -11,8 +11,19 @@ public class GameRoundManager : MonoBehaviour
     public TaskUIManager taskUI;
 
     [Header("End Game Prefab")]
-    public GameObject endGamePrefab;          // prefab yang mau muncul
-    public Transform spawnPoint;               // posisi spawn (opsional)
+    public GameObject endGamePrefab;
+    public Transform spawnPoint;
+
+    [Header("Audio")]
+    public AudioClip endGameSFX;
+    public float audioVolume = 1f;
+
+    [Header("End Game Idle Effect")]
+    public float idleSpeed = 2f;
+    public float idleHeight = 0.05f;
+
+    // 🔒 status grab
+    private bool isGrabbed = false;
 
     void Start()
     {
@@ -21,7 +32,6 @@ public class GameRoundManager : MonoBehaviour
         round3.gameObject.SetActive(false);
 
         round3.isLastRound = true;
-
         taskUI.ShowRound1Start();
     }
 
@@ -65,12 +75,16 @@ public class GameRoundManager : MonoBehaviour
 
         taskUI.ShowAllRoundsComplete();
 
-        // 🔒 Matikan semua ronde
+        if (endGameSFX != null)
+        {
+            Vector3 pos = spawnPoint != null ? spawnPoint.position : Vector3.zero;
+            AudioSource.PlayClipAtPoint(endGameSFX, pos, audioVolume);
+        }
+
         round1.gameObject.SetActive(false);
         round2.gameObject.SetActive(false);
         round3.gameObject.SetActive(false);
 
-        // ⭐ MUNCULKAN PREFAB END GAME
         SpawnEndGamePrefab();
     }
 
@@ -82,13 +96,40 @@ public class GameRoundManager : MonoBehaviour
             return;
         }
 
-        if (spawnPoint != null)
+        Vector3 pos = spawnPoint != null ? spawnPoint.position : Vector3.zero;
+        Quaternion rot = spawnPoint != null ? spawnPoint.rotation : Quaternion.identity;
+
+        GameObject obj = Instantiate(endGamePrefab, pos, rot);
+
+        // ▶ Play Particle
+        ParticleSystem ps = obj.GetComponentInChildren<ParticleSystem>();
+        if (ps != null) ps.Play();
+
+        // ▶ Idle Float
+        StartCoroutine(IdleFloat(obj.transform));
+    }
+
+    IEnumerator IdleFloat(Transform obj)
+    {
+        Vector3 lastLocalPos = obj.localPosition;
+
+        while (obj != null)
         {
-            Instantiate(endGamePrefab, spawnPoint.position, spawnPoint.rotation);
+            float yOffset = Mathf.Sin(Time.time * idleSpeed) * idleHeight;
+            obj.localPosition = lastLocalPos + Vector3.up * yOffset;
+            yield return null;
         }
-        else
-        {
-            Instantiate(endGamePrefab, Vector3.zero, Quaternion.identity);
-        }
+    }
+
+
+    // 🔗 PANGGIL INI DARI SCRIPT GRAB
+    public void OnGrab()
+    {
+        isGrabbed = true;
+    }
+
+    public void OnRelease()
+    {
+        isGrabbed = false;
     }
 }
