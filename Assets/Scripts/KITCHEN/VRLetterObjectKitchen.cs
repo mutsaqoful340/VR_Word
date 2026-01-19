@@ -10,18 +10,50 @@ public class VRLetterObjectKitchen : MonoBehaviour
     public AudioSource suaraHuruf;
 
     [Header("Manager")]
-    public VRWordManagerKitchen manager; // DRAG DI INSPECTOR
+    public VRWordManagerKitchen manager;
 
     private XRGrabInteractable grab;
     private Vector3 startPos;
     private Quaternion startRot;
 
+    private bool sudahDiputar = false; // ⛔ cegah spam suara
+
     private void Awake()
     {
         grab = GetComponent<XRGrabInteractable>();
+
         startPos = transform.position;
         startRot = transform.rotation;
+
+        // 🔊 Event saat huruf di-grab
+        grab.selectEntered.AddListener(OnGrab);
+        grab.selectExited.AddListener(OnRelease);
     }
+
+    private void OnDestroy()
+    {
+        grab.selectEntered.RemoveListener(OnGrab);
+        grab.selectExited.RemoveListener(OnRelease);
+    }
+
+    // ===============================
+    // 🔊 SUARA SAAT PERTAMA DI-GRAB
+    void OnGrab(SelectEnterEventArgs args)
+    {
+        if (suaraHuruf != null && !sudahDiputar)
+        {
+            suaraHuruf.Stop();
+            suaraHuruf.Play();
+            sudahDiputar = true;
+        }
+    }
+
+    // 🔁 Reset supaya bisa bunyi lagi kalau dilepas & ambil ulang
+    void OnRelease(SelectExitEventArgs args)
+    {
+        sudahDiputar = false;
+    }
+    // ===============================
 
     private void OnTriggerEnter(Collider other)
     {
@@ -29,27 +61,22 @@ public class VRLetterObjectKitchen : MonoBehaviour
 
         if (slot != null)
         {
-            // CEK APAKAH BENAR
             if (slot.correctLetter == letter)
             {
-                // BENAR → masuk
+                // ✅ BENAR
                 slot.SetLetter(letter);
 
                 transform.position = slot.transform.position;
                 transform.rotation = Quaternion.Euler(0, -90, 0);
-                transform.parent = slot.transform;
+                transform.SetParent(slot.transform);
 
                 grab.enabled = false;
 
-                if (suaraHuruf != null)
-                    suaraHuruf.Play();
-
-                // 👉 AUTO CEK SEMUA SLOT
                 manager.CheckWord();
             }
             else
             {
-                // SALAH → balik
+                // ❌ SALAH
                 KembaliKeAwal();
             }
         }
@@ -57,15 +84,11 @@ public class VRLetterObjectKitchen : MonoBehaviour
 
     void KembaliKeAwal()
     {
+        transform.SetParent(null);
         transform.position = startPos;
         transform.rotation = startRot;
 
-        // Pastikan bisa di-grab lagi
         if (grab != null)
             grab.enabled = true;
-
-        // Jika sebelumnya parent diganti, reset ke null
-        transform.parent = null;
     }
-
 }
