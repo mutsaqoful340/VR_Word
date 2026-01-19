@@ -2,13 +2,19 @@ using UnityEngine;
 
 public class StartGameButton : MonoBehaviour
 {
-    public MenuPanelSwitcher menuSwitcher; // Drag MenuPanelSwitcher dari inspector
+    public MenuPanelSwitcher menuSwitcher;
+    public AudioSource audioSource;
 
     public void StartGame()
     {
+        // Play sound (tidak terpengaruh panel hide)
+        if (audioSource != null)
+        {
+            audioSource.PlayOneShot(audioSource.clip);
+        }
+
         if (menuSwitcher != null)
         {
-            // Nonaktifkan semua panel
             if (menuSwitcher.mainMenu != null)
                 menuSwitcher.mainMenu.gameObject.SetActive(false);
 
@@ -16,8 +22,6 @@ public class StartGameButton : MonoBehaviour
                 menuSwitcher.settingsMenu.gameObject.SetActive(false);
         }
 
-        // Di sini bisa tambahkan logika lain untuk mulai game
-        // misal aktifkan gameplay, spawn player, dll.
         Debug.Log("Semua panel di-hide, game siap dimulai!");
     }
 }
