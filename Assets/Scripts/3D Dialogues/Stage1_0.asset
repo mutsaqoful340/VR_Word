@@ -20,5 +20,5 @@ MonoBehaviour:
   - text: "I know how to get out of this room, look around for a riddle, and I\u2019ll
       help you solve it."
     delayAfter: 0
-  startSound: {fileID: 0}
+  startSound: {fileID: 8300000, guid: 6f3978f57daac554884dacf8092fd517, type: 3}
   endSound: {fileID: 0}
