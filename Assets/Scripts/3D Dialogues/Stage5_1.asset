@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: Stage5_1
   m_EditorClassIdentifier: 
   lines:
-  - text: New dialogue line...
-    delayAfter: 0.5
-  startSound: {fileID: 0}
+  - text: 'This is the Garden, place where you collect plants. '
+    delayAfter: 0
+  - text: "Look around, pick them up as you find them, and don\u2019t leave anything
+      behind unless you\u2019re trying to make this harder than it needs to be."
+    delayAfter: 0
+  startSound: {fileID: 8300000, guid: 44962f173e51d354fa52360a5cc4e97d, type: 3}
   endSound: {fileID: 0}

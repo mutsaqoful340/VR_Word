@@ -15,7 +15,7 @@ MonoBehaviour:
   lines:
   - text: "Excuse you? You\u2019re the one desperate to get out, so why am I doing
       the heavy lifting? "
-    delayAfter: 0.5
+    delayAfter: 0
   - text: "I\u2019m just the guide. If I did everything for you, it wouldn\u2019t
       exactly be a challenge, would it? "
     delayAfter: 0.5

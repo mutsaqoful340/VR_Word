@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: Stage5_2
   m_EditorClassIdentifier: 
   lines:
-  - text: New dialogue line...
-    delayAfter: 0.5
-  startSound: {fileID: 0}
+  - text: 'Collect the carrots and watermelons first. '
+    delayAfter: 0
+  - text: "Then place them into the correct boxes, match each one to its box, and
+      don\u2019t mix them up unless you want to redo it."
+    delayAfter: 0
+  startSound: {fileID: 8300000, guid: 00c1f8815470fc446adf1562d9309e77, type: 3}
   endSound: {fileID: 0}
