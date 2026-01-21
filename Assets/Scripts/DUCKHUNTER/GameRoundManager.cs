@@ -22,8 +22,13 @@ public class GameRoundManager : MonoBehaviour
     public float idleSpeed = 2f;
     public float idleHeight = 0.05f;
 
-    // 🔒 status grab
+    // 🔒 Grab state (XR)
     private bool isGrabbed = false;
+
+    // 🔧 Idle control
+    private Transform endGameObj;
+    private Vector3 idleBasePos;
+    private Coroutine idleCoroutine;
 
     void Start()
     {
@@ -100,29 +105,31 @@ public class GameRoundManager : MonoBehaviour
         Quaternion rot = spawnPoint != null ? spawnPoint.rotation : Quaternion.identity;
 
         GameObject obj = Instantiate(endGamePrefab, pos, rot);
+        endGameObj = obj.transform;
 
-        // ▶ Play Particle
+        // ✅ SIMPAN POSISI WORLD (XR SAFE)
+        idleBasePos = endGameObj.position;
+
+        idleCoroutine = StartCoroutine(IdleFloat());
+
         ParticleSystem ps = obj.GetComponentInChildren<ParticleSystem>();
         if (ps != null) ps.Play();
-
-        // ▶ Idle Float
-        StartCoroutine(IdleFloat(obj.transform));
     }
 
-    IEnumerator IdleFloat(Transform obj)
+    IEnumerator IdleFloat()
     {
-        Vector3 lastLocalPos = obj.localPosition;
-
-        while (obj != null)
+        while (endGameObj != null)
         {
-            float yOffset = Mathf.Sin(Time.time * idleSpeed) * idleHeight;
-            obj.localPosition = lastLocalPos + Vector3.up * yOffset;
+            if (!isGrabbed)
+            {
+                float yOffset = Mathf.Sin(Time.time * idleSpeed) * idleHeight;
+                endGameObj.position = idleBasePos + Vector3.up * yOffset;
+            }
             yield return null;
         }
     }
 
-
-    // 🔗 PANGGIL INI DARI SCRIPT GRAB
+    // 🔗 DIPANGGIL DARI XRGrabInteractable
     public void OnGrab()
     {
         isGrabbed = true;
@@ -131,5 +138,13 @@ public class GameRoundManager : MonoBehaviour
     public void OnRelease()
     {
         isGrabbed = false;
+
+        // ✅ UPDATE BASE POSISI SETELAH DILEPAS
+        if (endGameObj != null)
+        {
+            idleBasePos = endGameObj.position;
+        }
     }
+
+
 }

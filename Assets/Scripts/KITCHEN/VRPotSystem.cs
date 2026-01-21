@@ -11,13 +11,19 @@ public class VRPotSystem : MonoBehaviour
     public GameObject supPrefab;
     public Transform spawnPoint;
 
-    [Header("Efek Sup")]
+    [Header("Efek Sup Idle")]
     public float idleSpeed = 2f;
     public float idleHeight = 0.05f;
 
     [Header("Audio")]
-    public AudioClip supJadiSFX;   // suara sup jadi
+    public AudioClip supJadiSFX;
     public float audioVolume = 1f;
+
+    // ===== XR IDLE CONTROL =====
+    Transform supObj;
+    Vector3 idleBasePos;
+    bool isGrabbed = false;
+    Coroutine idleCoroutine;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -44,9 +50,21 @@ public class VRPotSystem : MonoBehaviour
 
     void SpawnSup()
     {
-        GameObject sup = Instantiate(supPrefab, spawnPoint.position, spawnPoint.rotation);
+        GameObject sup = Instantiate(
+            supPrefab,
+            spawnPoint.position,
+            spawnPoint.rotation
+        );
 
-        // 🔊 PLAY AUDIO (TANPA AUDIOMANAGER)
+        supObj = sup.transform;
+
+        // 🔑 SIMPAN POSISI WORLD (XR SAFE)
+        idleBasePos = supObj.position;
+
+        // Start idle sekali
+        idleCoroutine = StartCoroutine(IdleFloat());
+
+        // 🔊 AUDIO
         if (supJadiSFX != null)
         {
             AudioSource.PlayClipAtPoint(
@@ -56,28 +74,38 @@ public class VRPotSystem : MonoBehaviour
             );
         }
 
-        // PLAY PARTICLE SYSTEM
+        // 🎆 PARTICLE
         ParticleSystem ps = sup.GetComponentInChildren<ParticleSystem>();
-        if (ps != null)
-        {
-            ps.Play();
-        }
-
-        // IDLE GERAK ATAS BAWAH
-        StartCoroutine(IdleFloat(sup.transform));
+        if (ps != null) ps.Play();
 
         Debug.Log("SUP JADI!");
     }
 
-    IEnumerator IdleFloat(Transform obj)
+    IEnumerator IdleFloat()
     {
-        Vector3 startPos = obj.position;
-
-        while (obj != null)
+        while (supObj != null)
         {
-            float yOffset = Mathf.Sin(Time.time * idleSpeed) * idleHeight;
-            obj.position = startPos + new Vector3(0, yOffset, 0);
+            if (!isGrabbed)
+            {
+                float yOffset = Mathf.Sin(Time.time * idleSpeed) * idleHeight;
+                supObj.position = idleBasePos + Vector3.up * yOffset;
+            }
             yield return null;
         }
+    }
+
+    // ===== DIPANGGIL DARI XR =====
+    public void OnSupGrab()
+    {
+        isGrabbed = true;
+    }
+
+    public void OnSupRelease()
+    {
+        isGrabbed = false;
+
+        // 🔑 UPDATE BASE POSISI BARU
+        if (supObj != null)
+            idleBasePos = supObj.position;
     }
 }
