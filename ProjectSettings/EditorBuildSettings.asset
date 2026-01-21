@@ -8,6 +8,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/Scenes/SceneGelap.unity
+    guid: 0a639ef19b87c9143ae2393854be8b67
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 85e5f92ebeb572a4597315bc7e8b7138,
       type: 2}
