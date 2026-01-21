@@ -14,7 +14,7 @@ public class PlantBoxTrigger : MonoBehaviour
 
     // ===== SHARED (GABUNGAN SEMUA BOX) =====
     public static int totalCurrent = 0;
-    public static int totalTarget = 2;   // TOTAL GABUNGAN
+    public static int totalTarget = 20;   // TOTAL GABUNGAN
     private static bool cardUnlocked = false;
 
     // ===== PER BOX =====

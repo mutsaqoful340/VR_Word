@@ -43119,9 +43119,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Semangka
-
-    Masukin ke Box'
+  m_text: Put the watermelon in the box.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 466b705af6f6eb642b27a7ece5cfb4af, type: 2}
   m_sharedMaterial: {fileID: 6927468318878416828, guid: 466b705af6f6eb642b27a7ece5cfb4af,
@@ -47880,8 +47878,8 @@ MonoBehaviour:
   gameRoundManager: {fileID: 1848446818700964319}
   taskUI: {fileID: 2054107107}
   isLastRound: 1
-  startTaskText: Tembak papan huruf bq
-  completeTaskText: Semua ronde Selesai, ambil card di lemari
+  startTaskText: Shoot the board with the letters bq.
+  completeTaskText: Once all rounds are finished, take the puzzle card that appears.
 --- !u!1 &1161073904
 GameObject:
   m_ObjectHideFlags: 0
@@ -56670,7 +56668,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: TUGAS
+  m_text: TASK
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 466b705af6f6eb642b27a7ece5cfb4af, type: 2}
   m_sharedMaterial: {fileID: 6927468318878416828, guid: 466b705af6f6eb642b27a7ece5cfb4af,
@@ -69102,8 +69100,8 @@ MonoBehaviour:
   gameRoundManager: {fileID: 1848446818700964319}
   taskUI: {fileID: 2054107107}
   isLastRound: 0
-  startTaskText: Tembak papan huruf BA
-  completeTaskText: Ronde 2 selesai
+  startTaskText: Shoot the board with the letters BA.
+  completeTaskText: Round 2 is finished
 --- !u!1 &1729897330
 GameObject:
   m_ObjectHideFlags: 0
@@ -73401,7 +73399,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Wortel \nMasukin ke Box"
+  m_text: Put the carrots into the box
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 466b705af6f6eb642b27a7ece5cfb4af, type: 2}
   m_sharedMaterial: {fileID: 6927468318878416828, guid: 466b705af6f6eb642b27a7ece5cfb4af,
@@ -115349,7 +115347,7 @@ MonoBehaviour:
   audioSource: {fileID: 8804545660558539864}
   shootSound: {fileID: 8300000, guid: 28a3d2421a15ac44197d9bed0e65e300, type: 3}
   destroyTimer: 0.5
-  shotPower: 500
+  shotPower: 1192.8
   ejectPower: 150
   isGrabbed: 0
 --- !u!95 &8804545660558539866

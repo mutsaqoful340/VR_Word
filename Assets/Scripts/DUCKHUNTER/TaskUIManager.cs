@@ -7,17 +7,17 @@ public class TaskUIManager : MonoBehaviour
 
     public void ShowRound1Start()
     {
-        taskText.text = "Tembak semua papan dengan huruf didepan";
+        taskText.text = "Shoot all boards with the letters in front";
     }
 
     public void ShowRound1Complete()
     {
-        taskText.text = "Round 1 Selesai";
+        taskText.text = "Round 1 completed";
     }
 
     public void ShowRound2Start()
     {
-        taskText.text = "Tembak papan huruf BA";
+        taskText.text = "Shoot the BA letter board";
     }
 
     public void ShowRound2Complete()
@@ -43,7 +43,7 @@ public class TaskUIManager : MonoBehaviour
 
     public void ShowAllRoundsComplete()
     {
-        taskText.text = "Semua ronde selesai!";
+        taskText.text = "All rounds completed.";
     }
 
     public void ShowShootLetterTask(string huruf)
