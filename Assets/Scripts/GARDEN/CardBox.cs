@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
 public class CardBox : MonoBehaviour
@@ -10,8 +10,12 @@ public class CardBox : MonoBehaviour
     public GameObject card;
 
     [Header("Card Floating")]
-    public float floatAmplitude = 0.2f;  // tinggi naik turun
-    public float floatFrequency = 1f;    // kecepatan naik turun
+    public float floatAmplitude = 0.2f;
+    public float floatFrequency = 1f;
+
+    [Header("Audio")]
+    public AudioClip unlockSFX;
+    public float audioVolume = 1f;
 
     private bool isUnlocked = false;
     private Vector3 cardStartLocalPos;
@@ -42,7 +46,6 @@ public class CardBox : MonoBehaviour
     {
         if (isUnlocked && card != null)
         {
-            // naik turun sinusoidal
             Vector3 pos = cardStartLocalPos;
             pos.y += Mathf.Sin(Time.time * floatFrequency * 2 * Mathf.PI) * floatAmplitude;
             card.transform.localPosition = pos;
@@ -53,6 +56,16 @@ public class CardBox : MonoBehaviour
     {
         if (isUnlocked) return;
         isUnlocked = true;
+
+        // 🔊 PLAY SOUND
+        if (unlockSFX != null)
+        {
+            AudioSource.PlayClipAtPoint(
+                unlockSFX,
+                transform.position,
+                audioVolume
+            );
+        }
 
         Collider boxCol = GetComponent<Collider>();
         if (boxCol != null)

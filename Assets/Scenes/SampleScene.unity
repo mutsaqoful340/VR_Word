@@ -39207,7 +39207,7 @@ PrefabInstance:
     - target: {fileID: 243738249756699290, guid: 9c2f2d011a3fb5b4fb1ec61cf1908fab,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.681
+      value: 0.608
       objectReference: {fileID: 0}
     - target: {fileID: 243738249756699290, guid: 9c2f2d011a3fb5b4fb1ec61cf1908fab,
         type: 3}
@@ -39217,7 +39217,7 @@ PrefabInstance:
     - target: {fileID: 243738249756699290, guid: 9c2f2d011a3fb5b4fb1ec61cf1908fab,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.142
+      value: 1.145
       objectReference: {fileID: 0}
     - target: {fileID: 243738249756699290, guid: 9c2f2d011a3fb5b4fb1ec61cf1908fab,
         type: 3}
@@ -115564,6 +115564,8 @@ MonoBehaviour:
   card: {fileID: 6745044886899725152, guid: 58d53501803d00745875f9bf22e4ddeb, type: 3}
   floatAmplitude: 0.2
   floatFrequency: 1
+  unlockSFX: {fileID: 8300000, guid: 84594e5f653a71042b7c5fbd9e1da287, type: 3}
+  audioVolume: 1
 --- !u!23 &8856027481250056971
 MeshRenderer:
   m_ObjectHideFlags: 0
