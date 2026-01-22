@@ -750,7 +750,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 300, y: -92.6}
+  m_AnchoredPosition: {x: 300, y: -51.399994}
   m_SizeDelta: {x: 550, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &33656702
@@ -1898,7 +1898,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 300, y: -257.4}
+  m_AnchoredPosition: {x: 300, y: -381}
   m_SizeDelta: {x: 550, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &60718650
@@ -24906,7 +24906,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 300, y: -175}
+  m_AnchoredPosition: {x: 300, y: -133.79999}
   m_SizeDelta: {x: 550, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &738498902
@@ -26040,7 +26040,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 300, y: -175}
+  m_AnchoredPosition: {x: 300, y: -216.2}
   m_SizeDelta: {x: 550, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &765457070
@@ -26614,9 +26614,9 @@ MonoBehaviour:
     puzzle: {fileID: 48450913}
   - stage: 2
     puzzle: {fileID: 276986206}
-  - stage: 6
+  - stage: 4
     puzzle: {fileID: 810931186}
-  - stage: 8
+  - stage: 6
     puzzle: {fileID: 2037992961}
   dialogController: {fileID: 5263284901974915097}
   transitionDelay: 2.5
@@ -27211,7 +27211,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cc5366231d4e514cb5b80db1e188a20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  correctWord: FLOWER
+  correctWord: GAREPL
   puzzleRoot: {fileID: 916401516}
   keyPrefab: {fileID: 4062059554210366907, guid: 60db5e5a4cacba145b1c34b8461a0016,
     type: 3}
@@ -43262,6 +43262,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1165136598}
   m_CullTransparentMesh: 1
+--- !u!1 &1171942817
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1171942818}
+  m_Layer: 0
+  m_Name: KeySnapPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1171942818
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1171942817}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.00092, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3779661177860569390}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1180515639
 GameObject:
   m_ObjectHideFlags: 0
@@ -43649,7 +43680,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 300, y: -175}
+  m_AnchoredPosition: {x: 300, y: -298.6}
   m_SizeDelta: {x: 550, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &1183459737
@@ -79420,6 +79451,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5789933583522750202}
+  - component: {fileID: 5789933583522750203}
+  - component: {fileID: 5789933583522750204}
   m_Layer: 0
   m_Name: Door_RoomWaiting_Garden
   m_TagString: Untagged
@@ -85212,8 +85245,6 @@ MonoBehaviour:
   spawnPoint: {fileID: 729328949}
   endGameSFX: {fileID: 8300000, guid: 84594e5f653a71042b7c5fbd9e1da287, type: 3}
   audioVolume: 1
-  idleSpeed: 2
-  idleHeight: 0.05
 --- !u!4 &1857163483924368868
 Transform:
   m_ObjectHideFlags: 0
@@ -87256,7 +87287,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   visualID: IJO
-  targetCount: 1
+  targetCount: 5
   boxAnimator: {fileID: 2523575617213279346}
   cardBox: {fileID: 8841846288965681744}
 --- !u!4 &2526133521797005111
@@ -91695,7 +91726,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1171942818}
   m_Father: {fileID: 1552659940596207310}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &3797375540146329658
@@ -94902,6 +94934,8 @@ GameObject:
   - component: {fileID: 8081826989556462177}
   - component: {fileID: 3823509231183228854}
   - component: {fileID: 2887301040598743958}
+  - component: {fileID: 8081826989556462179}
+  - component: {fileID: 8081826989556462178}
   m_Layer: 0
   m_Name: WaitRoom_Door_Garden_Visual
   m_TagString: Untagged
@@ -98072,6 +98106,44 @@ Transform:
   - {fileID: 8081826989556462177}
   m_Father: {fileID: 549414666}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &5789933583522750203
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 87143310929225616}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 94366c65cbd33c64f8737a643fc5be2c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &5789933583522750204
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 87143310929225616}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43c176b8afd491249b276a9254eb04c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  doorAnimator: {fileID: 5789933583522750203}
+  doorAudioSource: {fileID: 0}
+  onDoorOpened:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!4 &5794749745074296458
 Transform:
   m_ObjectHideFlags: 0
@@ -104527,7 +104599,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   visualID: RED
-  targetCount: 1
+  targetCount: 15
   boxAnimator: {fileID: 7961545002495767079}
   cardBox: {fileID: 8841846288965681744}
 --- !u!33 &7977185507129225997
@@ -104745,6 +104817,44 @@ Transform:
   - {fileID: 3470970377736783928}
   m_Father: {fileID: 5789933583522750202}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &8081826989556462178
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4883331574234842085}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 42e5e7f6ae3a3114db36e12b4b8f6c9d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &8081826989556462179
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4883331574234842085}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43c176b8afd491249b276a9254eb04c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  doorAnimator: {fileID: 8081826989556462178}
+  doorAudioSource: {fileID: 0}
+  onDoorOpened:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!4 &8103344765469341611
 Transform:
   m_ObjectHideFlags: 0
@@ -105274,6 +105384,8 @@ GameObject:
   - component: {fileID: 3779661177860569390}
   - component: {fileID: 3583786688287628050}
   - component: {fileID: 8369790874101035438}
+  - component: {fileID: 8369790874101035440}
+  - component: {fileID: 8369790874101035439}
   m_Layer: 0
   m_Name: ItemChecker_Container.002
   m_TagString: Untagged
@@ -105555,6 +105667,41 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &8369790874101035439
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8354054866768795912}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.0023807965, y: 0.003334732, z: 0.003334732}
+  m_Center: {x: -0.0011904001, y: -9.497149e-27, z: -1.6916576e-17}
+--- !u!114 &8369790874101035440
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8354054866768795912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2171926c85dcbd47bbbc21487beb940, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  door: {fileID: 5789933583522750204}
+  keySnapPoint: {fileID: 1171942818}
 --- !u!1 &8370602101017862161
 GameObject:
   m_ObjectHideFlags: 0
@@ -105651,8 +105798,6 @@ MonoBehaviour:
   supPrefab: {fileID: 1064469145159149812, guid: ab7f865a2906d6e4c8a4e9eb04bef992,
     type: 3}
   spawnPoint: {fileID: 1602222010}
-  idleSpeed: 2
-  idleHeight: 0.05
   supJadiSFX: {fileID: 8300000, guid: 84594e5f653a71042b7c5fbd9e1da287, type: 3}
   audioVolume: 1
 --- !u!23 &8391068138410311370
