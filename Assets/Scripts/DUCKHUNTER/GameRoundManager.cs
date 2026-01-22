@@ -18,18 +18,6 @@ public class GameRoundManager : MonoBehaviour
     public AudioClip endGameSFX;
     public float audioVolume = 1f;
 
-    [Header("End Game Idle Effect")]
-    public float idleSpeed = 2f;
-    public float idleHeight = 0.05f;
-
-    // 🔒 Grab state (XR)
-    private bool isGrabbed = false;
-
-    // 🔧 Idle control
-    private Transform endGameObj;
-    private Vector3 idleBasePos;
-    private Coroutine idleCoroutine;
-
     void Start()
     {
         round1.gameObject.SetActive(true);
@@ -105,46 +93,9 @@ public class GameRoundManager : MonoBehaviour
         Quaternion rot = spawnPoint != null ? spawnPoint.rotation : Quaternion.identity;
 
         GameObject obj = Instantiate(endGamePrefab, pos, rot);
-        endGameObj = obj.transform;
 
-        // ✅ SIMPAN POSISI WORLD (XR SAFE)
-        idleBasePos = endGameObj.position;
-
-        idleCoroutine = StartCoroutine(IdleFloat());
-
+        // 🎆 PARTICLE
         ParticleSystem ps = obj.GetComponentInChildren<ParticleSystem>();
         if (ps != null) ps.Play();
     }
-
-    IEnumerator IdleFloat()
-    {
-        while (endGameObj != null)
-        {
-            if (!isGrabbed)
-            {
-                float yOffset = Mathf.Sin(Time.time * idleSpeed) * idleHeight;
-                endGameObj.position = idleBasePos + Vector3.up * yOffset;
-            }
-            yield return null;
-        }
-    }
-
-    // 🔗 DIPANGGIL DARI XRGrabInteractable
-    public void OnGrab()
-    {
-        isGrabbed = true;
-    }
-
-    public void OnRelease()
-    {
-        isGrabbed = false;
-
-        // ✅ UPDATE BASE POSISI SETELAH DILEPAS
-        if (endGameObj != null)
-        {
-            idleBasePos = endGameObj.position;
-        }
-    }
-
-
 }

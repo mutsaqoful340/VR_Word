@@ -22,7 +22,7 @@ public class TaskUIManager : MonoBehaviour
 
     public void ShowRound2Complete()
     {
-        taskText.text = "Round 2 Selesai";
+        taskText.text = "Round 2 completed";
     }
 
     public void ShowRound3Start()

@@ -105648,9 +105648,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   urutan:
   - BAWANG
-  - SELEDRI
-  - TOMAT
-  - CABAI
   supPrefab: {fileID: 1064469145159149812, guid: ab7f865a2906d6e4c8a4e9eb04bef992,
     type: 3}
   spawnPoint: {fileID: 1602222010}
