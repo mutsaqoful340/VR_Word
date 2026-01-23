@@ -6,9 +6,8 @@ public class VRPotSystem : MonoBehaviour
     public string[] urutan = { "BAWANG", "CABAI", "TOMAT", "SELEDRI" };
     int index = 0;
 
-    [Header("Spawn Sup")]
-    public GameObject supPrefab;
-    public Transform spawnPoint;
+    [Header("Sup di Scene")]
+    public GameObject supObject; // Sup sudah ada di scene
 
     [Header("Audio")]
     public AudioClip supJadiSFX;
@@ -27,7 +26,7 @@ public class VRPotSystem : MonoBehaviour
 
             if (index >= urutan.Length)
             {
-                SpawnSup();
+                AktifkanSup();
             }
         }
         else
@@ -37,26 +36,23 @@ public class VRPotSystem : MonoBehaviour
         }
     }
 
-    void SpawnSup()
+    void AktifkanSup()
     {
-        GameObject sup = Instantiate(
-            supPrefab,
-            spawnPoint.position,
-            spawnPoint.rotation
-        );
+        // ✅ AKTIFKAN SUP
+        supObject.SetActive(true);
 
         // 🔊 AUDIO
         if (supJadiSFX != null)
         {
             AudioSource.PlayClipAtPoint(
                 supJadiSFX,
-                spawnPoint.position,
+                supObject.transform.position,
                 audioVolume
             );
         }
 
         // 🎆 PARTICLE
-        ParticleSystem ps = sup.GetComponentInChildren<ParticleSystem>();
+        ParticleSystem ps = supObject.GetComponentInChildren<ParticleSystem>();
         if (ps != null) ps.Play();
 
         Debug.Log("SUP JADI!");
