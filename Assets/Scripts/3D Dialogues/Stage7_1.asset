@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a631a7b93868a8d40a125c39eab62ee8, type: 3}
+  m_Name: Stage7_1
+  m_EditorClassIdentifier: 
+  lines:
+  - text: 'So you want to open this door? '
+    delayAfter: 0
+  - text: "Well, let\u2019s have a bit of fun first. I have a little word puzzle
+      for you. "
+    delayAfter: 0
+  - text: "I\u2019m going to give you some scrambled letters, and you\u2019ll need
+      to rearrange them into a proper word. The letters are [L A P U S T A] "
+    delayAfter: 0
+  - text: Take your time and see if you can figure out what it is. Once you solve
+      it, the door will open up for you.
+    delayAfter: 0
+  startSound: {fileID: 8300000, guid: 283a5ff860805c6449a9514f18c160fa, type: 3}
+  endSound: {fileID: 0}
