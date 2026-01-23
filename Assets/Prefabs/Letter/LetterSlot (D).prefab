@@ -114,7 +114,6 @@ GameObject:
   - component: {fileID: 2329120951545352833}
   - component: {fileID: 5142839857417425745}
   - component: {fileID: 281542435460265084}
-  - component: {fileID: 4970954568189057112}
   - component: {fileID: 5323941846138252816}
   - component: {fileID: 984204033290318023}
   - component: {fileID: 6123071099982702808}
@@ -219,18 +218,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &4970954568189057112
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4193158751024536490}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce8929999c4460049840ddb5e90b6c3a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &5323941846138252816
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -243,7 +230,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d48556e448b0b448b0816c9c69cb7cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  letter: G
+  letter: D
   suaraHuruf: {fileID: 5691583101240100470}
 --- !u!114 &984204033290318023
 MonoBehaviour:
@@ -627,7 +614,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: G
+  m_text: D
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4db4ba8c77739a642b017ec5230583a0, type: 2}
   m_sharedMaterial: {fileID: 2957762330698549035, guid: 4db4ba8c77739a642b017ec5230583a0,
