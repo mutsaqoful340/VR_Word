@@ -105981,7 +105981,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 5263284901974915098}
         m_TargetAssemblyTypeName: NPCMoveByWaypoints, Assembly-CSharp
-        m_MethodName: MoveStage7ToStage8
+        m_MethodName: MoveStage6ToStage7
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
