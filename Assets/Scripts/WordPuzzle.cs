@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine.Events;
 
 public class WorldPuzzle : MonoBehaviour
 {
@@ -16,6 +17,8 @@ public class WorldPuzzle : MonoBehaviour
     public GameObject keyPrefab;
     public Transform keySpawnPoint;
     public LetterBox_Anim letterBoxAnim;
+
+    public UnityEvent PuzzleSolvedEvent;
 
     private bool solved = false;
 
@@ -101,6 +104,9 @@ public class WorldPuzzle : MonoBehaviour
 
         solved = true;
         Debug.Log("PUZZLE SELESAI ✅");
+
+        // Invoke the puzzle solved event
+        PuzzleSolvedEvent?.Invoke();
 
         // Make LS and LB fall
         if (letterBoxAnim != null)
