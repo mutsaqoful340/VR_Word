@@ -7,7 +7,7 @@ public class TaskUIManager : MonoBehaviour
 
     public void ShowRound1Start()
     {
-        taskText.text = "Shoot all boards with the letters in front";
+        taskText.text = "Shoot all boards with the letters in front of you";
     }
 
     public void ShowRound1Complete()
@@ -27,15 +27,14 @@ public class TaskUIManager : MonoBehaviour
 
     public void ShowRound3Start()
     {
-        taskText.text = "Tembak bebek huruf li";
+        taskText.text = "Shoot the letter LI duck";
     }
 
     public void ShowRound3Complete()
     {
-        taskText.text = "Round 3 Selesai";
+        taskText.text = "Round 3 completed";
     }
 
-    // 🔽 TAMBAHAN UNTUK FIX ERROR
     public void ShowRound1Board(int boardIndex)
     {
         taskText.text = $"Round 1 - Board {boardIndex + 1}";
@@ -43,19 +42,17 @@ public class TaskUIManager : MonoBehaviour
 
     public void ShowAllRoundsComplete()
     {
-        taskText.text = "All rounds completed.";
+        taskText.text = "All rounds completed";
     }
 
-    public void ShowShootLetterTask(string huruf)
+    public void ShowShootLetterTask(string letter)
     {
-        Debug.Log("SHOW SHOOT LETTER DIPANGGIL DENGAN: " + huruf);
-        taskText.text = $"Kamu menembak huruf {huruf}";
+        Debug.Log("SHOW SHOOT LETTER CALLED WITH: " + letter);
+        taskText.text = $"You shot the letter {letter}";
     }
 
     public void ShowTask(string text)
     {
         taskText.text = text;
     }
-
-
 }
