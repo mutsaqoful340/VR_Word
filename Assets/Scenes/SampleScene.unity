@@ -14668,6 +14668,12 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -1.23
       objectReference: {fileID: 0}
+    - target: {fileID: 9014170783705847993, guid: 895f6f3c2d334633b5800312285058d2,
+        type: 3}
+      propertyPath: m_ModelPrefab
+      value: 
+      objectReference: {fileID: -8679921383154817045, guid: 56186ccf27ad7864681108ed88349071,
+        type: 3}
     - target: {fileID: 9014170783705847997, guid: 895f6f3c2d334633b5800312285058d2,
         type: 3}
       propertyPath: m_TagString
@@ -14693,6 +14699,12 @@ PrefabInstance:
       propertyPath: m_TagString
       value: PlayerHand
       objectReference: {fileID: 0}
+    - target: {fileID: 9014170785475729497, guid: 895f6f3c2d334633b5800312285058d2,
+        type: 3}
+      propertyPath: m_ModelPrefab
+      value: 
+      objectReference: {fileID: -8679921383154817045, guid: bf7151579c38e2a44be94ba8773876c1,
+        type: 3}
     - target: {fileID: 9032954039820430273, guid: 895f6f3c2d334633b5800312285058d2,
         type: 3}
       propertyPath: m_InteractionLayers.m_Bits
