@@ -10118,8 +10118,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d82e1bbeb8017c4297e5528c6dc545a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  amplitude: 0.002
-  speed: 2
+  amplitude: 0.0009
+  speed: 0.6
 --- !u!1 &319669978
 GameObject:
   m_ObjectHideFlags: 0
@@ -10699,8 +10699,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d82e1bbeb8017c4297e5528c6dc545a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  amplitude: 0.002
-  speed: 2
+  amplitude: 0.0009
+  speed: 0.6
 --- !u!1 &336998834
 GameObject:
   m_ObjectHideFlags: 0
@@ -12381,8 +12381,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d82e1bbeb8017c4297e5528c6dc545a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  amplitude: 0.002
-  speed: 2
+  amplitude: 0.0009
+  speed: 0.6
 --- !u!1 &371644529
 GameObject:
   m_ObjectHideFlags: 0
@@ -22131,8 +22131,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d82e1bbeb8017c4297e5528c6dc545a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  amplitude: 0.002
-  speed: 2
+  amplitude: 0.0009
+  speed: 0.6
 --- !u!1 &648496543
 GameObject:
   m_ObjectHideFlags: 0
@@ -30192,8 +30192,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d82e1bbeb8017c4297e5528c6dc545a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  amplitude: 0.002
-  speed: 2
+  amplitude: 0.0009
+  speed: 0.6
 --- !u!1 &881307518
 GameObject:
   m_ObjectHideFlags: 0
@@ -37655,8 +37655,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d82e1bbeb8017c4297e5528c6dc545a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  amplitude: 0.002
-  speed: 2
+  amplitude: 0.0009
+  speed: 0.6
 --- !u!1 &1113174905
 GameObject:
   m_ObjectHideFlags: 0
@@ -41496,8 +41496,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d82e1bbeb8017c4297e5528c6dc545a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  amplitude: 0.002
-  speed: 2
+  amplitude: 0.0009
+  speed: 0.6
 --- !u!1 &1212548874
 GameObject:
   m_ObjectHideFlags: 0
@@ -42166,8 +42166,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d82e1bbeb8017c4297e5528c6dc545a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  amplitude: 0.002
-  speed: 2
+  amplitude: 0.0009
+  speed: 0.6
 --- !u!1 &1222142824
 GameObject:
   m_ObjectHideFlags: 0
@@ -46985,8 +46985,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d82e1bbeb8017c4297e5528c6dc545a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  amplitude: 0.002
-  speed: 2
+  amplitude: 0.0009
+  speed: 0.6
 --- !u!1001 &1373829162
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -55915,8 +55915,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d82e1bbeb8017c4297e5528c6dc545a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  amplitude: 0.002
-  speed: 2
+  amplitude: 0.0009
+  speed: 0.6
 --- !u!1 &1624138306
 GameObject:
   m_ObjectHideFlags: 0
@@ -59459,8 +59459,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d82e1bbeb8017c4297e5528c6dc545a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  amplitude: 0.002
-  speed: 2
+  amplitude: 0.0009
+  speed: 0.6
 --- !u!1 &1727729543
 GameObject:
   m_ObjectHideFlags: 0
@@ -59790,8 +59790,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d82e1bbeb8017c4297e5528c6dc545a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  amplitude: 0.002
-  speed: 2
+  amplitude: 0.0009
+  speed: 0.6
 --- !u!1 &1731766919
 GameObject:
   m_ObjectHideFlags: 0
@@ -64562,8 +64562,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d82e1bbeb8017c4297e5528c6dc545a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  amplitude: 0.002
-  speed: 2
+  amplitude: 0.0009
+  speed: 0.6
 --- !u!1 &1886463240 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 49069814665145456, guid: 121146c2b683c4c41909b519ff332a16,
@@ -67881,8 +67881,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d82e1bbeb8017c4297e5528c6dc545a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  amplitude: 0.002
-  speed: 2
+  amplitude: 0.0009
+  speed: 0.6
 --- !u!1 &1960792968
 GameObject:
   m_ObjectHideFlags: 0
@@ -102645,8 +102645,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d82e1bbeb8017c4297e5528c6dc545a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  amplitude: 0.002
-  speed: 2
+  amplitude: 0.0009
+  speed: 0.6
 --- !u!1 &8508788329222827288
 GameObject:
   m_ObjectHideFlags: 0
