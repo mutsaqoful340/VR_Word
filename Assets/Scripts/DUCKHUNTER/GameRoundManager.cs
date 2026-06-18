@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.Events;
 
 public class GameRoundManager : MonoBehaviour
 {
@@ -10,8 +11,8 @@ public class GameRoundManager : MonoBehaviour
     public ResultPanel resultPanel;
     public TaskUIManager taskUI;
 
-    [Header("End Game Prefab")]
-    public GameObject endGamePrefab;
+    [Header("End Game Settings")]
+    public UnityEvent onGameFinished;
     public Transform spawnPoint;
 
     [Header("Audio")]
@@ -78,24 +79,24 @@ public class GameRoundManager : MonoBehaviour
         round2.gameObject.SetActive(false);
         round3.gameObject.SetActive(false);
 
-        SpawnEndGamePrefab();
+        onGameFinished.Invoke();
     }
 
-    void SpawnEndGamePrefab()
-    {
-        if (endGamePrefab == null)
-        {
-            Debug.LogWarning("End Game Prefab belum di-assign!");
-            return;
-        }
+    // void SpawnEndGamePrefab()
+    // {
+    //     if (endGamePrefab == null)
+    //     {
+    //         Debug.LogWarning("End Game Prefab belum di-assign!");
+    //         return;
+    //     }
 
-        Vector3 pos = spawnPoint != null ? spawnPoint.position : Vector3.zero;
-        Quaternion rot = spawnPoint != null ? spawnPoint.rotation : Quaternion.identity;
+    //     Vector3 pos = spawnPoint != null ? spawnPoint.position : Vector3.zero;
+    //     Quaternion rot = spawnPoint != null ? spawnPoint.rotation : Quaternion.identity;
 
-        GameObject obj = Instantiate(endGamePrefab, pos, rot);
+    //     GameObject obj = Instantiate(endGamePrefab, pos, rot);
 
-        // 🎆 PARTICLE
-        ParticleSystem ps = obj.GetComponentInChildren<ParticleSystem>();
-        if (ps != null) ps.Play();
-    }
+    //     // 🎆 PARTICLE
+    //     ParticleSystem ps = obj.GetComponentInChildren<ParticleSystem>();
+    //     if (ps != null) ps.Play();
+    // }
 }
